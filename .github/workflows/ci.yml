@@ -1,0 +1,291 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+
+      - name: Run autoflake (check only)
+        run: |
+          autoflake --check --remove-all-unused-imports --remove-unused-variables -r src/ tests/
+
+      - name: Run flake8
+        run: flake8 src/ tests/
+
+  validate-json:
+    name: Validate JSON schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Validate control mappings
+        run: python3 scripts/validate_control_mappings.py
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          mkdir -p test-results
+          pytest --tb=short -q --junitxml="test-results/pytest-${{ matrix.python-version }}.xml" | tee "test-results/pytest-${{ matrix.python-version }}.log"
+
+      - name: Publish pytest log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-log-${{ matrix.python-version }}
+          path: |
+            test-results/pytest-${{ matrix.python-version }}.log
+            test-results/pytest-${{ matrix.python-version }}.xml
+          if-no-files-found: error
+
+      - name: Publish pytest results
+        if: always() && hashFiles('test-results/pytest-*.xml') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: dorny/test-reporter@v1
+        with:
+          name: pytest (Python ${{ matrix.python-version }})
+          path: test-results/pytest-${{ matrix.python-version }}.xml
+          reporter: java-junit
+
+      - name: Generate sample Azure MySQL cklb and JUnit
+        run: |
+          mkdir -p stig-output
+          stig-check tests/fixtures/mysql_sample_plan.json \
+            -m mysql_flexible \
+            -r azurerm_mysql_flexible_server.compliant \
+            -o cklb \
+            --junit \
+            --output-dir stig-output \
+            --host-name ci-mysql-validation
+
+      - name: Publish STIG JUnit report
+        if: always() && hashFiles('stig-output/junit.xml') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: dorny/test-reporter@v1
+        with:
+          name: STIG controls (Python ${{ matrix.python-version }})
+          path: stig-output/junit.xml
+          reporter: java-junit
+
+      - name: Publish STIG output artifacts
+        if: always() && hashFiles('stig-output/*') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: stig-output-${{ matrix.python-version }}
+          path: |
+            stig-output/*.cklb
+            stig-output/junit.xml
+          if-no-files-found: error
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: pip install build twine
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Check distribution metadata
+        run: twine check --strict dist/*
+
+      - name: Publish package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/*
+          if-no-files-found: error
+
+      - name: Verify wheel installs
+        run: |
+          python scripts/verify_wheel.py dist/*.whl
+          pip install dist/*.whl
+          stig-check --list-modules
+
+  trufflehog:
+    name: TruffleHog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@v3.97.9
+        with:
+          path: ./
+          extra_args: --results=verified
+          version: "3.97.9"
+
+      - name: Write TruffleHog JSON report
+        if: always()
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/src" -w /src \
+            ghcr.io/trufflesecurity/trufflehog:3.97.9 \
+            git file:///src \
+            --results=verified \
+            --json \
+            --no-update \
+            > trufflehog-report.json
+
+      - name: Publish TruffleHog report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trufflehog-report
+          path: trufflehog-report.json
+          if-no-files-found: error
+
+  checkov:
+    name: Checkov
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          framework: dockerfile,github_actions
+          skip_path: tests
+          # Major-version tags are intentional. Do not require full commit SHAs.
+          skip_check: CKV_GHA_8
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+
+      - name: Upload Checkov SARIF
+        if: always() && github.event.repository.visibility == 'public' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: results.sarif
+          category: checkov
+
+      - name: Publish Checkov SARIF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-results
+          path: results.sarif
+          if-no-files-found: error
+
+  trivy:
+    name: Trivy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t stig-automator:ci .
+
+      - name: CycloneDX SBOM
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: stig-automator:ci
+          version: v0.75.0
+          format: cyclonedx
+          scanners: vuln
+          exit-code: "0"
+          output: sbom.cdx.json
+
+      - name: SPDX SBOM
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: stig-automator:ci
+          # 0.70 omits vulnerabilities from SPDX. 0.74+ writes SECURITY advisory refs.
+          version: v0.75.0
+          format: spdx-json
+          scanners: vuln
+          exit-code: "0"
+          output: sbom.spdx.json
+
+      - name: Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: stig-automator:ci
+          version: v0.75.0
+          format: sarif
+          scanners: vuln
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: "1"
+          output: trivy-results.sarif
+
+      - name: Upload Trivy SARIF
+        if: always() && github.event.repository.visibility == 'public' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy
+
+      - name: Publish Trivy reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-reports
+          path: |
+            sbom.cdx.json
+            sbom.spdx.json
+            trivy-results.sarif
+          if-no-files-found: error

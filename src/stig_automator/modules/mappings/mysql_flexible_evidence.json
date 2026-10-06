@@ -1,0 +1,222 @@
+{
+  "tls_enforced": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/security-tls",
+    "quote": "Azure Database for MySQL requires all client connections to use Transport Layer Security (TLS), an industry-standard protocol that encrypts communications between your database server and client applications.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.require_secure_transport = true/ON",
+      "azurerm_mysql_flexible_server_configuration.name = \"require_secure_transport\", value = \"ON\""
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/using-encrypted-connections.html"
+    ]
+  },
+  "tls_version": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/security-tls",
+    "quote": "Azure Database for MySQL supports TLS version 1.2 and 1.3.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.tls_version = TLSV1.2 or TLSV1.3",
+      "azurerm_mysql_flexible_server_configuration.name = \"tls_version\", value = TLSV1.2 or TLSV1.3"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/using-encrypted-connections.html"
+    ]
+  },
+  "max_user_connections": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-server-parameters",
+    "quote": "Server parameters can be used to configure and tune Azure Database for MySQL flexible server.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server_configuration.name = \"max_user_connections\", value is a positive integer"
+    ]
+  },
+  "audit_log_enabled": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/tutorial-configure-audit",
+    "quote": "Audit logs can be used to track database-level activity, including connection, administration, data definition language (DDL), and data manipulation language (DML) events.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.audit_log_enabled = true/ON",
+      "azurerm_mysql_flexible_server_configuration.name = \"audit_log_enabled\", value = \"ON\""
+    ],
+    "rdbms_urls": [
+      "https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/audit-log-filtering.html"
+    ]
+  },
+  "audit_log_events": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-monitor-mysql",
+    "quote": "audit_log_events controls the events to be logged; supported Azure MySQL events include CONNECTION, DDL, DCL, and GENERAL.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server_configuration.name = \"audit_log_events\", value includes CONNECTION or CONNECTION_V2, DCL or GENERAL, DDL or GENERAL, and DML or GENERAL"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/grant.html",
+      "https://dev.mysql.com/doc/refman/8.0/en/sql-data-definition-statements.html"
+    ]
+  },
+  "azure_managed_audit_log_storage": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-monitor-mysql",
+    "quote": "Audit logs are integrated with Azure Monitor diagnostic settings. After you enable audit logs on your flexible server, you can emit them to Azure Monitor logs, Azure Event Hubs, or Azure Storage."
+  },
+  "public_network_access": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-networking",
+    "quote": "Public access can be disabled if needed.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.public_network_access_enabled = false or public_network_access = \"Disabled\""
+    ]
+  },
+  "backup_retention": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-backup-restore",
+    "quote": "The default backup retention period is seven days. You can optionally configure the database backup from 1 to 35 days.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.backup_retention_days >= 7"
+    ]
+  },
+  "geo_redundant_backup": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-backup-restore",
+    "quote": "When you use geo-redundant backup storage, the system stores multiple copies within the region in which your server is hosted. It also replicates backups to its geo-paired region.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.geo_redundant_backup_enabled = true"
+    ]
+  },
+  "high_availability_zone": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-high-availability",
+    "quote": "By using Azure Database for MySQL Flexible Server, you can configure high availability with automatic failover.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.high_availability.mode = \"ZoneRedundant\""
+    ]
+  },
+  "high_availability_same_zone": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-high-availability",
+    "quote": "Local-redundant high availability is available in all Azure regions where you can use Azure Database for MySQL Flexible Server.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.high_availability.mode = \"SameZone\" or \"ZoneRedundant\""
+    ]
+  },
+  "cmk_encryption": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/security-overview",
+    "quote": "If you require more control over encryption keys, use customer-managed keys (CMK) stored in Azure Key Vault or Azure HSM.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.customer_managed_key.key_vault_key_id set"
+    ]
+  },
+  "identity": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/security-overview",
+    "quote": "Use managed identities in Azure to securely authenticate applications and services without the need to manage credentials.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.identity.type = \"SystemAssigned\", \"UserAssigned\", or \"SystemAssigned,UserAssigned\""
+    ]
+  },
+  "private_dns_zone": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-networking",
+    "quote": "If you're using the custom DNS server, you must use a DNS forwarder to resolve the FQDN of the Azure Database for MySQL Flexible Server instance.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.private_dns_zone_id set"
+    ]
+  },
+  "delegated_subnet": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-networking",
+    "quote": "You can deploy your Flexible Server into your Azure Virtual Network.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.delegated_subnet_id set"
+    ]
+  },
+  "storage_auto_grow": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-compute-storage",
+    "quote": "Storage autogrow prevents your server from running out of storage and becoming read-only.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.storage.auto_grow_enabled = true or storage_auto_grow_enabled = true/enabled"
+    ]
+  },
+  "slow_query_log": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-slow-query-logs",
+    "quote": "Slow query logs are disabled by default and can be enabled to assist with identifying performance bottlenecks during troubleshooting.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server_configuration.name = \"slow_query_log\", value = \"ON\""
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/slow-query-log.html"
+    ]
+  },
+  "maintenance_window": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-maintenance",
+    "quote": "With a custom schedule, you can specify your maintenance window for the server by choosing the day of the week and a one-hour time window.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.maintenance_window.day_of_week set",
+      "azurerm_mysql_flexible_server.maintenance_window.start_hour set"
+    ]
+  },
+  "sku_not_burstable": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-compute-storage",
+    "quote": "General Purpose: Most business workloads require balanced computing and memory with scalable I/O throughput.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.sku_name uses General Purpose (GP_*) or Memory Optimized (MO_*) SKU"
+    ]
+  },
+  "version": {
+    "url": "https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concept-servers",
+    "quote": "Supports the major versions MySQL 5.7 and MySQL 8.0.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_mysql_flexible_server.version = 8.0 or later"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/relnotes/mysql/8.0/en/"
+    ]
+  }
+}

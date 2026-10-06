@@ -1,0 +1,192 @@
+{
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_eks_cluster.compliant_cluster",
+          "type": "aws_eks_cluster",
+          "name": "compliant_cluster",
+          "values": {
+            "access_config": [
+              {
+                "authentication_mode": "API_AND_CONFIG_MAP"
+              }
+            ],
+            "enabled_cluster_log_types": [
+              "api",
+              "audit",
+              "authenticator",
+              "controllerManager",
+              "scheduler"
+            ],
+            "encryption_config": [
+              {
+                "resources": [
+                  "secrets"
+                ],
+                "provider": [
+                  {
+                    "key_arn": "arn:aws:kms:us-east-1:111122223333:key/eks"
+                  }
+                ]
+              }
+            ],
+            "identity": [
+              {
+                "oidc": [
+                  {
+                    "issuer": "https://oidc.eks.us-east-1.amazonaws.com/id/ABCDEF1234567890"
+                  }
+                ]
+              }
+            ],
+            "name": "compliant-eks",
+            "version": "1.29",
+            "vpc_config": [
+              {
+                "endpoint_private_access": true,
+                "endpoint_public_access": true,
+                "public_access_cidrs": [
+                  "203.0.113.0/24"
+                ],
+                "subnet_ids": [
+                  "subnet-11111111",
+                  "subnet-22222222"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_iam_openid_connect_provider.compliant_cluster",
+          "type": "aws_iam_openid_connect_provider",
+          "name": "compliant_cluster",
+          "values": {
+            "url": "https://oidc.eks.us-east-1.amazonaws.com/id/ABCDEF1234567890"
+          }
+        },
+        {
+          "address": "aws_eks_fargate_profile.compliant_default",
+          "type": "aws_eks_fargate_profile",
+          "name": "compliant_default",
+          "values": {
+            "cluster_name": "compliant-eks",
+            "pod_execution_role_arn": "arn:aws:iam::111122223333:role/eks-fargate-pod",
+            "selector": [
+              {
+                "namespace": "default"
+              },
+              {
+                "namespace": "apps",
+                "labels": {
+                  "run_on": "fargate"
+                }
+              }
+            ],
+            "subnet_ids": [
+              "subnet-11111111",
+              "subnet-22222222"
+            ]
+          }
+        },
+        {
+          "address": "aws_eks_node_group.compliant_general",
+          "type": "aws_eks_node_group",
+          "name": "compliant_general",
+          "values": {
+            "cluster_name": "compliant-eks",
+            "node_group_name": "general",
+            "scaling_config": [
+              {
+                "desired_size": 2,
+                "max_size": 4,
+                "min_size": 2
+              }
+            ],
+            "subnet_ids": [
+              "subnet-11111111",
+              "subnet-22222222"
+            ],
+            "version": "1.29"
+          }
+        },
+        {
+          "address": "aws_eks_addon.compliant_vpc_cni",
+          "type": "aws_eks_addon",
+          "name": "compliant_vpc_cni",
+          "values": {
+            "addon_name": "vpc-cni",
+            "cluster_name": "compliant-eks"
+          }
+        },
+        {
+          "address": "aws_eks_addon.compliant_coredns",
+          "type": "aws_eks_addon",
+          "name": "compliant_coredns",
+          "values": {
+            "addon_name": "coredns",
+            "cluster_name": "compliant-eks"
+          }
+        },
+        {
+          "address": "aws_eks_addon.compliant_kube_proxy",
+          "type": "aws_eks_addon",
+          "name": "compliant_kube_proxy",
+          "values": {
+            "addon_name": "kube-proxy",
+            "cluster_name": "compliant-eks"
+          }
+        },
+        {
+          "address": "aws_eks_cluster.non_compliant_cluster",
+          "type": "aws_eks_cluster",
+          "name": "non_compliant_cluster",
+          "values": {
+            "access_config": [
+              {
+                "authentication_mode": "CONFIG_MAP"
+              }
+            ],
+            "enabled_cluster_log_types": [
+              "api"
+            ],
+            "encryption_config": [],
+            "identity": [
+              {
+                "oidc": [
+                  {
+                    "issuer": "https://oidc.eks.us-east-1.amazonaws.com/id/NONCOMPLIANT"
+                  }
+                ]
+              }
+            ],
+            "name": "non-compliant-eks",
+            "version": "1.27",
+            "vpc_config": [
+              {
+                "endpoint_private_access": false,
+                "endpoint_public_access": true,
+                "public_access_cidrs": [
+                  "0.0.0.0/0"
+                ],
+                "subnet_ids": [
+                  "subnet-33333333",
+                  "subnet-44444444"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_eks_addon.non_compliant_vpc_cni",
+          "type": "aws_eks_addon",
+          "name": "non_compliant_vpc_cni",
+          "values": {
+            "addon_name": "vpc-cni",
+            "cluster_name": "non-compliant-eks"
+          }
+        }
+      ]
+    }
+  }
+}

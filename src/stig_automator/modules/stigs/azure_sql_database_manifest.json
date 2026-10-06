@@ -1,0 +1,12 @@
+{
+  "source_url": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Azure_SQL_DB_V2R2_STIG.zip",
+  "source_archive": "azure_sql_db_stig.zip",
+  "source_sha256": "ea32df4695f03e4592fd02e04e98646b7242893f9bb4d74ac0bfccb7fd79a1be",
+  "imported_control_count": 76,
+  "official_control_count": 76,
+  "benchmark_id": "MS_Azure_SQL_DB_STIG",
+  "benchmark_title": "Microsoft Azure SQL Database Security Technical Implementation Guide",
+  "version": "2",
+  "release_info": "Release: 2 Benchmark Date: 24 Oct 2024",
+  "xccdf_file": "U_MS_Azure_SQL_DB_STIG_V2R2_Manual-xccdf.xml"
+}

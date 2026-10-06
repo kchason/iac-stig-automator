@@ -1,0 +1,204 @@
+{
+  "tls_enforced": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html",
+    "quote": "SSL/TLS connections provide a layer of security by encrypting data that moves between your client and DB instance or cluster.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_db_parameter_group.parameter { name = \"require_secure_transport\", value = \"ON\" }"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/using-encrypted-connections.html"
+    ]
+  },
+  "tls_version": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html",
+    "quote": "You can use Secure Socket Layer (SSL) or Transport Layer Security (TLS) from your application to encrypt a connection to a database running Db2, MariaDB, Microsoft SQL Server, MySQL, Oracle, or PostgreSQL.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_db_parameter_group.parameter { name = \"tls_version\", value = \"TLSv1.2,TLSv1.3\" }"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/refman/8.0/en/using-encrypted-connections.html"
+    ]
+  },
+  "max_user_connections": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html",
+    "quote": "DB parameter groups act as a container for engine configuration values that are applied to one or more DB instances.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_db_parameter_group.parameter { name = \"max_user_connections\", value is a positive integer }"
+    ]
+  },
+  "audit_log_enabled": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.MySQL.Options.AuditPlugin.html",
+    "quote": "Amazon RDS offers an audit plugin for MySQL database instances based on the open source MariaDB Audit Plugin.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_option_group"
+    ],
+    "terraform_properties": [
+      "aws_db_option_group.option.option_name = \"MARIADB_AUDIT_PLUGIN\""
+    ],
+    "rdbms_urls": [
+      "https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-log-settings"
+    ]
+  },
+  "audit_log_events": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.MySQL.Options.AuditPlugin.html",
+    "quote": "SERVER_AUDIT_EVENTS valid values include CONNECT, QUERY, QUERY_DDL, QUERY_DML, QUERY_DML_NO_SELECT, and QUERY_DCL.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_option_group"
+    ],
+    "terraform_properties": [
+      "aws_db_parameter_group.parameter { name = \"server_audit_events\", value includes CONNECT, QUERY_DCL, QUERY_DDL, QUERY_DML or equivalent CONNECTION, DCL, DDL, DML aliases }",
+      "aws_db_option_group.option.option_name = \"MARIADB_AUDIT_PLUGIN\""
+    ],
+    "rdbms_urls": [
+      "https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-log-settings"
+    ]
+  },
+  "public_network_access": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "Because the subnets are private, no requests from the internet are permitted.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.publicly_accessible = false"
+    ]
+  },
+  "subnet_group": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "You can run a DB instance on a virtual private cloud (VPC) using the Amazon Virtual Private Cloud (Amazon VPC) service.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.db_subnet_group_name references aws_db_subnet_group.name"
+    ]
+  },
+  "security_groups": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "A security group controls the access to a DB instance by allowing access to IP address ranges or Amazon EC2 instances that you specify.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.vpc_security_group_ids is set to approved security groups"
+    ]
+  },
+  "backup_retention": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html",
+    "quote": "If necessary, you can recover your DB instance to any point in time during the backup retention period.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.backup_retention_period >= 7"
+    ]
+  },
+  "deletion_protection": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html",
+    "quote": "If you choose to have Amazon RDS create a final DB snapshot before it deletes your DB instance, you can use that to recover your DB instance.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.deletion_protection = true",
+      "aws_db_instance.skip_final_snapshot = false"
+    ]
+  },
+  "high_availability": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "You can get high availability with a primary DB instance and a synchronous secondary DB instance that you can fail over to when problems occur.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.multi_az = true"
+    ]
+  },
+  "cmk_encryption": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html",
+    "quote": "Amazon RDS uses an AWS Key Management Service key to encrypt these resources.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.storage_encrypted = true",
+      "aws_db_instance.kms_key_id is set to a customer-managed KMS key"
+    ]
+  },
+  "iam_auth": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html",
+    "quote": "You can use IAM to centrally manage access to your database resources, instead of managing access individually on each DB instance.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.iam_database_authentication_enabled = true"
+    ]
+  },
+  "cloudwatch_logs": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.MySQLDB.PublishtoCloudWatchLogs.html",
+    "quote": "With CloudWatch Logs, you can perform real-time analysis of the log data, and use CloudWatch to create alarms and view metrics.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.enabled_cloudwatch_logs_exports includes audit, error, general, slowquery"
+    ]
+  },
+  "storage_autoscaling": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "It's important to have sufficient storage so that your databases have room to grow.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.max_allocated_storage > aws_db_instance.allocated_storage"
+    ]
+  },
+  "instance_class": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "You can select the DB instance class that best meets your requirements.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.instance_class uses a non-burstable production class"
+    ]
+  },
+  "version": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "Each DB engine has its own supported features, and each version of a DB engine can include specific features.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.engine = \"mysql\"",
+      "aws_db_instance.engine_version is MySQL 8.0 or newer"
+    ],
+    "rdbms_urls": [
+      "https://dev.mysql.com/doc/relnotes/mysql/8.0/en/"
+    ]
+  },
+  "maintenance_window": {
+    "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MultiAZ.html",
+    "quote": "Amazon RDS manages backups, software patching, automatic failure detection, and recovery.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+    ],
+    "terraform_properties": [
+      "aws_db_instance.maintenance_window is set",
+      "aws_db_instance.backup_window is set"
+    ]
+  }
+}

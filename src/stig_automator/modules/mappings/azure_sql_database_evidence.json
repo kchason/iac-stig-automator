@@ -1,0 +1,87 @@
+{
+  "entra_only_auth": {
+    "quote": "Azure AD-only authentication disables SQL authentication for the server.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/authentication-azure-ad-only-authentication",
+    "terraform_properties": [
+      "azurerm_mssql_server.azuread_authentication_only",
+      "azurerm_mssql_server.azuread_administrator"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server"
+    ]
+  },
+  "minimum_tls": {
+    "quote": "Minimum TLS version for Azure SQL Database must be TLS 1.2 or newer.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/connect-tls-configure",
+    "terraform_properties": [
+      "azurerm_mssql_server.minimum_tls_version"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server"
+    ]
+  },
+  "public_network_access": {
+    "quote": "Public network access can be disabled to restrict connectivity to private endpoints and approved networks.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/connectivity-settings",
+    "terraform_properties": [
+      "azurerm_mssql_server.public_network_access_enabled"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server"
+    ]
+  },
+  "azure_services_firewall": {
+    "quote": "Allow Azure services and resources to access this server should remain disabled unless explicitly approved.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/firewall-configure",
+    "terraform_properties": [
+      "azurerm_mssql_firewall_rule.start_ip_address",
+      "azurerm_mssql_firewall_rule.end_ip_address"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_firewall_rule"
+    ]
+  },
+  "tde_enabled": {
+    "quote": "Transparent data encryption protects data at rest for Azure SQL Database.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/transparent-data-encryption-tde-overview",
+    "terraform_properties": [
+      "azurerm_mssql_database.transparent_data_encryption_enabled",
+      "azurerm_mssql_server_transparent_data_encryption.key_vault_key_id"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server_transparent_data_encryption"
+    ]
+  },
+  "extended_auditing": {
+    "quote": "SQL auditing records database and server events to a storage account or Log Analytics workspace.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/auditing-overview",
+    "terraform_properties": [
+      "azurerm_mssql_server_extended_auditing_policy.storage_endpoint",
+      "azurerm_mssql_server_extended_auditing_policy.log_monitoring_enabled"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server_extended_auditing_policy"
+    ]
+  },
+  "audit_offload": {
+    "quote": "Diagnostic settings export SQL security audit events to centralized monitoring or storage.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/auditing-overview",
+    "terraform_properties": [
+      "azurerm_monitor_diagnostic_setting.log_analytics_workspace_id",
+      "azurerm_mssql_server_extended_auditing_policy.storage_endpoint"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server_extended_auditing_policy"
+    ]
+  },
+  "manual_scope": {
+    "quote": "This control requires database runtime, permission, or operational evidence not exposed in Terraform plan JSON.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/security-overview"
+  },
+  "managed_default": {
+    "quote": "Azure SQL Database is a fully managed PaaS offering; portions of the control are inherited from the cloud service provider.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/security-overview"
+  }
+}

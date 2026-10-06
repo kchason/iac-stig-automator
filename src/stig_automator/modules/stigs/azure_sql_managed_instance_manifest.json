@@ -1,0 +1,12 @@
+{
+  "source_url": "https://public.cyber.mil/stigs/downloads/",
+  "source_archive": "U_MS_Azure_SQL_Managed_Instance_V1R1_STIG.zip",
+  "source_sha256": "",
+  "imported_control_count": 84,
+  "official_control_count": 84,
+  "benchmark_id": "MS_Azure_SQL_Managed_Instance_STIG",
+  "benchmark_title": "Microsoft Azure SQL Managed Instance Security Technical Implementation Guide",
+  "version": "1",
+  "release_info": "Release: 1 Benchmark Date: 07 Jan 2026",
+  "xccdf_file": "U_MS_Azure_SQL_Managed_Instance_STIG_V1R1_Manual-xccdf.xml"
+}

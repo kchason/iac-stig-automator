@@ -1,0 +1,519 @@
+{
+  "default": {
+    "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+    "cklb_status": "not_applicable",
+    "include_in_blank_cklb": false
+  },
+  "controls": {
+    "V-261857": {
+      "validation_function_name": "max_connections",
+      "remediation_key": "max_connections"
+    },
+    "V-261858": {
+      "validation_function_name": "enterprise_auth",
+      "remediation_key": "enterprise_auth"
+    },
+    "V-261859": {
+      "validation_function_name": "authorization_policy",
+      "remediation_key": "authorization_policy"
+    },
+    "V-261860": {
+      "validation_function_name": "audit_identity",
+      "remediation_key": "audit_identity"
+    },
+    "V-261861": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261862": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261863": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261864": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261865": {
+      "validation_function_name": "session_auditing_startup",
+      "remediation_key": "session_auditing_startup"
+    },
+    "V-261866": {
+      "validation_function_name": "audit_event_content",
+      "remediation_key": "audit_event_content"
+    },
+    "V-261867": {
+      "validation_function_name": "audit_timestamps",
+      "remediation_key": "audit_timestamps"
+    },
+    "V-261868": {
+      "validation_function_name": "audit_event_location",
+      "remediation_key": "audit_event_location"
+    },
+    "V-261869": {
+      "validation_function_name": "audit_event_source",
+      "remediation_key": "audit_event_source"
+    },
+    "V-261870": {
+      "validation_function_name": "audit_event_outcome",
+      "remediation_key": "audit_event_outcome"
+    },
+    "V-261871": {
+      "validation_function_name": "audit_identity",
+      "remediation_key": "audit_identity"
+    },
+    "V-261872": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261873": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261874": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261875": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261876": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261877": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261878": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261879": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261880": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261881": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261882": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261883": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261884": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261885": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261886": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261887": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261888": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261889": {
+      "validation_function_name": "network_restrictions",
+      "remediation_key": "network_restrictions"
+    },
+    "V-261890": {
+      "validation_function_name": "enterprise_auth",
+      "remediation_key": "enterprise_auth"
+    },
+    "V-261891": {
+      "validation_function_name": "password_hashing",
+      "remediation_key": "password_hashing_scram"
+    },
+    "V-261892": {
+      "validation_function_name": "password_transmission",
+      "remediation_key": "password_transmission"
+    },
+    "V-261893": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261894": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261895": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261896": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261897": {
+      "validation_function_name": "enterprise_auth",
+      "remediation_key": "enterprise_auth"
+    },
+    "V-261898": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261899": {
+      "validation_function_name": "session_timeout",
+      "remediation_key": "session_timeout"
+    },
+    "V-261900": {
+      "validation_function_name": "password_transmission",
+      "remediation_key": "password_transmission"
+    },
+    "V-261901": {
+      "validation_function_name": "at_rest_cmk",
+      "remediation_key": "at_rest_cmk"
+    },
+    "V-261902": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261903": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261904": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261905": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261906": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261907": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261908": {
+      "validation_function_name": "client_error_messages",
+      "remediation_key": "client_error_messages"
+    },
+    "V-261909": {
+      "validation_function_name": "client_error_messages",
+      "remediation_key": "client_error_messages"
+    },
+    "V-261910": {
+      "validation_function_name": "session_timeout",
+      "remediation_key": "session_timeout"
+    },
+    "V-261911": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261912": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261913": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261914": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261915": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261916": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261917": {
+      "validation_function_name": "centralized_logs",
+      "remediation_key": "centralized_logs"
+    },
+    "V-261918": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261919": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261920": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261921": {
+      "validation_function_name": "log_timezone",
+      "remediation_key": "log_timezone"
+    },
+    "V-261922": {
+      "validation_function_name": "timestamp_granularity",
+      "remediation_key": "timestamp_granularity"
+    },
+    "V-261923": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261924": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261925": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261926": {
+      "validation_function_name": "network_restrictions",
+      "remediation_key": "network_restrictions"
+    },
+    "V-261927": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261928": {
+      "automatic_platform_text": "{vuln_id} ({title}) is not applicable for unclassified Azure Database for PostgreSQL Flexible Server deployments; NSA-approved classified cryptography is a classified-environment requirement.",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261929": {
+      "validation_function_name": "approved_ca_tls",
+      "remediation_key": "approved_ca_tls"
+    },
+    "V-261930": {
+      "validation_function_name": "at_rest_cmk",
+      "remediation_key": "at_rest_cmk"
+    },
+    "V-261931": {
+      "validation_function_name": "at_rest_cmk",
+      "remediation_key": "at_rest_cmk"
+    },
+    "V-261932": {
+      "validation_function_name": "password_transmission",
+      "remediation_key": "password_transmission"
+    },
+    "V-261933": {
+      "validation_function_name": "password_transmission",
+      "remediation_key": "password_transmission"
+    },
+    "V-261934": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure PostgreSQL Flexible Server plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-261935": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261936": {
+      "validation_function_name": "managed_security_updates",
+      "remediation_key": "managed_security_updates"
+    },
+    "V-261938": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261939": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261940": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261941": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261942": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261943": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261944": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261945": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261946": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261947": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261948": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261949": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261950": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261951": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261952": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261953": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261954": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261955": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261956": {
+      "validation_function_name": "audit_event_content",
+      "remediation_key": "audit_event_content"
+    },
+    "V-261957": {
+      "validation_function_name": "audit_event_content",
+      "remediation_key": "audit_event_content"
+    },
+    "V-261958": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261959": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261960": {
+      "validation_function_name": "audit_event_content",
+      "remediation_key": "audit_event_content"
+    },
+    "V-261961": {
+      "validation_function_name": "audit_event_content",
+      "remediation_key": "audit_event_content"
+    },
+    "V-261962": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261963": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261964": {
+      "validation_function_name": "pgaudit_events",
+      "remediation_key": "pgaudit_events"
+    },
+    "V-261965": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261966": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for PostgreSQL Flexible Server. The managed service owns host filesystem, package, certificate-store, and local audit-file evidence that this STIG checks on self-managed PostgreSQL.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-261967": {
+      "validation_function_name": "centralized_logs",
+      "remediation_key": "centralized_logs"
+    },
+    "V-283674": {
+      "validation_function_name": "supported_version",
+      "remediation_key": "supported_version"
+    }
+  }
+}

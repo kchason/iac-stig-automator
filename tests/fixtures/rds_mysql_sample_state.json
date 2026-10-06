@@ -1,0 +1,235 @@
+{
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_db_instance.compliant_mysql",
+          "type": "aws_db_instance",
+          "name": "compliant_mysql",
+          "values": {
+            "allocated_storage": 100,
+            "backup_retention_period": 14,
+            "backup_window": "07:00-08:00",
+            "ca_cert_identifier": "rds-ca-rsa4096-g1",
+            "db_subnet_group_name": "compliant-rds-subnets",
+            "deletion_protection": true,
+            "enabled_cloudwatch_logs_exports": [
+              "audit",
+              "error",
+              "general",
+              "slowquery"
+            ],
+            "engine": "mysql",
+            "engine_version": "8.0.39",
+            "iam_database_authentication_enabled": true,
+            "id": "compliant-mysql",
+            "instance_class": "db.m7g.large",
+            "kms_key_id": "arn:aws:kms:us-east-1:111122223333:key/mysql",
+            "maintenance_window": "sun:09:00-sun:10:00",
+            "max_allocated_storage": 500,
+            "multi_az": true,
+            "option_group_name": "compliant-mysql-options",
+            "parameter_group_name": "compliant-mysql-params",
+            "publicly_accessible": false,
+            "skip_final_snapshot": false,
+            "storage_encrypted": true,
+            "vpc_security_group_ids": [
+              "sg-0123456789abcdef0"
+            ]
+          }
+        },
+        {
+          "address": "aws_db_parameter_group.compliant_mysql",
+          "type": "aws_db_parameter_group",
+          "name": "compliant_mysql",
+          "values": {
+            "family": "mysql8.0",
+            "name": "compliant-mysql-params",
+            "parameter": [
+              {
+                "name": "require_secure_transport",
+                "value": "ON"
+              },
+              {
+                "name": "tls_version",
+                "value": "TLSv1.2,TLSv1.3"
+              },
+              {
+                "name": "max_user_connections",
+                "value": "50"
+              },
+              {
+                "name": "server_audit_events",
+                "value": "CONNECT,QUERY_DCL,QUERY_DDL,QUERY_DML"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_db_option_group.compliant_mysql",
+          "type": "aws_db_option_group",
+          "name": "compliant_mysql",
+          "values": {
+            "name": "compliant-mysql-options",
+            "option": [
+              {
+                "option_name": "MARIADB_AUDIT_PLUGIN"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_db_subnet_group.compliant_mysql",
+          "type": "aws_db_subnet_group",
+          "name": "compliant_mysql",
+          "values": {
+            "name": "compliant-rds-subnets",
+            "subnet_ids": [
+              "subnet-11111111",
+              "subnet-22222222"
+            ]
+          }
+        },
+        {
+          "address": "aws_db_instance.non_compliant_mysql",
+          "type": "aws_db_instance",
+          "name": "non_compliant_mysql",
+          "values": {
+            "allocated_storage": 20,
+            "backup_retention_period": 1,
+            "backup_window": null,
+            "ca_cert_identifier": null,
+            "db_subnet_group_name": "",
+            "deletion_protection": false,
+            "enabled_cloudwatch_logs_exports": [
+              "error"
+            ],
+            "engine": "mysql",
+            "engine_version": "5.7.44",
+            "iam_database_authentication_enabled": false,
+            "id": "non-compliant-mysql",
+            "instance_class": "db.t3.micro",
+            "kms_key_id": null,
+            "maintenance_window": null,
+            "max_allocated_storage": 20,
+            "multi_az": false,
+            "option_group_name": "",
+            "parameter_group_name": "non-compliant-mysql-params",
+            "publicly_accessible": true,
+            "skip_final_snapshot": true,
+            "storage_encrypted": false,
+            "vpc_security_group_ids": []
+          }
+        },
+        {
+          "address": "aws_db_parameter_group.non_compliant_mysql",
+          "type": "aws_db_parameter_group",
+          "name": "non_compliant_mysql",
+          "values": {
+            "family": "mysql5.7",
+            "name": "non-compliant-mysql-params",
+            "parameter": [
+              {
+                "name": "require_secure_transport",
+                "value": "OFF"
+              },
+              {
+                "name": "tls_version",
+                "value": "TLSv1"
+              },
+              {
+                "name": "max_user_connections",
+                "value": "0"
+              },
+              {
+                "name": "server_audit_events",
+                "value": "CONNECT"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_rds_cluster.compliant_aurora_mysql",
+          "type": "aws_rds_cluster",
+          "name": "compliant_aurora_mysql",
+          "values": {
+            "backup_retention_period": 14,
+            "cluster_identifier": "compliant-aurora-mysql",
+            "db_cluster_parameter_group_name": "compliant-aurora-mysql-params",
+            "db_subnet_group_name": "compliant-aurora-mysql-subnets",
+            "deletion_protection": true,
+            "enabled_cloudwatch_logs_exports": [
+              "audit",
+              "error",
+              "general",
+              "slowquery"
+            ],
+            "engine": "aurora-mysql",
+            "engine_version": "8.0.mysql_aurora.3.08.0",
+            "iam_database_authentication_enabled": true,
+            "id": "compliant-aurora-mysql",
+            "kms_key_id": "arn:aws:kms:us-east-1:111122223333:key/aurora-mysql",
+            "preferred_backup_window": "07:00-08:00",
+            "preferred_maintenance_window": "sun:09:00-sun:10:00",
+            "skip_final_snapshot": false,
+            "storage_encrypted": true,
+            "vpc_security_group_ids": [
+              "sg-0123456789abcdef0"
+            ]
+          }
+        },
+        {
+          "address": "aws_rds_cluster_parameter_group.compliant_aurora_mysql",
+          "type": "aws_rds_cluster_parameter_group",
+          "name": "compliant_aurora_mysql",
+          "values": {
+            "family": "aurora-mysql8.0",
+            "name": "compliant-aurora-mysql-params",
+            "parameter": [
+              {
+                "name": "require_secure_transport",
+                "value": "ON"
+              },
+              {
+                "name": "tls_version",
+                "value": "TLSv1.2,TLSv1.3"
+              },
+              {
+                "name": "max_user_connections",
+                "value": "50"
+              },
+              {
+                "name": "server_audit_logging",
+                "value": "ON"
+              },
+              {
+                "name": "server_audit_events",
+                "value": "CONNECT,QUERY_DCL,QUERY_DDL,QUERY_DML"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_rds_cluster_instance.compliant_aurora_mysql_primary",
+          "type": "aws_rds_cluster_instance",
+          "name": "compliant_aurora_mysql_primary",
+          "values": {
+            "cluster_identifier": "compliant-aurora-mysql",
+            "instance_class": "db.r7g.large",
+            "publicly_accessible": false
+          }
+        },
+        {
+          "address": "aws_rds_cluster_instance.compliant_aurora_mysql_replica",
+          "type": "aws_rds_cluster_instance",
+          "name": "compliant_aurora_mysql_replica",
+          "values": {
+            "cluster_identifier": "compliant-aurora-mysql",
+            "instance_class": "db.r7g.large",
+            "publicly_accessible": false
+          }
+        }
+      ]
+    }
+  }
+}

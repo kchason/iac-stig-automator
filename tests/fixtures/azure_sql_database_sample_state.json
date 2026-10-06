@@ -1,0 +1,86 @@
+{
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "azurerm_mssql_server.compliant",
+          "type": "azurerm_mssql_server",
+          "name": "compliant",
+          "values": {
+            "azuread_administrator": {
+              "login_username": "sql-admins",
+              "object_id": "11111111-1111-1111-1111-111111111111",
+              "tenant_id": "22222222-2222-2222-2222-222222222222"
+            },
+            "azuread_authentication_only": true,
+            "id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/compliant-sql",
+            "minimum_tls_version": "1.2",
+            "name": "compliant-sql",
+            "public_network_access_enabled": false
+          }
+        },
+        {
+          "address": "azurerm_mssql_database.compliant",
+          "type": "azurerm_mssql_database",
+          "name": "compliant",
+          "values": {
+            "server_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/compliant-sql",
+            "transparent_data_encryption_enabled": true
+          }
+        },
+        {
+          "address": "azurerm_mssql_server_extended_auditing_policy.compliant",
+          "type": "azurerm_mssql_server_extended_auditing_policy",
+          "name": "compliant",
+          "values": {
+            "enabled": true,
+            "log_monitoring_enabled": true,
+            "server_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/compliant-sql",
+            "storage_endpoint": "https://auditlogs.blob.core.windows.net/sqldbauditlogs"
+          }
+        },
+        {
+          "address": "azurerm_monitor_diagnostic_setting.compliant_sql",
+          "type": "azurerm_monitor_diagnostic_setting",
+          "name": "compliant_sql",
+          "values": {
+            "log_analytics_workspace_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.OperationalInsights/workspaces/logs",
+            "target_resource_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/compliant-sql"
+          }
+        },
+        {
+          "address": "azurerm_mssql_server.non_compliant",
+          "type": "azurerm_mssql_server",
+          "name": "non_compliant",
+          "values": {
+            "azuread_authentication_only": false,
+            "id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/non-compliant-sql",
+            "minimum_tls_version": "1.0",
+            "name": "non-compliant-sql",
+            "public_network_access_enabled": true
+          }
+        },
+        {
+          "address": "azurerm_mssql_database.non_compliant",
+          "type": "azurerm_mssql_database",
+          "name": "non_compliant",
+          "values": {
+            "server_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/non-compliant-sql",
+            "transparent_data_encryption_enabled": false
+          }
+        },
+        {
+          "address": "azurerm_mssql_firewall_rule.non_compliant_azure_services",
+          "type": "azurerm_mssql_firewall_rule",
+          "name": "non_compliant_azure_services",
+          "values": {
+            "end_ip_address": "0.0.0.0",
+            "name": "AllowAllWindowsAzureIps",
+            "server_id": "/subscriptions/000/resourceGroups/rg/providers/Microsoft.Sql/servers/non-compliant-sql",
+            "start_ip_address": "0.0.0.0"
+          }
+        }
+      ]
+    }
+  }
+}

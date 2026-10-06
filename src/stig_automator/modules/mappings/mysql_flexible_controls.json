@@ -1,0 +1,82 @@
+{
+  "controls": {
+    "V-235096": {
+      "validation_function_name": "max_user_connections",
+      "remediation_key": "max_user_connections"
+    },
+    "V-235097": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235098": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure MySQL Flexible Server plan data does not expose enough database runtime, audit log file permission, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-235099": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for MySQL Flexible Server. Customers enable and export MySQL audit logs through Azure Monitor diagnostic settings; the underlying database host filesystem and audit log file permissions are Azure-managed.",
+      "evidence_key": "azure_managed_audit_log_storage",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-235100": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for MySQL Flexible Server. Customers enable and export MySQL audit logs through Azure Monitor diagnostic settings; the underlying database host filesystem and audit log file permissions are Azure-managed.",
+      "evidence_key": "azure_managed_audit_log_storage",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-235101": {
+      "automatic_platform_text": "{vuln_id} {title} is inherited from Azure Database for MySQL Flexible Server. Customers enable and export MySQL audit logs through Azure Monitor diagnostic settings; the underlying database host filesystem and audit log file permissions are Azure-managed.",
+      "evidence_key": "azure_managed_audit_log_storage",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-235102": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure MySQL Flexible Server plan data does not expose enough database runtime, audit log file permission, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-235110": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure MySQL Flexible Server plan data does not expose enough database runtime, audit log file permission, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    },
+    "V-235111": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235112": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235120": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235121": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235130": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235131": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235132": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235133": {
+      "validation_function_name": "audit_log_events",
+      "remediation_key": "audit_log_events"
+    },
+    "V-235134": {
+      "automatic_platform_text": "{vuln_id} requires manual review: no Terraform property fully verifies this official STIG requirement. Azure MySQL Flexible Server plan data does not expose enough database runtime, audit log file permission, or PKI evidence to verify: {title}",
+      "cklb_status": "not_applicable",
+      "include_in_blank_cklb": false
+    }
+  }
+}

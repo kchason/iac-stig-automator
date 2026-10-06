@@ -1,0 +1,189 @@
+{
+  "rbac_enabled": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html",
+    "quote": "EKS relies on both Kubernetes and AWS Identity and Access Management (AWS IAM) features to manage access from users and workloads.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.access_config.authentication_mode = \"API\" or \"API_AND_CONFIG_MAP\""
+    ]
+  },
+  "api_endpoint_private": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html",
+    "quote": "You can enable private access to the Kubernetes API server so that all communication between your nodes and the API server stays within your VPC.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.vpc_config.endpoint_private_access = true",
+      "aws_eks_cluster.vpc_config.endpoint_public_access = false or public_access_cidrs excludes 0.0.0.0/0 and ::/0"
+    ]
+  },
+  "control_plane_logs": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html",
+    "quote": "Amazon EKS control plane logging provides audit and diagnostic logs directly from the Amazon EKS control plane to CloudWatch Logs in your account.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.enabled_cluster_log_types includes api, audit, authenticator, controllerManager, scheduler"
+    ]
+  },
+  "secrets_encryption": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/enable-kms.html",
+    "quote": "If you enable secrets encryption, the Kubernetes secrets are encrypted using the AWS KMS key that you select.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.encryption_config.resources includes secrets",
+      "aws_eks_cluster.encryption_config.provider.key_arn is set"
+    ]
+  },
+  "secrets_encryption_default": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/enable-kms.html",
+    "quote": "If you are running Kubernetes version 1.28 or higher, your Kubernetes secrets are protected with envelope encryption by default.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.version >= 1.28 or aws_eks_cluster.encryption_config.resources includes secrets"
+    ]
+  },
+  "irsa_oidc": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html",
+    "quote": "IAM roles for service accounts provide the ability to manage credentials for your applications, similar to the way that Amazon EC2 instance profiles provide credentials to Amazon EC2 instances.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_openid_connect_provider"
+    ],
+    "terraform_properties": [
+      "aws_eks_cluster.identity.oidc.issuer is present",
+      "aws_iam_openid_connect_provider.url matches the cluster OIDC issuer"
+    ]
+  },
+  "compute_mode": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
+    "quote": "Each Pod that runs on Fargate has its own compute boundary.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group"
+    ],
+    "terraform_properties": [
+      "aws_eks_fargate_profile is associated with the cluster or aws_eks_node_group is associated with the cluster"
+    ]
+  },
+  "compute_modes": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html",
+    "quote": "Amazon EKS managed node groups automate the provisioning and lifecycle management of nodes (Amazon EC2 instances) for Amazon EKS Kubernetes clusters.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group"
+    ],
+    "terraform_properties": [
+      "aws_eks_fargate_profile is associated with the cluster",
+      "aws_eks_node_group is associated with the cluster"
+    ]
+  },
+  "fargate_profile": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
+    "quote": "You can control which Pods start on Fargate and how they run with Fargate profiles.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile"
+    ],
+    "terraform_properties": [
+      "aws_eks_fargate_profile.selector is configured",
+      "aws_eks_fargate_profile.subnet_ids is set",
+      "aws_eks_fargate_profile.pod_execution_role_arn is set"
+    ]
+  },
+  "fargate_not_configured": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
+    "quote": "Pods must match a Fargate profile at the time that they are scheduled to run on Fargate.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile"
+    ],
+    "terraform_properties": [
+      "No Fargate profile is in scope for this cluster"
+    ]
+  },
+  "managed_node_group": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html",
+    "quote": "Node updates and terminations automatically drain nodes to ensure that your applications stay available.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group"
+    ],
+    "terraform_properties": [
+      "aws_eks_node_group.scaling_config is configured",
+      "aws_eks_node_group.remote_access is omitted",
+      "aws_eks_node_group.version matches aws_eks_cluster.version"
+    ]
+  },
+  "managed_nodes_not_configured": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html",
+    "quote": "You can create multiple managed node groups within a single cluster.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group"
+    ],
+    "terraform_properties": [
+      "No managed node group is in scope for this cluster"
+    ]
+  },
+  "addons": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html",
+    "quote": "Update the Amazon VPC CNI plugin for Kubernetes, CoreDNS, and kube-proxy add-ons.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster"
+    ],
+    "terraform_properties": [
+      "aws_eks_addon.addon_name includes vpc-cni, coredns, kube-proxy",
+      "aws_eks_cluster.version >= 1.28"
+    ]
+  },
+  "managed_default": {
+    "summary": "EKS managed control plane baseline evidence applied for {vuln_id} ({title}).",
+    "quotes": [
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/security.html",
+        "quote": "For Amazon EKS, AWS is responsible for the Kubernetes control plane, which includes the control plane nodes and etcd database."
+      },
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html",
+        "quote": "Amazon EKS provides a highly available Kubernetes control plane and performs rolling updates of API server instances during update operations."
+      }
+    ]
+  },
+  "managed_compute": {
+    "summary": "EKS {compute} compute baseline evidence applied for {vuln_id} ({title}).",
+    "quotes": [
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
+        "quote": "Each Pod that runs on Fargate has its own compute boundary."
+      },
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html",
+        "quote": "Amazon EKS managed node groups automate the provisioning and lifecycle management of nodes (Amazon EC2 instances) for Amazon EKS Kubernetes clusters."
+      }
+    ]
+  },
+  "inherited": {
+    "summary": "{vuln_id} ({title}) is inherited from the EKS managed service and is treated as not a finding for PaaS evaluation.",
+    "quotes": [
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/security.html",
+        "quote": "For Amazon EKS, AWS is responsible for the Kubernetes control plane, which includes the control plane nodes and etcd database."
+      }
+    ]
+  },
+  "manual_scope": {
+    "summary": "{vuln_id} ({title}) depends on workload/runtime Kubernetes evidence not available in AWS Terraform plan data, so it remains open pending manual review.",
+    "quotes": [
+      {
+        "url": "https://docs.aws.amazon.com/eks/latest/userguide/security.html",
+        "quote": "Your responsibility includes the configuration of the nodes and the containers themselves."
+      }
+    ]
+  }
+}

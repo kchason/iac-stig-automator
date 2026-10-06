@@ -1,0 +1,498 @@
+[
+  {
+    "vuln_id": "V-235096",
+    "stig_id": "MYS8-00-000200",
+    "severity": "CAT_II",
+    "title": "MySQL Database Server 8.0  must limit the number of concurrent sessions to an organization-defined number per user for all accounts and/or account types.",
+    "rule_id": "SV-235096r960735_rule",
+    "rule_version": "MYS8-00-000200",
+    "group_id": "V-235096",
+    "group_title": "SRG-APP-000001-DB-000031",
+    "cci": [
+      "CCI-000054"
+    ],
+    "fix_text": "The MySQL Database Server 8.0 is capable of enforcing this restriction. If not configured to do so, configure it to do so.\n\nConnect to the MySQL Database as an administrator.\nTo set the global default to 50: \nSET PERSIST max_user_connections=50;\n\nAdditionally, max user connections can be set per user as well as for a given period of time.\nGRANT ALL ON customer.* TO 'francis'@'localhost'\nWITH MAX_CONNECTIONS_PER_HOUR 5;\nMAX_USER_CONNECTIONS 2;",
+    "description": "Database management includes the ability to control the number of users and user sessions utilizing a Database Management System (DBMS). Unlimited concurrent connections to the DBMS could allow a successful Denial of Service (DoS) attack by exhausting connection resources; and a system can also fail or be degraded by an overload of legitimate users. Limiting the number of concurrent sessions per user is helpful in reducing these risks.\n\nThis requirement addresses concurrent session control for a single account. It does not address concurrent sessions by a single user via multiple system accounts; and it does not deal with the total number of sessions across all accounts.\n\nThe capability to limit the number of concurrent sessions per user must be configured in or added to the DBMS (for example, by use of a logon trigger), when this is technically feasible. Note that it is not sufficient to limit sessions via a web server or application server alone, because legitimate users and adversaries can potentially connect to the DBMS by other means.\n\nThe organization will need to define the maximum number of concurrent sessions by account type, by account, or a combination thereof.  In deciding on the appropriate number, it is important to consider the work requirements of the various types of users. For example, 2 might be an acceptable limit for general users accessing the database via an application; but 10 might be too few for a database administrator using a database management GUI tool, where each query tab and navigation pane may count as a separate session.\n\n(Sessions may also be referred to as connections or logons, which for the purposes of this requirement, are synonyms.)",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Determine whether the system documentation specifies limits on the number of concurrent MySQL database server 8.0 sessions.\n\nReview the concurrent-sessions settings in the MySQL database server and/or the applications using it, and/or the system software supporting it. \n\nMySQL global variable max_user_connections  limits the number of simultaneous connections that can be made by any given account.\n\nTo check global (default) concurrent-sessions settings in the MySQL database server, run the following query:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'max_user_connections' ;\n\nIf the value of MAX_USER_CONNECTIONS is 0 (unlimited) or greater than the site-specific maximum number of sessions, this is a finding.\n \nRetrieve the settings for concurrent sessions for each user with the query: \nSELECT user, host, max_user_connections \nFROM mysql.user \nWHERE user not like 'mysql.%' and user not like 'root';\n\nIf the user account has a nonzero MAX_USER_CONNECTIONS resource limit, the session MAX_USER_CONNECTIONS value is set to that limit. Otherwise, the session max_user_connections value is set to the global value.\n\nIf the DBMS settings for concurrent sessions for each user is greater than the site-specific maximum number of sessions and nonzero, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235097",
+    "stig_id": "MYS8-00-000300",
+    "severity": "CAT_II",
+    "title": "MySQL Database Server 8.0  must produce audit records containing sufficient information to establish what type of events occurred.",
+    "rule_id": "SV-235097r960891_rule",
+    "rule_version": "MYS8-00-000300",
+    "group_id": "V-235097",
+    "group_title": "SRG-APP-000095-DB-000039",
+    "cci": [
+      "CCI-000130"
+    ],
+    "fix_text": "Configure DBMS auditing to audit standard and organization-defined auditable events, with the audit record to include what type of event occurred. \n\nUse this process to ensure auditable events are captured:\n\nConfigure MySQL database server 8.0 for auditing and configure audit settings to include required events as part of the audit record.\n\nTo install MySQL Enterprise Audit:\nRun the audit_log_filter_linux_install.sql script located in the sharedirectory of your MySQL installation. This can be determined by running \u2013 select @@basedir;\nFor example if the basedir is /usr/local/mysql \nshell> bin/mysql -u root -p < /usr/local/mysql/share/audit_log_filter_linux_install.sql\n\nVerify the plugin installation by running:\nSELECT PLUGIN_NAME, PLUGIN_STATUS\n       FROM INFORMATION_SCHEMA.PLUGINS\n       WHERE PLUGIN_NAME LIKE 'audit%';\nThe value for audit_log should return ACTIVE.\n\nTo prevent the plugin from being removed at runtime, add the --audit-log option under the [mysqld] option group in the MySQL configuration file (/etc/my.cnf) with a setting of FORCE_PLUS_PERMANENT.\n\naudit-log=FORCE_PLUS_PERMANENT\n\nRestart the server to apply the configuration change.\n\nBy default, rule-based audit log filtering logs no auditable events for any users. To produce log-everything behavior with rule-based filtering, create a filter to enable logging of all events and assign it to the audit all accounts.\n\nRun the following statements to filter all activity for all users:\nSELECT audit_log_filter_set_filter('log_all', '{ \"filter\": { \"log\": true } }');\nSELECT audit_log_filter_set_user('%', 'log_all');\nSELECT audit_log_filter_set_user('%', 'log_all');",
+    "description": "Information system auditing capability is critical for accurate forensic analysis. Without establishing what type of event occurred, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. \n\nAudit record content that may be necessary to satisfy the requirement of this policy includes, for example, time stamps, user/process identifiers, event descriptions, success/fail indications, filenames involved, and access control or flow control rules invoked.\n\nAssociating event types with detected events in the application and audit logs provides a means of investigating an attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured application. \n\nDatabase software is capable of a range of actions on data stored within the database. It is important, for accurate forensic analysis, to know exactly what actions were performed. This requires specific information regarding the event type to which an audit record refers. If event type information is not recorded and stored with the audit record, the record itself is of very limited use.\n\nMySQL provides auditing using the MySQL Enterprise Audit Log Plugin. When installed, the audit plugin enables MySQL Server to produce a log file containing an audit record of server activity. The log contents include when clients connect and disconnect, and what actions they perform while connected, such as which databases and tables they access.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Verify, using vendor and system documentation if necessary, that the Database Management System (DBMS) is configured to use MySQL auditing features, or that a third-party product or custom code is deployed and configured to satisfy this requirement.\n\nCheck MySQL auditing to determine whether organization-defined auditable events are being audited by the system.\n\nSELECT PLUGIN_NAME, plugin_status FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit_log' ;\n\nIf the results are not 'audit_log' and plugin_status='ACTIVE' , this is a finding.\n\nNext, determine if the audit log is encrypted: \nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'audit_log_encryption' ;\n\nIf nothing is returned or the value for audit_log_encryption is not AES, this is a finding.\n\nReview the audit files in the file systems.\n\nRun the following command using the audit log location from above and review its output:\nls -l  <directory where audit log files are located>/audit*log*\n\nFor example, if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nls -l  /usr/local/mysql/data/audit.log\nExample output:\n-rw-r-----    1 _mysql  _mysql   3935888 Apr 25 12:34 audit.20190425T173437.log.enc\n-rw-r-----    1 _mysql  _mysql      2336 Apr 25 12:35 audit.20190425T173527.log.enc\n-rw-r-----    1 _mysql  _mysql  13763984 Apr 30 14:04 audit.log.enc\n\nNext, verify the log files have set permissions the log_destination:\nIf the user owner is not \"mysql\", this is a finding.\nIf the group owner is not \"mysql\", this is a finding.\nIf the file is more permissive than \"640\", this is a finding.\nCheck that the files end with the \".enc\" file extension.  If they do not, this means they are in plaintext, and this is a finding.\n\nRun following command to verify the directory permissions and review its output:\nls -l /usr/local/mysql/data\n\nExample output:\ndrwxr-x---   _mysql  _mysql    1760 Apr 26 09:55 data\n\nNext, verify the log files have set permissions for the log_destination:\nIf the user owner is not \"mysql\", this is a finding.\nIf the group owner is not \"mysql\", this is a finding.\nIf more permissive than \"750\", this is a finding.\n\nIf there are no audit log files, then organizational auditable events are not being audited, and this is a finding.\n\nTo confirm that MySQL audit is capturing sufficient information to establish the identity of the user/subject or process, perform a successful auditable action and an auditable action that results in an SQL error, and then view the results in the audit file, whichever is in use.\n\nIf no audit event is returned for the auditable actions just performed, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235098",
+    "stig_id": "MYS8-00-000800",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must include additional, more detailed, organizationally defined information in the audit records for audit events identified by type, location, or subject.",
+    "rule_id": "SV-235098r960909_rule",
+    "rule_version": "MYS8-00-000800",
+    "group_id": "V-235098",
+    "group_title": "SRG-APP-000101-DB-000044",
+    "cci": [
+      "CCI-000135"
+    ],
+    "fix_text": "Design and deploy an audit configuration that captures all auditable events and data items. \n\nCreate rule\nSELECT audit_log_filter_set_filter('log_all', '{ \"filter\": { \"log\": true } }');\nSELECT audit_log_filter_set_user('%', 'log_all');\n\nIf a third-party tool is used for auditing, it must contain all the required information including, but not limited to, events, type, location, subject, date and time and by whom the change occurred. \n\nImplement additional custom audits to capture the additional organizationally required information.",
+    "description": "Information system auditing capability is critical for accurate forensic analysis. Reconstruction of harmful events or forensic analysis is not possible if audit records do not contain enough information. To support analysis, some types of events will need information to be logged that exceeds the basic requirements of event type, time stamps, location, source, outcome, and user identity. If additional information is not available, it could negatively impact forensic investigations into user actions or other malicious events.\n\nThe organization must determine what additional information is required for complete analysis of the audited events. The additional information required is dependent on the type of information (e.g., sensitivity of the data and the environment within which it resides). At a minimum, the organization must employ either full-text recording of privileged commands or the individual identities of group users, or both. The organization must maintain audit trails in sufficient detail to reconstruct events to determine the cause and impact of compromise. \n\nExamples of detailed information the organization may require in audit records are full-text recording of privileged commands or the individual identities of group account users.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "If a MySQL Server Audit is not in use for audit purposes, this is a finding unless a third-party product is being used that can perform detailed auditing for MySQL Server. \n\nReview system documentation to determine whether MySQL Server is required to audit any events and any fields, in addition to those in the standard audit. \n\nIf there are none specified, this is not a finding. \n\nIf MySQL Server Audit is in use, compare the audit specification(s) with the documented requirements. \n\nIf any such requirement is not satisfied by the audit specification(s) (or by supplemental, locally-deployed mechanisms), this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235099",
+    "stig_id": "MYS8-00-001200",
+    "severity": "CAT_II",
+    "title": "The audit information produced by the MySQL Database Server 8.0 must be protected from unauthorized read access.",
+    "rule_id": "SV-235099r960930_rule",
+    "rule_version": "MYS8-00-001200",
+    "group_id": "V-235099",
+    "group_title": "SRG-APP-000118-DB-000059",
+    "cci": [
+      "CCI-000162"
+    ],
+    "fix_text": "Apply controls and modify permissions to protect database audit log data from unauthorized access, whether stored in the database itself or at the OS level.\n\nsudo vi /etc/my.cnf\n[mysqld]\naudit-log=FORCE_PLUS_PERMANENT\naudit-log-format=JSON\naudit-log-encryption=AES\n\nAfter changing the my.cnf, restart the server.\n\nIf not performed already, set the audit log password.\nSELECT audit_log_encryption_password_set(password);\n\nSet appropriate permissions on the directory and audit files.\nsudo chown mysql <audit directory path>\nsudo chgrp mysql <audit directory path>\nChange permissions \nchmod 750 <directory path>",
+    "description": "If audit data were to become compromised, then competent forensic analysis and discovery of the true source of potentially malicious system activity is difficult, if not impossible, to achieve. In addition, access to audit records provides information an attacker could potentially use to their advantage.\n\nTo ensure the veracity of audit data, the information system and/or the application must protect audit information from any and all unauthorized access. This includes read, write, copy, etc.\n\nThis requirement can be achieved through multiple methods, which will depend upon system architecture and design. Some commonly employed methods include ensuring log files enjoy the proper file system permissions utilizing file system protections and limiting log data location. \n\nAdditionally, applications with user interfaces to audit records should not allow for the unfettered manipulation of or access to those records via the application. If the application provides access to the audit data, the application becomes accountable for ensuring that audit information is protected from unauthorized access.\n\nAudit information includes all information (e.g., audit records, audit settings, and audit reports) needed to successfully audit information system activity.\n\nIf the value of audit_log_file is a relative path name, the plugin interprets it relative to the data directory. If the value is a full path name, the plugin uses the value as is. A full path name may be useful if it is desirable to locate audit files on a separate file system or directory. For security reasons, write the audit log file to a directory accessible only to the MySQL server and to users with a legitimate reason to view the log.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review locations of audit logs, both internal to the database and database audit logs located at the operating system level.\n\nVerify there are appropriate controls and permissions to protect the audit information from unauthorized access.\n\nRun this script in the database to find the path and file name:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'audit_log_file';\n\nIf there is no path for audit_log_file, then the audit files are located in the datadir. Run the this script to find the data directory:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'datadir';\n\nFrom the OS command line, run: \nls -l <directory where audit log files are located>\nls -l <directory where audit log files are located> | grep -i <audit_file_name>\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nls -l  /usr/local/mysql/data/\n\nSee below for an example:\nNote: .enc file extension means the files are encrypted.\n\nls -l  <directory where audit log files are located>/ | grep -i audit\n-rw-r-----    1 _mysql  _mysql  10083871 Apr 16 15:38 audit.20190416T203832.log\n-rw-r-----    1 _mysql  _mysql    398709 Apr 18 10:34 audit.20190418T153446.log\n-rw-r-----    1 _mysql  _mysql     15237 Apr 18 10:44 audit.20190418T154402.log\n-rw-r-----    1 _mysql  _mysql    876206 Apr 24 14:00 audit.20190424T190008.log\n-rw-r-----    1 _mysql  _mysql     30208 Apr 24 14:10 audit.20190424T191044.log.enc\n\nIf the owner and group are not \"mysql\" or \"_mysql\", this is a finding.\n\nIf the directory or file permissions are more permissive than owner having Read/Write (RW) and group having Read (R) access to the audit files, aka \"750\", this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+
+  },
+  {
+    "vuln_id": "V-235100",
+    "stig_id": "MYS8-00-001300",
+    "severity": "CAT_II",
+    "title": "The audit information produced by the MySQL Database Server 8.0 must be protected from unauthorized modification.",
+    "rule_id": "SV-235100r960933_rule",
+    "rule_version": "MYS8-00-001300",
+    "group_id": "V-235100",
+    "group_title": "SRG-APP-000119-DB-000060",
+    "cci": [
+      "CCI-000163"
+    ],
+    "fix_text": "Apply controls and modify permissions to protect database audit log data from unauthorized access, whether stored in the database itself or at the OS level.\n\nsudo vi /etc/my.cnf\n[mysqld]\naudit-log=FORCE_PLUS_PERMANENT\naudit-log-format=JSON\naudit-log-encryption=AES\n\nAfter changing the my.cnf restart the server.\n\nIf not performed already, set the audit log password.\nSELECT audit_log_encryption_password_set(password);\n\nSet appropriate permissions on the directory and audit files.\nsudo chown mysql <audit directory path>\nsudo chgrp mysql <audit directory path>\nChange permissions \nchmod 750 <directory path>",
+    "description": "If audit data were to become compromised, then competent forensic analysis and discovery of the true source of potentially malicious system activity is impossible to achieve. \n\nTo ensure the veracity of audit data the information system and/or the application must protect audit information from unauthorized modification.  \n\nThis requirement can be achieved through multiple methods that will depend upon system architecture and design. Some commonly employed methods include ensuring log files enjoy the proper file system permissions and limiting log data locations.  \n\nApplications providing a user interface to audit data will leverage user permissions and roles identifying the user accessing the data and the corresponding rights the user enjoys to make access decisions regarding the modification of audit data.\n\nAudit information includes all information (e.g., audit records, audit settings, and audit reports) needed to successfully audit information system activity. \n\nModification of database audit data could mask the theft of, or the unauthorized modification of, sensitive data stored in the database.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review locations of audit logs, both internal to the database and database audit logs located at the operating system level.\n\nVerify there are appropriate controls and permissions to protect the audit information from unauthorized access.\n\nRun this script in the database to find the path and file name:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'audit_log_file';\n\nIf there is no path for audit_log_file then the audit files are located in the datadir. Run the this script to find the data directory:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'datadir';\n\nFrom the OS command line, run: \nls -l <directory where audit log files are located>\nls -l <directory where audit log files are located> | grep -i <audit_file_name>\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nls -l  /usr/local/mysql/data/audit\n\nSee below for an example:\nNote: .enc file extension means the files are encrypted.\n\nls -l  <directory where audit log files are located>/ | grep -i audit\n-rw-r-----    1 _mysql  _mysql  10083871 Apr 16 15:38 audit.20190416T203832.log\n-rw-r-----    1 _mysql  _mysql    398709 Apr 18 10:34 audit.20190418T153446.log\n-rw-r-----    1 _mysql  _mysql     15237 Apr 18 10:44 audit.20190418T154402.log\n-rw-r-----    1 _mysql  _mysql    876206 Apr 24 14:00 audit.20190424T190008.log\n-rw-r-----    1 _mysql  _mysql     30208 Apr 24 14:10 audit.20190424T191044.log.enc\n\nIf the owner and group are not \"mysql\" or\" _mysql\", this is a finding.\n\nIf the directory or file permissions are more permissive than owner having Read/Write (RW) and group having Read (R) access to the audit files, aka \"750\", this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+
+  },
+  {
+    "vuln_id": "V-235101",
+    "stig_id": "MYS8-00-001400",
+    "severity": "CAT_II",
+    "title": "The audit information produced by the MySQL Database Server 8.0 must be protected from unauthorized deletion.",
+    "rule_id": "SV-235101r960936_rule",
+    "rule_version": "MYS8-00-001400",
+    "group_id": "V-235101",
+    "group_title": "SRG-APP-000120-DB-000061",
+    "cci": [
+      "CCI-000164"
+    ],
+    "fix_text": "Apply controls and modify permissions to protect database audit log data from unauthorized access, whether stored in the database itself or at the OS level.\n\nsudo vi /etc/my.cnf\n[mysqld]\naudit-log=FORCE_PLUS_PERMANENT\naudit-log-format=JSON\naudit-log-encryption=AES\n\nAfter changing the my.cnf, restart the server.\n\nIf not performed already, set the audit log password.\nSELECT audit_log_encryption_password_set(password);\n\nSet appropriate permissions on the directory and audit files.\nsudo chown mysql <audit directory path>\nsudo chgrp mysql <audit directory path>\nChange permissions \nchmod 750 <directory path>",
+    "description": "If audit data were to become compromised, then competent forensic analysis and discovery of the true source of potentially malicious system activity is impossible to achieve. \n\nTo ensure the veracity of audit data, the information system and/or the application must protect audit information from unauthorized deletion. This requirement can be achieved through multiple methods, which will depend upon system architecture and design.  \n\nSome commonly employed methods include ensuring log files enjoy the proper file system permissions utilizing file system protections; restricting access; and backing up log data to ensure log data is retained.  \n\nApplications providing a user interface to audit data will leverage user permissions and roles identifying the user accessing the data and the corresponding rights the user enjoys in order make access decisions regarding the deletion of audit data.\n\nAudit information includes all information (e.g., audit records, audit settings, and audit reports) needed to successfully audit information system activity. \n\nDeletion of database audit data could mask the theft of, or the unauthorized modification of, sensitive data stored in the database.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review locations of audit logs, both internal to the database and database audit logs located at the operating system level.\n\nVerify there are appropriate controls and permissions to protect the audit information from unauthorized access.\n\nRun this script in the database to find the path and file name:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'audit_log_file';\n\nIf there is no path for audit_log_file then the audit files are located in the datadir. Run the this script to find the data directory:\nSELECT VARIABLE_NAME, VARIABLE_VALUE\nFROM performance_schema.global_variables\nWHERE VARIABLE_NAME LIKE 'datadir';\n\nFrom the OS command line, run: \nls -l <directory where audit log files are located>\nls -l <directory where audit log files are located> | grep -i <audit_file_name>\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nls -l  /usr/local/mysql/data/\n\nSee below for an example:\nNote: .enc file extension means the files are encrypted.\n\nls -l  <directory where audit log files are located>/ | grep -i audit\n-rw-r-----    1 _mysql  _mysql  10083871 Apr 16 15:38 audit.20190416T203832.log\n-rw-r-----    1 _mysql  _mysql    398709 Apr 18 10:34 audit.20190418T153446.log\n-rw-r-----    1 _mysql  _mysql     15237 Apr 18 10:44 audit.20190418T154402.log\n-rw-r-----    1 _mysql  _mysql    876206 Apr 24 14:00 audit.20190424T190008.log\n-rw-r-----    1 _mysql  _mysql     30208 Apr 24 14:10 audit.20190424T191044.log.enc\n\nIf the owner and group are not \"mysql\" or \"_mysql\", this is a finding.\n\nIf the directory or file permissions are more permissive than owner having Read/Write (RW) and group having Read (R) access to the audit files, aka \"750\", this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+
+  },
+  {
+    "vuln_id": "V-235102",
+    "stig_id": "MYS8-00-001500",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must protect against a user falsely repudiating having performed organization-defined actions.",
+    "rule_id": "SV-235102r960864_rule",
+    "rule_version": "MYS8-00-001500",
+    "group_id": "V-235102",
+    "group_title": "SRG-APP-000080-DB-000063",
+    "cci": [
+      "CCI-000166"
+    ],
+    "fix_text": "Remove user-accessible shared accounts and use individual user IDs.\n\nBuild/configure applications to ensure successful individual authentication prior to shared account access.\n\nEnsure each user's identity is received and used in audit data in all relevant circumstances.\n\nDesign, develop, and implement a method to log use of any account to which more than one person has access. Restrict interactive access to shared accounts to the fewest persons possible.",
+    "description": "Non-repudiation of actions taken is required to maintain data integrity. Examples of particular actions taken by individuals include creating information, sending a message, approving information (e.g., indicating concurrence or signing a contract), and receiving a message. \n\nNon-repudiation protects against later claims by a user of not having created, modified, or deleted a particular data item or collection of data in the database.\n\nIn designing a database, the organization must define the types of data and the user actions that must be protected from repudiation. The implementation must then include building audit features into the application data tables, and configuring DBMS audit tools to capture the necessary audit trail. Design and implementation also must ensure that applications pass individual user identification to the DBMS, even where the application connects to the DBMS with a standard, group account.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Obtain the list of authorized MySQL Server accounts in the system documentation.  \n\nDetermine if any accounts are shared. A shared account is defined as a username, hostname, and password that are used by multiple individuals to log in to SQL Server. An example of a shared account is the MySQL Server root account \u2013 root@localhost.\n\nIf accounts are determined to be shared, determine if individuals are first individually authenticated.  \n\nIf individuals are not individually authenticated before using the shared account (e.g., by the operating system or possibly by an application making calls to the database), this is a finding.  \n\nThe key is individual accountability. If this can be traced, this is not a finding.\n\nIf accounts are determined to be shared, determine if they are directly accessible to end users. If so, this is a finding.\n\nReview contents of audit logs, traces, and data tables to confirm the identity of the individual user performing the action is captured.\n\nIf shared identifiers are found, and not accompanied by individual identifiers, this is a finding.\n\nNote: Privileged installation accounts like root@localhost may be required to be accessed by the DBA or other administrators for system maintenance. In these cases, each use of the account must be logged in some manner to assign accountability for any actions taken during the use of the account.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235110",
+    "stig_id": "MYS8-00-002300",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when unsuccessful attempts to access categories of information (e.g., classification levels/security levels) occur.",
+    "rule_id": "SV-235110r961797_rule",
+    "rule_version": "MYS8-00-002300",
+    "group_id": "V-235110",
+    "group_title": "SRG-APP-000494-DB-000345",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "If currently required, configure the MySQL Database Server with views that use selects that call audit_api_message_emit_udf() function to produce audit records when selection of categories of information occurs.\nAdd security level details in an additional column if necessary.\n\nAdd the component for adding information to the audit log.\n\nINSTALL COMPONENT \"file://component_audit_api_message_emit\u201d;\n\nTo transparently enforce the use of MySQL view is required.\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Changes in categories of information must be tracked. Without an audit trail, unauthorized access to protected data could go undetected.\n\nTo aid in diagnosis, it is necessary to keep track of failed attempts in addition to the successful ones.\n\nFor detailed information on categorizing information, refer to FIPS Publication 199, Standards for Security Categorization of Federal Information and Information Systems, and FIPS Publication 200, Minimum Security Requirements for Federal Information and Information Systems.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "If classification levels/security levels labeling is not required, this is not a finding.\n\nReview the system documentation to determine if MySQL Server is required to audit records when unsuccessful attempts to access categories of information (e.g., classification levels/security levels) occur.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin should be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nModify MySQL selects that check for changes to categories of information. Modify selects statements to audit when information categories are access using MySQL Audit by calling the audit_api_message_emit_udf() function and including the details related to the select. \n\n- An Example test -\n\nCREATE TABLE `test_trigger`.`info_cat_test` (\n  `id` INT NOT NULL,\n  `name` VARCHAR(20) NULL,\n  `desc` VARCHAR(20) NULL,\n  `sec_level` CHAR(1) NULL,\n  PRIMARY KEY (`id`));\n\nDELIMITER $$\n\n\nINSERT INTO `test_trigger`.`info_cat_test` (`id`, `name`, `desc`, `sec_level`) VALUES ('1', 'fred', 'engineer', 'H');\nINSERT INTO `test_trigger`.`info_cat_test` (`id`, `name`, `desc`, `sec_level`) VALUES ('2', 'jill', 'program manager', 'M');\nINSERT INTO `test_trigger`.`info_cat_test` (`id`, `name`, `desc`, `sec_level`) VALUES ('3', 'joe', 'maintenance', 'L');\n\nCreate a view using the where clause similar to that shown in the select. If inappropriate access is attempted, in this case H level, the select statement will write to the Audit log using the emit function.\n\nSELECT `info_cat_test`.`id`,\n    `info_cat_test`.`name`,\n    `info_cat_test`.`desc`,\n    `info_cat_test`.`sec_level`\nFROM `test_trigger`.`info_cat_test` where IF(`info_cat_test`.`sec_level`= 'H', \n    CAST(audit_api_message_emit_udf('sec_level_H_ATTEMPTED_selected',\n                                         'audit_select_attempt',\n                                         ' H level sec data was accessed',\n                                         'FOR ', name\n                                         ) as CHAR), \n    'Not Audited') <> 'OK\u2019;\nThe above test will write an audit event related to the selection of H sec_level data.\n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log | egrep sec_level_H_ATTEMPTED_selected\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nsudo cat  /usr/local/mysql/data/audit.log |egrep sec_level_H_ATTEMPTED_selected\n\nIf the audit event similar to the example below is not present, this is a finding. \n\nThe audit data will look similar to the example below:\nNot Audited') <> 'OK'\\nLIMIT 0, 1000\", \"sql_command\": \"select\" } },\n{ \"timestamp\": \"2020-08-21 14:04:53\", \"id\": 2, \"class\": \"message\", \"event\": \"user\", \"connection_id\": 9, \"account\": { \"user\": \"root\", \"host\": \"localhost\" }, \"login\": { \"user\": \"root\", \"os\": \"\", \"ip\": \"::1\", \"proxy\": \"\" }, \"message_data\": { \"component\": \"sec_level_H_ATTEMPTED_selected\", \"producer\": \"audit_select_attempt\", \"message\": \" H level sec data was accessed\", \"map\": { \"FOR \": \"fred\" } } },",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235111",
+    "stig_id": "MYS8-00-002400",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when privileges/permissions are added.",
+    "rule_id": "SV-235111r961800_rule",
+    "rule_version": "MYS8-00-002400",
+    "group_id": "V-235111",
+    "group_title": "SRG-APP-000495-DB-000326",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when privileges/permissions are added.\n\nAdd the following events to the MySQL Server Audit being used for the STIG compliance audit: \ngrant\ngrant_roles\nrevoke\nrevoke_all\nrevoke_roles\ndrop_role\nalter_user_default_role\ncreate_role\ndrop_role\ngrant_roles\nrevoke_roles\nset_role\ncreate_user\nalter_user\ndrop_user\nalter_user\nalter_user_default_role\ncreate_user\ndrop_user\nrename_user\nshow_create_user\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Changes in the permissions, privileges, and roles granted to users and roles must be tracked. Without an audit trail, unauthorized elevation or restriction of individuals and groups privileges could go undetected. Elevated privileges give users access to information and functionality that they must not have; restricted privileges wrongly deny access to authorized users.\n\nIn a SQL environment, adding permissions is typically done via the GRANT command, or, in the negative, the DENY command.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Check that MySQL Server Audit is being used for the STIG compliant audit.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin should be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nDetermine if rules are in place to capture the following types of commands related to permissions by running the command:\nselect * from mysql.audit_log_filter;\n\nIf the template SQL filter was used, it will have the name log_stig.\n\nReview the filter value. It will show filters for events of the  type field general_sql_command.str for the following SQL statement types:\ngrant\ngrant_roles\nrevoke\nrevoke_all\nrevoke_roles\ndrop_role\nalter_user_default_role\ncreate_role\ndrop_role\ngrant_roles\nrevoke_roles\nset_role\ncreate_user\nalter_user\ndrop_user\nalter_user\nalter_user_default_role\ncreate_user\ndrop_user\nrename_user\nshow_create_user",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235112",
+    "stig_id": "MYS8-00-002500",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when unsuccessful attempts to add privileges/permissions occur.",
+    "rule_id": "SV-235112r961800_rule",
+    "rule_version": "MYS8-00-002500",
+    "group_id": "V-235112",
+    "group_title": "SRG-APP-000495-DB-000327",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when privileges/permissions are added.\n\nAdd the following events to the MySQL Server Audit that is being used for the STIG compliance audit: \ngrant\ngrant_roles\nrevoke\nrevoke_all\nrevoke_roles\ndrop_role\nalter_user_default_role\ncreate_role\ndrop_role\ngrant_roles\nrevoke_roles\nset_role\ncreate_user\nalter_user\ndrop_user\nalter_user\nalter_user_default_role\ncreate_user\ndrop_user\nrename_user\nshow_create_user\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Failed attempts to change the permissions, privileges, and roles granted to users and roles must be tracked. Without an audit trail, unauthorized attempts to elevate or restrict individuals and groups privileges could go undetected.\n\nIn a SQL environment, adding permissions is typically done via the GRANT command, or, in the negative, the DENY command.\n\nTo aid in diagnosis, it is necessary to keep track of failed attempts in addition to the successful ones.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Check that MySQL Server Audit is being used for the STIG compliant audit.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nDetermine if rules are in place to capture the following types of commands related to permissions by running the command:\nselect * from mysql.audit_log_filter;\n\nIf the template SQL filter was used, it will have the name log_stig.\n\nReview the filter values. It will show filters for events of the type of field general_sql_command.str for the following SQL statement types:\ngrant\ngrant_roles\nrevoke\nrevoke_all\nrevoke_roles\ndrop_role\nalter_user_default_role\ncreate_role\ndrop_role\ngrant_roles\nrevoke_roles\nset_role\ncreate_user\nalter_user\ndrop_user\nalter_user\nalter_user_default_role\ncreate_user\ndrop_user\nrename_user\nshow_create_user",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235120",
+    "stig_id": "MYS8-00-003300",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when unsuccessful attempts to delete privileges/permissions occur.",
+    "rule_id": "SV-235120r961812_rule",
+    "rule_version": "MYS8-00-003300",
+    "group_id": "V-235120",
+    "group_title": "SRG-APP-000499-DB-000331",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when unsuccessful attempts to delete privileges/permissions occur.\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Failed attempts to change the permissions, privileges, and roles granted to users and roles must be tracked. Without an audit trail, unauthorized attempts to elevate or restrict individuals and groups privileges could go undetected.   \n\nIn a SQL environment, deleting permissions is typically done via the REVOKE or DENY command. \n\nTo aid in diagnosis, it is necessary to keep track of failed attempts in addition to the successful ones.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to audit when unsuccessful attempts to delete privileges/permissions occur.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters in place are generating records when unsuccessful attempts to delete privileges/permissions occur, run the following, which will test auditing without destroying data but as a user without administrative privileges so that it fails:\ndelete from mysql.procs_priv where 1=2; \n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log|egrep procs_priv\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nsudo cat  /usr/local/mysql/data/audit.log |egrep procs_priv\n\nThe audit data will look similar to the  example below and contain a non-zero status value:\n{ \"timestamp\": \"2020-08-19 21:24:26\", \"id\": 2, \"class\": \"general\", \"event\": \"status\", \"connection_id\": 9, \"account\": { \"user\": \"root\", \"host\": \"localhost\" }, \"login\": { \"user\": \"root\", \"os\": \"\", \"ip\": \"::1\", \"proxy\": \"\" }, \"general_data\": { \"command\": \"Query\", \"sql_command\": \"delete\", \"query\": \"delete from procs_priv\", \"status\": 1142 } }\n\nIf the audit event is not present, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235121",
+    "stig_id": "MYS8-00-003400",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when security objects are deleted.",
+    "rule_id": "SV-235121r961818_rule",
+    "rule_version": "MYS8-00-003400",
+    "group_id": "V-235121",
+    "group_title": "SRG-APP-000501-DB-000336",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when security objects are deleted.\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "The removal of security objects from the database/Database Management System (DBMS) would seriously degrade a system's information assurance posture. If such an event occurs, it must be logged.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to audit when security objects are deleted.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters in place are generating records when security objects are deleted, run the following, which will test auditing. Note: This is destructive. Back up the database table prior to testing so it can be restored.\ndrop mysql.procs_priv; \n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log|egrep DROP\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log\nsudo cat  /usr/local/mysql/data/audit.log |egrep DROP\n\nThe audit data will look similar to the example below: \n{ \"timestamp\": \"2020-08-21 17:06:02\", \"id\": 1, \"class\": \"general\", \"event\": \"status\", \"connection_id\": 9, \"account\": { \"user\": \"root\", \"host\": \"localhost\" }, \"login\": { \"user\": \"root\", \"os\": \"\", \"ip\": \"::1\", \"proxy\": \"\" }, \"general_data\": { \"command\": \"Query\", \"sql_command\": \"drop_table\", \"query\": \"DROP TABLE `mysql`.`proxies_priv`\", \"status\": 0 } },\n\nIf the audit event is not present, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235130",
+    "stig_id": "MYS8-00-004300",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when concurrent logons/connections by the same user from different workstations.",
+    "rule_id": "SV-235130r961833_rule",
+    "rule_version": "MYS8-00-004300",
+    "group_id": "V-235130",
+    "group_title": "SRG-APP-000506-DB-000353",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "If currently required, configure the MySQL Database Server to produce audit records when connections occur.\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "For completeness of forensic analysis, it is necessary to track who logs on to the Database Management System (DBMS).\n\nConcurrent connections by the same user from multiple workstations may be valid use of the system; or such connections may be due to improper circumvention of the requirement to use the CAC for authentication; or they may indicate unauthorized account sharing; or they may be because an account has been compromised.\n\n(If the fact of multiple, concurrent logons by a given user can be reliably reconstructed from the log entries for other events (logons/connections; voluntary and involuntary disconnections), then it is not mandatory to create additional log entries specifically for this).",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to audit the concurrent logons/connections by the same user from different workstations.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters that are in place are generating records when multiple connections occur:\n\nRun multiple connections from the same user without logging out and from different IP addresses.\n\nReview the audit log:\nsudo cat  <directory where audit log files are located>/audit.log | egrep <username>\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log and the user is fewconnects then\nsudo cat  /usr/local/mysql/data/audit.log |egrep fewconnects\n\n { \"connection_type\": \"ssl\", \"status\": 0, \"db\": \"\", \"connection_attributes\": { \"_pid\": \"9132\", \"_os\": \"macos10.14\", \"_platform\": \"x86_64\", \"_client_version\": \"8.0.20\", \"_client_name\": \"libmysql\", \"program_name\": \"mysqlsh\" } } },\n{ \"timestamp\": \"2020-08-31 18:03:41\", \"id\": 0, \"class\": \"connection\", \"event\": \"connect\", \"connection_id\": 28, \"account\": { \"user\": \"fewconnects\", \"host\": \"localhost\" }, \"login\": { \"user\": \"fewconnects\", \"os\": \"\", \"ip\": \"\", \"proxy\": \"\" }, \"connection_data\": { \"connection_type\": \"ssl\", \"status\": 0, \"db\": \"\", \"connection_attributes\": { \"_pid\": \"9132\", \"_os\": \"macos10.14\", \"_platform\": \"x86_64\", \"_client_version\": \"8.0.20\", \"_client_name\": \"libmysql\", \"program_name\": \"mysqlsh\" } } }\n{ \"timestamp\": \"2020-08-31 18:11:05\", \"id\": 12, \"class\": \"connection\", \"event\": \"connect\", \"connection_id\": 38, \"account\": { \"user\": \"fewconnects\", \"host\": \"localhost\" }, \"login\": { \"user\": \"fewconnects\", \"os\": \"\", \"ip\": \"93.122.141.147\", \"proxy\": \"\" }, \"connection_data\": { \"connection_type\": \"ssl\", \"status\": 0, \"db\": \"\", \"connection_attributes\": { \"_pid\": \"903\", \"_os\": \"macos10.15\", \"_platform\": \"x86_64\", \"_client_version\": \"8.0.20\", \"_client_name\": \"libmysql\", \"program_name\": \"MySQLWorkbench\" } } },\nNote that each connection has a different connection_id - indicating distinctly auditing multiple connections. Here there are connections from mysqlsh and MySQLWorkbench; the event type is \"event\": \u201cconnect\u201d and the \"user\": \"fewconnects\", \"os\": \"\", \"ip\": \u201c127.0.0.1\u201d and \"login\": { \"user\": \"fewconnects\", \"os\": \"\", \"ip\": \u201c93.122.141.147\u201d - that is with different IPs from the different workstations.\n\nIf the audit events are not present, this is a finding.\n\nIf currently required, configure the MySQL Database Server to produce audit records when connections occur.\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235131",
+    "stig_id": "MYS8-00-004400",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must be able to generate audit records when successful accesses to objects occur.",
+    "rule_id": "SV-235131r961836_rule",
+    "rule_version": "MYS8-00-004400",
+    "group_id": "V-235131",
+    "group_title": "SRG-APP-000507-DB-000356",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when successful accesses to objects occur. \n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Without tracking all or selected types of access to all or selected objects (tables, views, procedures, functions, etc.), it would be difficult to establish, correlate, and investigate the events relating to an incident, or identify those responsible for one. \n\nIn an SQL environment, types of access include, but are not necessarily limited to:\nSELECT\nINSERT\nUPDATE\nDELETE\nEXECUTE",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to generate audit records when successful accesses to objects occur.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters in place are generating records to audit when certain objects are accessed:\n\nRun a query and other access types on that object.\nselect * from <schemaname>/<tablename>;\n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log|egrep <tablename>\nFor example if the values returned by \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log \nsudo cat  /usr/local/mysql/data/audit.log |egrep <tablename>\n\nIf the audit event is not present, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235132",
+    "stig_id": "MYS8-00-004500",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records when unsuccessful accesses to objects occur.",
+    "rule_id": "SV-235132r961836_rule",
+    "rule_version": "MYS8-00-004500",
+    "group_id": "V-235132",
+    "group_title": "SRG-APP-000507-DB-000357",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "Configure the MySQL Database Server to audit when unsuccessful accesses to objects occur. \n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "Without tracking all or selected types of access to all or selected objects (tables, views, procedures, functions, etc.), it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one. \n\nIn a SQL environment, types of access include, but are not necessarily limited to:\nSELECT\nINSERT\nUPDATE\nDELETE\nEXECUTE\n\nTo aid in diagnosis, it is necessary to keep track of failed attempts in addition to the successful ones.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to generate audit records when unsuccessful accesses to objects occur.\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters in place are generating records to audit when certain objects access is unsuccessful:\n\nConnect a user without access to an object.\n\nRun a failed query or other failed access types on that object.\nselect * from <schemaname>/<tablename>;\n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log|egrep <tablename>\nFor example if the values returned by \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log \nsudo cat  /usr/local/mysql/data/audit.log |egrep <tablename>\n\nThe record will show the failed attempt which is note by a non-zero status value.\n\nIf the audit event is not present, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235133",
+    "stig_id": "MYS8-00-004600",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0 must generate audit records for all direct access to the database(s).",
+    "rule_id": "SV-235133r961839_rule",
+    "rule_version": "MYS8-00-004600",
+    "group_id": "V-235133",
+    "group_title": "SRG-APP-000508-DB-000358",
+    "cci": [
+      "CCI-000172"
+    ],
+    "fix_text": "If currently required, configure the MySQL Database Server to produce audit records for all direct access to the database(s).\n\nSee the supplemental file \"MySQL80Audit.sql\".",
+    "description": "In this context, direct access is any query, command, or call to the Database Management System (DBMS) that comes from any source other than the application(s) that it supports. Examples would be the command line or a database management utility program. The intent is to capture all activity from administrative and non-standard sources.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "Review the system documentation to determine if MySQL Server is required to generate audit records for all direct access to the database(s).\n\nCheck if MySQL audit is configured and enabled. The my.cnf file will set the variable audit_file.\n\nTo further check, execute the following query: \nSELECT PLUGIN_NAME, PLUGIN_STATUS\n      FROM INFORMATION_SCHEMA.PLUGINS\n      WHERE PLUGIN_NAME LIKE 'audit%';\n\nThe status of the audit_log plugin must be \"active\". If it is not \"active\", this is a finding.\n\nReview audit filters and associated users by running the following queries:\nSELECT `audit_log_filter`.`NAME`,\n   `audit_log_filter`.`FILTER`\nFROM `mysql`.`audit_log_filter`;\n\nSELECT `audit_log_user`.`USER`,\n   `audit_log_user`.`HOST`,\n   `audit_log_user`.`FILTERNAME`\nFROM `mysql`.`audit_log_user`;\n\nAll currently defined audits for the MySQL server instance will be listed. If no audits are returned, this is a finding.\n\nTo check if the audit filters in place are generating records to audit all direct access to the database(s):\n\nRun any access to the database.\n\nReview the audit log by running the Linux command:\nsudo cat  <directory where audit log files are located>/audit.log\nFor example if the values returned by - \"select @@datadir, @@audit_log_file; \" are  /usr/local/mysql/data/,  audit.log \nsudo cat  /usr/local/mysql/data/audit.log\n\nIf the audit events are not present, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  },
+  {
+    "vuln_id": "V-235134",
+    "stig_id": "MYS8-00-004700",
+    "severity": "CAT_II",
+    "title": "The MySQL Database Server 8.0, when utilizing PKI-based authentication, must validate certificates by performing RFC 5280-compliant certification path validation.",
+    "rule_id": "SV-235134r961038_rule",
+    "rule_version": "MYS8-00-004700",
+    "group_id": "V-235134",
+    "group_title": "SRG-APP-000175-DB-000067",
+    "cci": [
+      "CCI-000185"
+    ],
+    "fix_text": "Configure the DBMS to validate certificates by constructing a certification path with status information to an accepted trust anchor.\n\nConfigure the database server to support Transport Layer Security (TLS) protocols.\nmysql> set persist require_secure_transport=ON;\n\nSet system variables on the server side specify DoD approved certificate and key files the server uses when permitting clients to establish encrypted connections:\n\nssl_ca: The path name of the Certificate Authority (CA) certificate file. (ssl_capath is similar but specifies the path name of a directory of CA certificate files.)\n\nssl_cert: The path name of the server public key certificate file. This certificate can be sent to the client and authenticated against the CA certificate that it has.\n\nssl_key: The path name of the server private key file.\n\nFor example, to enable the server for encrypted connections with certificates, start it with these lines in the my.cnf file, changing the file names as necessary:\n\n[mysqld]\nssl_ca=ca.pem\nssl_cert=server-cert.pem\nssl_key=server-key.pem\nAlter users to require X509 certificates\n\nBelow is an example to add X509 as a requirement.\n\nFor a new user\nCREATE USER 'jeffrey'@'localhost' REQUIRE X509;\nAND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';\n\nOr to add to an existing user\nALTER USER 'johansmith'@'%'\nREQUIRE X509\n  AND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';",
+    "description": "The DoD standard for authentication is DoD-approved PKI certificates.\n\nA certificate\u2019s certification path is the path from the end entity certificate to a trusted root certification authority (CA). Certification path validation is necessary for a relying party to make an informed decision regarding acceptance of an end entity certificate. Certification path validation includes checks such as certificate issuer trust, time validity, and revocation status for each certificate in the certification path. Revocation status information for CA and subject certificates in a certification path is commonly provided via certificate revocation lists (CRLs) or online certificate status protocol (OCSP) responses.\n\nDatabase Management Systems that do not validate certificates by performing RFC 5280-compliant certification path validation are in danger of accepting certificates that are invalid and/or counterfeit. This could allow unauthorized access to the database.",
+    "false_positives": "",
+    "false_negatives": "",
+    "documentable": "false",
+    "mitigations": "",
+    "potential_impacts": "",
+    "third_party_tools": "",
+    "mitigation_control": "",
+    "responsibility": "",
+    "security_override_guidance": "",
+    "check_content": "The database supports PKI-based authentication by using digital certificates over TLS in addition to the native encryption and data integrity capabilities of these protocols.\n\nReview MySQL Database Server 8.0 configuration to verify DBMS user account certificates are valid by performing RFC 5280-compliant certification path validation.\n\nRun the following command to determine the certificate in use along with other details:\nselect @@ssl_ca, @@ssl_capath, @@ssl_cert, @@ssl_cipher, @@ssl_crl, @@ssl_crlpath, @@ssl_fips_mode, @@ssl_key;\n\nIf ssl_crl is not set to a CRL file, this is a finding. \n\nIf ssl_crlpath is empty then use the default, which is the datadir path. To get that path run select @@datadir.\n\nNext verify the existence of the CRL file.\n\nIf the CRL file does not exist, this is a finding.  \n\nNext, verify that require_secure_transport is ON by running:\nselect @@require_secure_transport;\n\nIf require_secure_transport is not 1 for ON, this is a finding.\n\nIf the certificate is not a DoD approved certificate, or if no certificate is listed, this is a finding.\n\nConfirm Issuer and Subject map to the username. Run the following script:\nSELECT `user`.`Host`,\n    `user`.`User`,\n    `user`.`ssl_type`,\n    CAST(`user`.`x509_issuer` as CHAR) as Issuer,\n    CAST(`user`.`x509_subject` as CHAR) as Subject\nFROM `mysql`.`user`;\n\nIf user accounts are not being mapped to authenticated identities, this is a finding.",
+    "check_content_ref": {
+      "href": "Oracle_MySQL_8.0_STIG.xml",
+      "name": "M"
+    }
+  }
+]

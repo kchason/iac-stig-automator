@@ -1,0 +1,12 @@
+{
+  "source_url": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Oracle_MySQL_8-0_V2R2_STIG.zip",
+  "source_archive": "U_Oracle_MySQL_8-0_V2R2_STIG.zip",
+  "source_sha256": "889d39132f3261db2d21309eb9739cafbda9e71db08698bc7fcdeb49f876a575",
+  "imported_control_count": 17,
+  "official_control_count": 100,
+  "benchmark_id": "Oracle_MySQL_8.0_STIG",
+  "benchmark_title": "Oracle MySQL 8.0 Security Technical Implementation Guide",
+  "version": "2",
+  "release_info": "Release: 2 Benchmark Date: 24 Oct 2024",
+  "xccdf_file": "U_Oracle_MySQL_8-0_STIG_V2R2_Manual-xccdf.xml"
+}

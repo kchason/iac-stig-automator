@@ -1,0 +1,105 @@
+{
+  "rbac_enabled_azure": {
+    "url": "https://learn.microsoft.com/en-us/azure/aks/manage-azure-rbac",
+    "quote": "Entra ID authorization for the Kubernetes API uses Azure RBAC role assignments to grant access to Kubernetes resources.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
+    ],
+    "terraform_properties": [
+      "azurerm_kubernetes_cluster.role_based_access_control_enabled = true",
+      "azurerm_kubernetes_cluster.azure_active_directory_role_based_access_control.azure_rbac_enabled = true"
+    ]
+  },
+  "rbac_enabled_kubernetes": {
+    "url": "https://learn.microsoft.com/en-us/azure/aks/manage-azure-rbac",
+    "quote": "When you use integrated authentication between Microsoft Entra ID and AKS, you can use Microsoft Entra users, groups, or service principals as subjects in Kubernetes role-based access control (Kubernetes RBAC).",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
+    ],
+    "terraform_properties": [
+      "azurerm_kubernetes_cluster.role_based_access_control_enabled = true"
+    ]
+  },
+  "auto_upgrade": {
+    "url": "https://learn.microsoft.com/en-us/azure/aks/auto-upgrade-cluster",
+    "quote": "By enabling autoupgrade, you can ensure your clusters are up to date and don't miss the latest features or patches from AKS and upstream Kubernetes.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
+    ],
+    "terraform_properties": [
+      "azurerm_kubernetes_cluster.automatic_channel_upgrade = a non-none channel"
+    ]
+  },
+  "key_vault_secrets_provider": {
+    "url": "https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver",
+    "quote": "The Azure Key Vault provider for Secrets Store Container Storage Interface (CSI) Driver allows for the integration of an Azure Key Vault as a secret store with an Azure Kubernetes Service (AKS) cluster via a CSI volume.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
+    ],
+    "terraform_properties": [
+      "azurerm_kubernetes_cluster.key_vault_secrets_provider block configured"
+    ]
+  },
+  "azure_policy_addon": {
+    "url": "https://learn.microsoft.com/en-us/azure/aks/use-azure-policy",
+    "quote": "You can apply and enforce built-in security policies on your Azure Kubernetes Service (AKS) clusters using Azure Policy.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
+    ],
+    "terraform_properties": [
+      "azurerm_kubernetes_cluster.azure_policy_enabled = true"
+    ]
+  },
+  "managed_default": {
+    "summary": "AKS managed-service baseline evidence applied for {vuln_id} ({title}).",
+    "quotes": [
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/support-policies",
+        "quote": "With AKS, you get a fully managed control plane. The control plane contains all of the components and services you need to operate and deliver Kubernetes clusters to end users. Microsoft maintains and operates all Kubernetes components."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/support-policies",
+        "quote": "Customers can't alter these managed components."
+      }
+    ]
+  },
+  "managed_hardened_node": {
+    "summary": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+    "quotes": [
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/support-policies",
+        "quote": "You can't change the base OS image or make any direct customizations to these nodes using the IaaS APIs or resources."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/cis-kubernetes",
+        "quote": "The security hardened OS is built and maintained specifically for AKS and is not supported outside of the AKS platform."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/cis-kubernetes",
+        "quote": "To further reduce the attack surface area, some unnecessary kernel module drivers are disabled in the OS."
+      }
+    ]
+  },
+  "inherited": {
+    "summary": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+    "quotes": [
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/cis-kubernetes",
+        "quote": "N/A: The recommendation relates to manifest file permission requirements that aren't relevant to AKS. Kubernetes clusters by default use a manifest model to deploy the control plane pods, which rely on files from the node VM. The CIS Kubernetes benchmark recommends these files must have certain permission requirements. AKS clusters use a Helm chart to deploy control plane pods and don't rely on files in the node VM."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/cis-kubernetes",
+        "quote": "N/A because AKS is a managed solution."
+      }
+    ]
+  },
+  "manual_scope": {
+    "summary": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+    "quotes": [
+      {
+        "url": "https://learn.microsoft.com/en-us/azure/aks/cis-kubernetes",
+        "quote": "Manual: Represents recommendations for which assessment of a technical control can't be fully automated and requires all or some manual steps to validate that the configured state is set as expected."
+      }
+    ]
+  }
+}

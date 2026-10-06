@@ -1,0 +1,138 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.7.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "azurerm_kubernetes_cluster.compliant_cluster",
+          "type": "azurerm_kubernetes_cluster",
+          "name": "compliant_cluster",
+          "values": {
+            "name": "compliant-aks",
+            "location": "eastus",
+            "resource_group_name": "rg-aks-prod",
+            "dns_prefix": "compliantaks",
+            "kubernetes_version": "1.29.2",
+            "role_based_access_control_enabled": true,
+            "local_account_disabled": true,
+            "azure_policy_enabled": true,
+            "private_cluster_enabled": true,
+            "http_application_routing_enabled": false,
+            "oidc_issuer_enabled": true,
+            "workload_identity_enabled": true,
+            "automatic_channel_upgrade": "stable",
+            "node_os_channel_upgrade": "NodeImage",
+            "disk_encryption_set_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.Compute/diskEncryptionSets/myDES",
+            "azure_active_directory_role_based_access_control": [
+              {
+                "managed": true,
+                "azure_rbac_enabled": true,
+                "admin_group_object_ids": [
+                  "00000000-0000-0000-0000-000000000001"
+                ],
+                "tenant_id": "00000000-0000-0000-0000-000000000002"
+              }
+            ],
+            "network_profile": [
+              {
+                "network_plugin": "azure",
+                "network_policy": "calico",
+                "dns_service_ip": "10.0.0.10",
+                "service_cidr": "10.0.0.0/16"
+              }
+            ],
+            "oms_agent": [
+              {
+                "log_analytics_workspace_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.OperationalInsights/workspaces/law",
+                "msi_auth_for_monitoring_enabled": true
+              }
+            ],
+            "microsoft_defender": [
+              {
+                "log_analytics_workspace_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.OperationalInsights/workspaces/law"
+              }
+            ],
+            "key_vault_secrets_provider": [
+              {
+                "secret_rotation_enabled": true,
+                "secret_rotation_interval": "2m"
+              }
+            ],
+            "identity": [
+              {
+                "type": "SystemAssigned",
+                "identity_ids": []
+              }
+            ],
+            "default_node_pool": [
+              {
+                "name": "system",
+                "vm_size": "Standard_D4s_v3",
+                "node_count": 3,
+                "os_sku": "AzureLinux",
+                "enable_host_encryption": true,
+                "enable_node_public_ip": false
+              }
+            ],
+            "image_cleaner": [
+              {
+                "enabled": true,
+                "interval_hours": 48
+              }
+            ],
+            "api_server_access_profile": [
+              {
+                "authorized_ip_ranges": [
+                  "10.0.0.0/8"
+                ],
+                "enable_private_cluster": true
+              }
+            ]
+          }
+        },
+        {
+          "address": "azurerm_kubernetes_cluster.non_compliant_cluster",
+          "type": "azurerm_kubernetes_cluster",
+          "name": "non_compliant_cluster",
+          "values": {
+            "name": "non-compliant-aks",
+            "location": "eastus",
+            "resource_group_name": "rg-aks-dev",
+            "dns_prefix": "noncompliantaks",
+            "kubernetes_version": "1.27.0",
+            "role_based_access_control_enabled": true,
+            "local_account_disabled": false,
+            "azure_policy_enabled": false,
+            "private_cluster_enabled": false,
+            "http_application_routing_enabled": true,
+            "oidc_issuer_enabled": false,
+            "workload_identity_enabled": false,
+            "default_node_pool": [
+              {
+                "name": "default",
+                "vm_size": "Standard_D2s_v2",
+                "node_count": 2,
+                "os_sku": "Ubuntu",
+                "enable_node_public_ip": true
+              }
+            ],
+            "identity": [
+              {
+                "type": "SystemAssigned",
+                "identity_ids": []
+              }
+            ],
+            "network_profile": [
+              {
+                "network_plugin": "kubenet",
+                "dns_service_ip": "10.0.0.10",
+                "service_cidr": "10.0.0.0/16"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "enterprise_auth": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-entra-configure",
+    "quote": "You can configure Microsoft Entra authentication for an Azure Database for PostgreSQL flexible server instance either during server provisioning or later.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_active_directory_administrator"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.authentication.active_directory_auth_enabled = true",
+      "azurerm_postgresql_flexible_server_active_directory_administrator configured"
+    ]
+  },
+  "authorization_policy": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-overview",
+    "quote": "You should disallow local authentication for your PostgreSQL server. Instead, use Microsoft Entra authentication only (not mixed mode) to manage access to your database.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.authentication.active_directory_auth_enabled = true",
+      "azurerm_postgresql_flexible_server.authentication.password_auth_enabled = false"
+    ]
+  },
+  "password_auth_disabled": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-overview",
+    "quote": "You should disallow local authentication for your PostgreSQL server.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.authentication.password_auth_enabled = false"
+    ]
+  },
+  "password_hashing_scram": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-overview",
+    "quote": "Local authentication should use SCRAM authentication.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"password_encryption\", value = \"scram-sha-256\""
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/auth-password.html"
+    ]
+  },
+  "password_transmission": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-connect-tls",
+    "quote": "Connections between your client applications and the database server always use encryption with the industry standard Transport Layer Security (TLS), previously known as Secure Sockets Layer (SSL).",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.require_secure_transport = true/ON",
+      "azurerm_postgresql_flexible_server.ssl_minimal_tls_version_enforced = TLS1_2 or TLS1_3",
+      "azurerm_postgresql_flexible_server_configuration.name = \"ssl_min_protocol_version\", value = TLS1_2 or TLS1_3"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/ssl-tcp.html"
+    ]
+  },
+  "at_rest_cmk": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-data-encryption",
+    "quote": "During provisioning of a new Azure Database for PostgreSQL flexible server instance, data encryption is configured in the Security tab. For Data encryption key, select the Customer-managed key radio button.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.customer_managed_key.key_vault_key_id set",
+      "azurerm_postgresql_flexible_server.identity.type set"
+    ]
+  },
+  "supported_version": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-supported-versions",
+    "quote": "Azure Database for PostgreSQL Flexible Server supports multiple major PostgreSQL versions.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.version = <Azure-supported major>"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/support/versioning/"
+    ]
+  },
+  "managed_security_updates": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-maintenance",
+    "quote": "Azure Database for PostgreSQL Flexible Server schedules periodic maintenance to keep your server secure, stable, and up to date.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.version = <Azure-supported major>"
+    ]
+  },
+  "max_connections": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-server-parameters",
+    "quote": "Some examples of database engine built-in parameters are autovacuum_max_workers, DateStyle, client_min_messages, password_encryption, max_connections.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"max_connections\", value is a positive integer"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-connection.html"
+    ]
+  },
+  "pgaudit_events": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-audit",
+    "quote": "pgaudit provides detailed session and/or object audit logging.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"azure.extensions\" or \"shared_preload_libraries\" includes pgaudit",
+      "azurerm_postgresql_flexible_server_configuration.name = \"pgaudit.log\" includes read, write, ddl, and role"
+    ],
+    "rdbms_urls": [
+      "https://github.com/pgaudit/pgaudit#settings"
+    ]
+  },
+  "session_auditing_startup": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-audit",
+    "quote": "By default, pgaudit logs statements and your regular log statements are emitted using Postgres's standard logging facility.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"azure.extensions\" or \"shared_preload_libraries\" includes pgaudit",
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_destination\", value includes stderr or syslog"
+    ],
+    "rdbms_urls": [
+      "https://github.com/pgaudit/pgaudit#settings",
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "audit_event_content": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "Logging information you can configure and access includes errors, query information, autovacuum records, connections, and checkpoints.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_connections\", value = on",
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_disconnections\", value = on",
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %m, %u, %d, and %c"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "audit_timestamps": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "The logs can be used to identify, troubleshoot, and repair configuration errors and suboptimal performance.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %m"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "audit_identity": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "Logging information you can configure and access includes errors, query information, autovacuum records, connections, and checkpoints.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %m, %u, %d, %p, %r, and %a"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "network_restrictions": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-networking",
+    "quote": "Ensure that the Azure Database for PostgreSQL flexible server instance has no public endpoint that's accessible through the internet.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.public_network_access_enabled = false",
+      "azurerm_postgresql_flexible_server.delegated_subnet_id set",
+      "azurerm_postgresql_flexible_server.private_dns_zone_id set",
+      "remove or narrow azurerm_postgresql_flexible_server_firewall_rule entries for 0.0.0.0/0"
+    ]
+  },
+  "centralized_logs": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "Diagnostic settings allow you to send PostgreSQL logs in JSON format to Azure Monitor Logs for analytics and alerting.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting"
+    ],
+    "terraform_properties": [
+      "azurerm_monitor_diagnostic_setting.target_resource_id points to the PostgreSQL flexible server",
+      "azurerm_monitor_diagnostic_setting.enabled_log/log exports PostgreSQLLogs or allLogs/audit",
+      "azurerm_monitor_diagnostic_setting.log_analytics_workspace_id, eventhub_authorization_rule_id, or storage_account_id set"
+    ]
+  },
+  "log_timezone": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-server-parameters",
+    "quote": "You can customize Azure Database for PostgreSQL flexible server configuration through server parameters.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_timezone\", value = \"UTC\""
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html#GUC-LOG-TIMEZONE"
+    ]
+  },
+  "timestamp_granularity": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "The logs can be used to identify, troubleshoot, and repair configuration errors and suboptimal performance.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %m"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "approved_ca_tls": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-connect-tls",
+    "quote": "Azure Database for PostgreSQL supports encrypted connections by using TLS 1.2 and 1.3.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server.ssl_minimal_tls_version_enforced = TLS1_2 or TLS1_3",
+      "azurerm_postgresql_flexible_server_configuration.name = \"ssl_min_protocol_version\", value = TLS1_2 or TLS1_3"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/ssl-tcp.html"
+    ]
+  },
+  "audit_event_location": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "Logging information you can configure and access includes errors, query information, autovacuum records, connections, and checkpoints.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %m, %u, %d, and %s"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "audit_event_source": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-logging",
+    "quote": "Logging information you can configure and access includes errors, query information, autovacuum records, connections, and checkpoints.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_hostname\", value = on",
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_line_prefix\", value includes %h or %r"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "audit_event_outcome": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-server-parameters",
+    "quote": "You can customize Azure Database for PostgreSQL flexible server configuration through server parameters.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"log_error_verbosity\", value = \"verbose\""
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-logging.html"
+    ]
+  },
+  "client_error_messages": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-server-parameters",
+    "quote": "Some examples of database engine built-in parameters are autovacuum_max_workers, DateStyle, client_min_messages, password_encryption, max_connections.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"client_min_messages\", value = \"error\""
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-client.html"
+    ]
+  },
+  "session_timeout": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-server-parameters",
+    "quote": "You can customize Azure Database for PostgreSQL flexible server configuration through server parameters.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration"
+    ],
+    "terraform_properties": [
+      "azurerm_postgresql_flexible_server_configuration.name = \"idle_session_timeout\", \"idle_in_transaction_session_timeout\", or \"statement_timeout\" is a positive duration"
+    ],
+    "rdbms_urls": [
+      "https://www.postgresql.org/docs/current/runtime-config-client.html"
+    ]
+  },
+  "inherited": {
+    "url": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-overview",
+    "quote": "Azure Database for PostgreSQL flexible server is a fully managed database service. The platform manages the database host, operating system, and physical files that self-managed PostgreSQL STIGs inspect on disk."
+  }
+}

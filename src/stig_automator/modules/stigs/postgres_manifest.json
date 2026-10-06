@@ -1,0 +1,12 @@
+{
+  "source_url": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R2_STIG.zip",
+  "source_archive": "U_CD_Postgres_16_V1R2_STIG.zip",
+  "source_sha256": "4a00b71a36199dbe80b510fa4b55843b22a6bbdef8c753b1309e3235adcc3f0f",
+  "imported_control_count": 111,
+  "official_control_count": 111,
+  "benchmark_id": "CD_Postgres_16_STIG",
+  "benchmark_title": "Crunchy Data Postgres 16 Security Technical Implementation Guide",
+  "version": "1",
+  "release_info": "Release: 2 Benchmark Date: 01 Apr 2026",
+  "xccdf_file": "U_CD_Postgres_16_STIG_V1R2_Manual-xccdf.xml"
+}

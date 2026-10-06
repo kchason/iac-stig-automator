@@ -1,0 +1,24 @@
+[flake8]
+max-line-length = 120
+extend-ignore =
+    E203,
+    W503,
+    # Allow missing type annotation for self/cls
+    ANN101,
+    ANN102,
+    # Use D211 (no blank line before class docstring) instead of D203
+    D203,
+    # Use D213 (multi-line summary on second line) instead of D212
+    D212,
+per-file-ignores =
+    tests/*:D100,D101,D102,D103,D104,D107,ANN001,ANN002,ANN003,ANN201,ANN202,ANN204
+    # STIG description strings in return values are intentionally long
+    src/stig_automator/modules/aks.py:E501,D103
+    src/stig_automator/modules/eks.py:E501,D103
+    src/stig_automator/modules/mysql_flexible.py:E501,D103
+    src/stig_automator/modules/postgres_flexible.py:E501,D103
+    src/stig_automator/modules/rds_mysql.py:E501,D103
+    src/stig_automator/modules/rds_postgres.py:E501,D103
+# flake8-annotations settings
+suppress-none-returning = true
+suppress-dummy-args = true

@@ -1,0 +1,74 @@
+{
+  "default": {
+    "automatic_platform_text": "{vuln_id} ({title}) depends on database runtime evidence not available in azurerm_mssql_server plan data, so it remains open pending manual review.",
+    "evidence_key": "manual_scope",
+    "cklb_status": "open",
+    "include_in_blank_cklb": false
+  },
+  "controls": {
+    "V-255301": {
+      "validation_function_name": "entra_only_auth",
+      "remediation_key": "entra_only_auth"
+    },
+    "V-255320": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-255321": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-255322": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-255334": {
+      "validation_function_name": "public_network_access",
+      "remediation_key": "public_network_access"
+    },
+    "V-255336": {
+      "validation_function_name": "entra_only_auth",
+      "remediation_key": "entra_only_auth"
+    },
+    "V-255339": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-255345": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-255346": {
+      "validation_function_name": "public_network_access",
+      "remediation_key": "public_network_access"
+    },
+    "V-255347": {
+      "validation_function_name": "azure_services_firewall",
+      "remediation_key": "azure_services_firewall"
+    },
+    "V-255348": {
+      "validation_function_name": "minimum_tls",
+      "remediation_key": "minimum_tls"
+    },
+    "V-255349": {
+      "validation_function_name": "minimum_tls",
+      "remediation_key": "minimum_tls"
+    },
+    "V-255370": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-255371": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-255372": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-255377": {
+      "validation_function_name": "audit_offload",
+      "remediation_key": "audit_offload"
+    }
+  }
+}

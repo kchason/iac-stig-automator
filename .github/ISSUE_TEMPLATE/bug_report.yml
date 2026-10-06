@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a defect in stig-check or a STIG module.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include real Terraform plans, state files, credentials, or account identifiers. Use synthetic values.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened
+      description: What stig-check did, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `stig-check --help` is not required. Paste the package version or commit.
+      placeholder: "0.3.0"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the module name and a reduced synthetic plan if the failure depends on one.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output
+      description: Relevant command output with secrets removed.
+      render: text

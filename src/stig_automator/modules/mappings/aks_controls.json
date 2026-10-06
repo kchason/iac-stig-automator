@@ -1,0 +1,316 @@
+{
+  "default": {
+    "automatic_platform_text": "AKS managed-service baseline evidence applied for {vuln_id} ({title}).",
+    "evidence_key": "managed_default",
+    "cklb_status": "not_a_finding",
+    "include_in_blank_cklb": true
+  },
+  "controls": {
+    "V-242381": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242382": {
+      "validation_function_name": "rbac_enabled",
+      "remediation_key": "rbac_enabled_azure"
+    },
+    "V-242383": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242387": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242391": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242392": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242393": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242394": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242395": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242396": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242397": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242398": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242404": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242405": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242406": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242407": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242408": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242414": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242415": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242417": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242420": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242424": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242425": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242434": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242436": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242437": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242442": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-242443": {
+      "validation_function_name": "auto_upgrade",
+      "remediation_key": "auto_upgrade"
+    },
+    "V-242444": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242445": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242446": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242447": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242448": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242449": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242450": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242451": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242452": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242453": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242454": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242455": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242456": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242457": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242459": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242460": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242466": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-242467": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-245541": {
+      "automatic_platform_text": "AKS managed node baseline evidence applied for {vuln_id} ({title}).",
+      "evidence_key": "managed_hardened_node",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-245544": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-254800": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    },
+    "V-254801": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from the AKS managed service and is treated as not a finding for PaaS evaluation.",
+      "evidence_key": "inherited",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-274883": {
+      "validation_function_name": "key_vault_secrets_provider",
+      "remediation_key": "key_vault_secrets_provider"
+    },
+    "V-274884": {
+      "automatic_platform_text": "{vuln_id} ({title}) depends on workload/runtime evidence not available in azurerm_kubernetes_cluster plan data, so it remains open pending manual review.",
+      "evidence_key": "manual_scope",
+      "cklb_status": "open",
+      "include_in_blank_cklb": false
+    }
+  }
+}

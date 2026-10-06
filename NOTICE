@@ -1,0 +1,23 @@
+STIG Automator
+Copyright (c) 2026 Keith Chason
+
+This project is licensed under the MIT License. See LICENSE.
+
+Checklist text under src/stig_automator/modules/stigs/ is imported from
+official Defense Information Systems Agency (DISA) Security Technical
+Implementation Guides so generated checklists can show official titles,
+discussions, check text, and fix text. Source archive names, download URLs,
+and SHA256 checksums for the imported database STIGs are recorded in the
+manifest JSON files in that directory.
+
+Imported publications include:
+
+- DISA Kubernetes STIG, Version 2 Release 4 (AKS and EKS modules)
+- Microsoft Azure SQL Database STIG
+- Microsoft Azure SQL Managed Instance STIG
+- Oracle MySQL 8.0 STIG
+- Crunchy Data Postgres 16 STIG
+
+That checklist text remains the publication of its original authors, including
+DISA and, where applicable, the vendor that produced the STIG. The MIT License
+applies to the STIG Automator software and local mapping files.

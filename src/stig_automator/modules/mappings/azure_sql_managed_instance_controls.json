@@ -1,0 +1,70 @@
+{
+  "default": {
+    "automatic_platform_text": "{vuln_id} ({title}) depends on database runtime evidence not available in azurerm_mssql_managed_instance plan data, so it remains open pending manual review.",
+    "evidence_key": "manual_scope",
+    "cklb_status": "open",
+    "include_in_blank_cklb": false
+  },
+  "controls": {
+    "V-276225": {
+      "validation_function_name": "entra_only_auth",
+      "remediation_key": "entra_only_auth"
+    },
+    "V-276236": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-276237": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-276238": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-276246": {
+      "validation_function_name": "public_network_access",
+      "remediation_key": "public_network_access"
+    },
+    "V-276248": {
+      "validation_function_name": "entra_only_auth",
+      "remediation_key": "entra_only_auth"
+    },
+    "V-276251": {
+      "validation_function_name": "tde_enabled",
+      "remediation_key": "tde_enabled"
+    },
+    "V-276260": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-276261": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-276262": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-276265": {
+      "validation_function_name": "audit_offload",
+      "remediation_key": "audit_offload"
+    },
+    "V-276267": {
+      "validation_function_name": "audit_offload",
+      "remediation_key": "audit_offload"
+    },
+    "V-276295": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    },
+    "V-276305": {
+      "validation_function_name": "minimum_tls",
+      "remediation_key": "minimum_tls"
+    },
+    "V-276310": {
+      "validation_function_name": "extended_auditing",
+      "remediation_key": "extended_auditing"
+    }
+  }
+}

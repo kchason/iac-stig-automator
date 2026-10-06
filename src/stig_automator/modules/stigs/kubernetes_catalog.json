@@ -1,0 +1,660 @@
+[
+  {
+    "vuln_id": "V-242376",
+    "stig_id": "CNTR-K8-000150",
+    "severity": "medium",
+    "title": "The Kubernetes Controller Manager must use TLS 1.2, at a minimum, to protect the confidentiality of sensitive data during electronic dissemination.",
+    "description": "The Kubernetes Controller Manager will prohibit the use of SSL and unauthorized versions of TLS protocols to properly secure communication. The use of unsupported protocol exposes vulnerabilities to the Kubernetes by rogue traffic interceptions, man-in-the-middle attacks, and impersonation of users or services from the container platform runtime, registry, and key store. To enable the minimum version of TLS to be used by the Kubernetes Controller Manager, the setting \"tls-min-version\" must be set."
+  },
+  {
+    "vuln_id": "V-242377",
+    "stig_id": "CNTR-K8-000160",
+    "severity": "medium",
+    "title": "The Kubernetes Scheduler must use TLS 1.2, at a minimum, to protect the confidentiality of sensitive data during electronic dissemination.",
+    "description": "The Kubernetes Scheduler will prohibit the use of SSL and unauthorized versions of TLS protocols to properly secure communication. The use of unsupported protocol exposes vulnerabilities to the Kubernetes by rogue traffic interceptions, man-in-the-middle attacks, and impersonation of users or services from the container platform runtime, registry, and keystore. To enable the minimum version of TLS to be used by the Kubernetes API Server, the setting \"tls-min-version\" must be set."
+  },
+  {
+    "vuln_id": "V-242378",
+    "stig_id": "CNTR-K8-000170",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must use TLS 1.2, at a minimum, to protect the confidentiality of sensitive data during electronic dissemination.",
+    "description": "The Kubernetes API Server will prohibit the use of SSL and unauthorized versions of TLS protocols to properly secure communication. The use of unsupported protocol exposes vulnerabilities to the Kubernetes by rogue traffic interceptions, man-in-the-middle attacks, and impersonation of users or services from the container platform runtime, registry, and keystore. To enable the minimum version of TLS to be used by the Kubernetes API Server, the setting \"tls-min-version\" must be set."
+  },
+  {
+    "vuln_id": "V-242379",
+    "stig_id": "CNTR-K8-000180",
+    "severity": "medium",
+    "title": "The Kubernetes etcd must use TLS to protect the confidentiality of sensitive data during electronic dissemination.",
+    "description": "Kubernetes etcd will prohibit the use of SSL and unauthorized versions of TLS protocols to properly secure communication. The use of unsupported protocol exposes vulnerabilities to the Kubernetes by rogue traffic interceptions, man-in-the-middle attacks, and impersonation of users or services from the container platform runtime, registry, and keystore. To enable the minimum version of TLS to be used by the Kubernetes API Server, the setting \"--auto-tls\" must be set."
+  },
+  {
+    "vuln_id": "V-242380",
+    "stig_id": "CNTR-K8-000190",
+    "severity": "medium",
+    "title": "The Kubernetes etcd must use TLS to protect the confidentiality of sensitive data during electronic dissemination.",
+    "description": "The Kubernetes API Server will prohibit the use of SSL and unauthorized versions of TLS protocols to properly secure communication. The use of unsupported protocol exposes vulnerabilities to the Kubernetes by rogue traffic interceptions, man-in-the-middle attacks, and impersonation of users or services from the container platform runtime, registry, and keystore. To enable the minimum version of TLS to be used by the Kubernetes API Server, the setting \"--peer-auto-tls\" must be set."
+  },
+  {
+    "vuln_id": "V-242381",
+    "stig_id": "CNTR-K8-000220",
+    "severity": "high",
+    "title": "The Kubernetes Controller Manager must create unique service accounts for each work payload.",
+    "description": "The Kubernetes Controller Manager is a background process that embeds core control loops regulating cluster system state through the API Server. Every process executed in a pod has an associated service account. By default, service accounts use the same credentials for authentication. Implementing the default settings poses a High risk to the Kubernetes Controller Manager. Setting the \"--use-service-account-credential\" value lowers the attack surface by generating unique service accounts settings for each controller instance."
+  },
+  {
+    "vuln_id": "V-242382",
+    "stig_id": "CNTR-K8-000270",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must enable Node,RBAC as the authorization mode.",
+    "description": "To mitigate the risk of unauthorized access to sensitive information by entities that have been issued certificates by DOD-approved PKIs, all DOD systems (e.g., networks, web servers, and web portals) must be properly configured to incorporate access control methods that do not rely solely on the possession of a certificate for access. Successful authentication must not automatically give an entity access to an asset or security boundary. Authorization procedures and controls must be implemented to ensure each authenticated entity also has a validated and current authorization. Authorization is the process of determining whether an entity, once authenticated, is permitted to access a specific asset. Node,RBAC is the method within Kubernetes to control access of users and applications. Kubernetes uses roles to grant authorization API requests made by kubelets. Satisfies: SRG-APP-000340-CTR-000770, SRG-APP-000033-CTR-000095, SRG-APP-000378-CTR-000880, SRG-APP-000033-CTR-000090"
+  },
+  {
+    "vuln_id": "V-242383",
+    "stig_id": "CNTR-K8-000290",
+    "severity": "high",
+    "title": "User-managed resources must be created in dedicated namespaces.",
+    "description": "Creating namespaces for user-managed resources is important when implementing Role-Based Access Controls (RBAC). RBAC allows for the authorization of users and helps support proper API server permissions separation and network micro segmentation. If user-managed resources are placed within the default namespaces, it becomes impossible to implement policies for RBAC permission, service account usage, network policies, and more."
+  },
+  {
+    "vuln_id": "V-242384",
+    "stig_id": "CNTR-K8-000300",
+    "severity": "medium",
+    "title": "The Kubernetes Scheduler must have secure binding.",
+    "description": "Limiting the number of attack vectors and implementing authentication and encryption on the endpoints available to external sources is paramount when securing the overall Kubernetes cluster. The Scheduler API service exposes port 10251/TCP by default for health and metrics information use. This port does not encrypt or authenticate connections. If this port is exposed externally, an attacker can use this port to attack the entire Kubernetes cluster. By setting the bind address to localhost (i.e., 127.0.0.1), only those internal services that require health and metrics information can access the Scheduler API."
+  },
+  {
+    "vuln_id": "V-242385",
+    "stig_id": "CNTR-K8-000310",
+    "severity": "medium",
+    "title": "The Kubernetes Controller Manager must have secure binding.",
+    "description": "Limiting the number of attack vectors and implementing authentication and encryption on the endpoints available to external sources is paramount when securing the overall Kubernetes cluster. The Controller Manager API service exposes port 10252/TCP by default for health and metrics information use. This port does not encrypt or authenticate connections. If this port is exposed externally, an attacker can use this port to attack the entire Kubernetes cluster. By setting the bind address to only localhost (i.e., 127.0.0.1), only those internal services that require health and metrics information can access the Control Manager API."
+  },
+  {
+    "vuln_id": "V-242386",
+    "stig_id": "CNTR-K8-000320",
+    "severity": "high",
+    "title": "The Kubernetes API server must have the insecure port flag disabled.",
+    "description": "By default, the API server will listen on two ports. One port is the secure port and the other port is called the \"localhost port\". This port is also called the \"insecure port\", port 8080. Any requests to this port bypass authentication and authorization checks. If this port is left open, anyone who gains access to the host on which the Control Plane is running can bypass all authorization and authentication mechanisms put in place, and have full control over the entire cluster. Close the insecure port by setting the API server's \"--insecure-port\" flag to \"0\", ensuring that the \"--insecure-bind-address\" is not set."
+  },
+  {
+    "vuln_id": "V-242387",
+    "stig_id": "CNTR-K8-000330",
+    "severity": "high",
+    "title": "The Kubernetes Kubelet must have the \"readOnlyPort\" flag disabled.",
+    "description": "Kubelet serves a small REST API with read access to port 10255. The read-only port for Kubernetes provides no authentication or authorization security control. Providing unrestricted access on port 10255 exposes Kubernetes pods and containers to malicious attacks or compromise. Port 10255 is deprecated and should be disabled."
+  },
+  {
+    "vuln_id": "V-242388",
+    "stig_id": "CNTR-K8-000340",
+    "severity": "high",
+    "title": "The Kubernetes API server must have the insecure bind address not set.",
+    "description": "By default, the API server will listen on two ports and addresses. One address is the secure address and the other address is called the \"insecure bind\" address and is set by default to localhost. Any requests to this address bypass authentication and authorization checks. If this insecure bind address is set to localhost, anyone who gains access to the host on which the Control Plane is running can bypass all authorization and authentication mechanisms put in place and have full control over the entire cluster. Close or set the insecure bind address by setting the API server's \"--insecure-bind-address\" flag to an IP or leave it unset and ensure that the \"--insecure-bind-port\" is not set."
+  },
+  {
+    "vuln_id": "V-242389",
+    "stig_id": "CNTR-K8-000350",
+    "severity": "medium",
+    "title": "The Kubernetes API server must have the secure port set.",
+    "description": "By default, the API server will listen on what is rightfully called the secure port, port 6443. Any requests to this port will perform authentication and authorization checks. If this port is disabled, anyone who gains access to the host on which the Control Plane is running has full control of the entire cluster over encrypted traffic. Open the secure port by setting the API server's \"--secure-port\" flag to a value other than \"0\"."
+  },
+  {
+    "vuln_id": "V-242390",
+    "stig_id": "CNTR-K8-000360",
+    "severity": "high",
+    "title": "The Kubernetes API server must have anonymous authentication disabled.",
+    "description": "The Kubernetes API Server controls Kubernetes via an API interface. A user who has access to the API essentially has root access to the entire Kubernetes cluster. To control access, users must be authenticated and authorized. By allowing anonymous connections, the controls put in place to secure the API can be bypassed. Setting \"--anonymous-auth\" to \"false\" also disables unauthenticated requests from kubelets. While there are instances where anonymous connections may be needed (e.g., health checks) and Role-Based Access Controls (RBACs) are in place to limit the anonymous access, this access should be disabled, and only enabled when necessary."
+  },
+  {
+    "vuln_id": "V-242391",
+    "stig_id": "CNTR-K8-000370",
+    "severity": "high",
+    "title": "The Kubernetes Kubelet must have anonymous authentication disabled.",
+    "description": "A user who has access to the Kubelet essentially has root access to the nodes contained within the Kubernetes Control Plane. To control access, users must be authenticated and authorized. By allowing anonymous connections, the controls put in place to secure the Kubelet can be bypassed. Setting anonymous authentication to \"false\" also disables unauthenticated requests from kubelets. While there are instances where anonymous connections may be needed (e.g., health checks) and Role-Based Access Controls (RBAC) are in place to limit the anonymous access, this access must be disabled and only enabled when necessary."
+  },
+  {
+    "vuln_id": "V-242392",
+    "stig_id": "CNTR-K8-000380",
+    "severity": "high",
+    "title": "The Kubernetes kubelet must enable explicit authorization.",
+    "description": "Kubelet is the primary agent on each node. The API server communicates with each kubelet to perform tasks such as starting/stopping pods. By default, kubelets allow all authenticated requests, even anonymous ones, without requiring any authorization checks from the API server. This default behavior bypasses any authorization controls put in place to limit what users may perform within the Kubernetes cluster. To change this behavior, the default setting of AlwaysAllow for the authorization mode must be set to \"Webhook\"."
+  },
+  {
+    "vuln_id": "V-242393",
+    "stig_id": "CNTR-K8-000400",
+    "severity": "medium",
+    "title": "Kubernetes Worker Nodes must not have sshd service running.",
+    "description": "Worker Nodes are maintained and monitored by the Control Plane. Direct access and manipulation of the nodes should not take place by administrators. Worker nodes should be treated as immutable and updated via replacement rather than in-place upgrades."
+  },
+  {
+    "vuln_id": "V-242394",
+    "stig_id": "CNTR-K8-000410",
+    "severity": "medium",
+    "title": "Kubernetes Worker Nodes must not have the sshd service enabled.",
+    "description": "Worker Nodes are maintained and monitored by the Control Plane. Direct access and manipulation of the nodes must not take place by administrators. Worker nodes must be treated as immutable and updated via replacement rather than in-place upgrades."
+  },
+  {
+    "vuln_id": "V-242395",
+    "stig_id": "CNTR-K8-000420",
+    "severity": "medium",
+    "title": "Kubernetes dashboard must not be enabled.",
+    "description": "While the Kubernetes dashboard is not inherently insecure on its own, it is often coupled with a misconfiguration of Role-Based Access control (RBAC) permissions that can unintentionally over-grant access. It is not commonly protected with \"NetworkPolicies\", preventing all pods from being able to reach it. In increasingly rare circumstances, the Kubernetes dashboard is exposed publicly to the internet."
+  },
+  {
+    "vuln_id": "V-242396",
+    "stig_id": "CNTR-K8-000430",
+    "severity": "medium",
+    "title": "Kubernetes Kubectl cp command must give expected access and results.",
+    "description": "One of the tools heavily used to interact with containers in the Kubernetes cluster is kubectl. The command is the tool System Administrators used to create, modify, and delete resources. One of the capabilities of the tool is to copy files to and from running containers (i.e., kubectl cp). The command uses the \"tar\" command of the container to copy files from the container to the host executing the \"kubectl cp\" command. If the \"tar\" command on the container has been replaced by a malicious user, the command can copy files anywhere on the host machine. This flaw has been fixed in later versions of the tool. It is recommended to use kubectl versions newer than 1.12.9."
+  },
+  {
+    "vuln_id": "V-242397",
+    "stig_id": "CNTR-K8-000440",
+    "severity": "high",
+    "title": "The Kubernetes kubelet staticPodPath must not enable static pods.",
+    "description": "Allowing kubelet to set a staticPodPath gives containers with root access permissions to traverse the hosting filesystem. The danger comes when the container can create a manifest file within the /etc/kubernetes/manifests directory. When a manifest is created within this directory, containers are entirely governed by the Kubelet not the API Server. The container is not susceptible to admission control at all. Any containers or pods instantiated in this manner are called \"static pods\" and are meant to be used for pods such as the API server, scheduler, controller, etc., not workload pods that need to be governed by the API Server."
+  },
+  {
+    "vuln_id": "V-242398",
+    "stig_id": "CNTR-K8-000450",
+    "severity": "medium",
+    "title": "Kubernetes DynamicAuditing must not be enabled.",
+    "description": "Protecting the audit data from change or deletion is important when an attack occurs. One way an attacker can cover their tracks is to change or delete audit records. This will either make the attack unnoticeable or make it more difficult to investigate how the attack took place and what changes were made. The audit data can be protected through audit log file protections and user authorization. One way for an attacker to thwart these measures is to send the audit logs to another source and filter the audited results before sending them on to the original target. This can be done in Kubernetes through the configuration of dynamic audit webhooks through the DynamicAuditing flag."
+  },
+  {
+    "vuln_id": "V-242399",
+    "stig_id": "CNTR-K8-000460",
+    "severity": "medium",
+    "title": "Kubernetes DynamicKubeletConfig must not be enabled.",
+    "description": "Kubernetes allows a user to configure kubelets with dynamic configurations. When dynamic configuration is used, the kubelet will watch for changes to the configuration file. When changes are made, the kubelet will automatically restart. Allowing this capability bypasses access restrictions and authorizations. Using this capability, an attacker can lower the security posture of the kubelet, which includes allowing the ability to run arbitrary commands in any container running on that node."
+  },
+  {
+    "vuln_id": "V-242400",
+    "stig_id": "CNTR-K8-000470",
+    "severity": "medium",
+    "title": "The Kubernetes API server must have Alpha APIs disabled.",
+    "description": "Kubernetes allows alpha API calls within the API server. The alpha features are disabled by default since they are not ready for production and likely to change without notice. These features may also contain security issues that are rectified as the feature matures. To keep the Kubernetes cluster secure and stable, these alpha features must not be used."
+  },
+  {
+    "vuln_id": "V-242402",
+    "stig_id": "CNTR-K8-000610",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must have an audit log path set.",
+    "description": "When Kubernetes is started, components and user services are started for auditing startup events, and events for components and services, it is important that auditing begin on startup. Within Kubernetes, audit data for all components is generated by the API server. To enable auditing to begin, an audit policy must be defined for the events and the information to be stored with each event. It is also necessary to give a secure location where the audit logs are to be stored. If an audit log path is not specified, all audit data is sent to studio."
+  },
+  {
+    "vuln_id": "V-242403",
+    "stig_id": "CNTR-K8-000700",
+    "severity": "medium",
+    "title": "Kubernetes API Server must generate audit records that identify what type of event has occurred, identify the source of the event, contain the event results, identify any users, and identify any containers associated with the event.",
+    "description": "Within Kubernetes, audit data for all components is generated by the API server. This audit data is important when there are issues, to include security incidents that must be investigated. To make the audit data worthwhile for the investigation of events, it is necessary to have the appropriate and required data logged. To fully understand the event, it is important to identify any users associated with the event. The API server policy file allows for the following levels of auditing: None - Do not log events that match the rule. Metadata - Log request metadata (requesting user, timestamp, resource, verb, etc.) but not request or response body. Request - Log event metadata and request body but not response body. RequestResponse - Log event metadata, request, and response bodies. Satisfies: SRGID:SRG-APP-000092-CTR-000165, SRG-APP-000026-CTR-000070, SRG-APP-000027-CTR-000075, SRG-APP-000028-CTR-000080, SRG-APP-000101-CTR-000205, SRG-APP-000100-CTR-000200, SRG-APP-000100-CTR-000195, SRG-APP-000099-CTR-000190, SRG-APP-000098-CTR-000185, SRG-APP-000095-CTR-000170, SRG-APP-000096-CTR-000175, SRG-APP-000097-CTR-000180, SRG-APP-000507-CTR-001295, SRG-APP-000504-CTR-001280, SRG-APP-000503-CTR-001275, SRG-APP-000501-CTR-001265, SRG-APP-000500-CTR-001260, SRG-APP-000497-CTR-001245, SRG-APP-000496-CTR-001240, SRG-APP-000493-CTR-001225, SRG-APP-000492-CTR-001220, SRG-APP-000343-CTR-000780, SRG-APP-000381-CTR-000905"
+  },
+  {
+    "vuln_id": "V-242404",
+    "stig_id": "CNTR-K8-000850",
+    "severity": "medium",
+    "title": "Kubernetes Kubelet must deny hostname override.",
+    "description": "Kubernetes allows for the overriding of hostnames. Allowing this feature to be implemented within the kubelets may break the TLS setup between the kubelet service and the API server. This setting also can make it difficult to associate logs with nodes if security analytics needs to take place. The better practice is to setup nodes with resolvable FQDNs and avoid overriding the hostnames."
+  },
+  {
+    "vuln_id": "V-242405",
+    "stig_id": "CNTR-K8-000860",
+    "severity": "medium",
+    "title": "The Kubernetes manifests must be owned by root.",
+    "description": "The manifest files contain the runtime configuration of the API server, proxy, scheduler, controller, and etcd. If an attacker can gain access to these files, changes can be made to open vulnerabilities and bypass user authorizations inherit within Kubernetes with RBAC implemented."
+  },
+  {
+    "vuln_id": "V-242406",
+    "stig_id": "CNTR-K8-000880",
+    "severity": "medium",
+    "title": "The Kubernetes KubeletConfiguration file must be owned by root.",
+    "description": "The kubelet configuration file contains the runtime configuration of the kubelet service. If an attacker can gain access to this file, changes can be made to open vulnerabilities and bypass user authorizations inherent within Kubernetes with RBAC implemented."
+  },
+  {
+    "vuln_id": "V-242407",
+    "stig_id": "CNTR-K8-000890",
+    "severity": "medium",
+    "title": "The Kubernetes KubeletConfiguration files must have file permissions set to 644 or more restrictive.",
+    "description": "The kubelet configuration file contains the runtime configuration of the kubelet service. If an attacker can gain access to this file, changes can be made to open vulnerabilities and bypass user authorizations inherit within Kubernetes with RBAC implemented."
+  },
+  {
+    "vuln_id": "V-242408",
+    "stig_id": "CNTR-K8-000900",
+    "severity": "medium",
+    "title": "The Kubernetes manifest files must have least privileges.",
+    "description": "The manifest files contain the runtime configuration of the API server, scheduler, controller, and etcd. If an attacker can gain access to these files, changes can be made to open vulnerabilities and bypass user authorizations inherent within Kubernetes with RBAC implemented. Satisfies: SRG-APP-000133-CTR-000310, SRG-APP-000133-CTR-000295, SRG-APP-000516-CTR-001335"
+  },
+  {
+    "vuln_id": "V-242409",
+    "stig_id": "CNTR-K8-000910",
+    "severity": "medium",
+    "title": "Kubernetes Controller Manager must disable profiling.",
+    "description": "Kubernetes profiling provides the ability to analyze and troubleshoot Controller Manager events over a web interface on a host port. Enabling this service can expose details about the Kubernetes architecture. This service must not be enabled unless deemed necessary."
+  },
+  {
+    "vuln_id": "V-242410",
+    "stig_id": "CNTR-K8-000920",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must enforce ports, protocols, and services (PPS) that adhere to the Ports, Protocols, and Services Management Category Assurance List (PPSM CAL).",
+    "description": "Kubernetes API Server PPSs must be controlled and conform to the PPSM CAL. Those PPS that fall outside the PPSM CAL must be blocked. Instructions on the PPSM can be found in DoD Instruction 8551.01 Policy."
+  },
+  {
+    "vuln_id": "V-242411",
+    "stig_id": "CNTR-K8-000930",
+    "severity": "medium",
+    "title": "The Kubernetes Scheduler must enforce ports, protocols, and services (PPS) that adhere to the Ports, Protocols, and Services Management Category Assurance List (PPSM CAL).",
+    "description": "Kubernetes Scheduler PPS must be controlled and conform to the PPSM CAL. Those ports, protocols, and services that fall outside the PPSM CAL must be blocked. Instructions on the PPSM can be found in DoD Instruction 8551.01 Policy."
+  },
+  {
+    "vuln_id": "V-242412",
+    "stig_id": "CNTR-K8-000940",
+    "severity": "medium",
+    "title": "The Kubernetes Controllers must enforce ports, protocols, and services (PPS) that adhere to the Ports, Protocols, and Services Management Category Assurance List (PPSM CAL).",
+    "description": "Kubernetes Controller ports, protocols, and services must be controlled and conform to the PPSM CAL. Those PPS that fall outside the PPSM CAL must be blocked. Instructions on the PPSM can be found in DoD Instruction 8551.01 Policy."
+  },
+  {
+    "vuln_id": "V-242413",
+    "stig_id": "CNTR-K8-000950",
+    "severity": "medium",
+    "title": "The Kubernetes etcd must enforce ports, protocols, and services (PPS) that adhere to the Ports, Protocols, and Services Management Category Assurance List (PPSM CAL).",
+    "description": "Kubernetes etcd PPS must be controlled and conform to the PPSM CAL. Those PPS that fall outside the PPSM CAL must be blocked. Instructions on the PPSM can be found in DoD Instruction 8551.01 Policy."
+  },
+  {
+    "vuln_id": "V-242414",
+    "stig_id": "CNTR-K8-000960",
+    "severity": "medium",
+    "title": "The Kubernetes cluster must use non-privileged host ports for user pods.",
+    "description": "Privileged ports are those ports below 1024 and that require system privileges for their use. If containers can use these ports, the container must be run as a privileged user. Kubernetes must stop containers that try to map to these ports directly. Allowing non-privileged ports to be mapped to the container-privileged port is the allowable method when a certain port is needed. An example is mapping port 8080 externally to port 80 in the container."
+  },
+  {
+    "vuln_id": "V-242415",
+    "stig_id": "CNTR-K8-001160",
+    "severity": "high",
+    "title": "Secrets in Kubernetes must not be stored as environment variables.",
+    "description": "Secrets, such as passwords, keys, tokens, and certificates must not be stored as environment variables. These environment variables are accessible inside Kubernetes by the \"Get Pod\" API call, and by any system, such as CI/CD pipeline, which has access to the definition file of the container. Secrets must be mounted from files or stored within password vaults."
+  },
+  {
+    "vuln_id": "V-242417",
+    "stig_id": "CNTR-K8-001360",
+    "severity": "medium",
+    "title": "Kubernetes must separate user functionality.",
+    "description": "Separating user functionality from management functionality is a requirement for all the components within the Kubernetes Control Plane. Without the separation, users may have access to management functions that can degrade the Kubernetes architecture and the services being offered, and can offer a method to bypass testing and validation of functions before introduced into a production environment."
+  },
+  {
+    "vuln_id": "V-242418",
+    "stig_id": "CNTR-K8-001400",
+    "severity": "medium",
+    "title": "The Kubernetes API server must use approved cipher suites.",
+    "description": "The Kubernetes API server communicates to the kubelet service on the nodes to deploy, update, and delete resources. If an attacker were able to get between this communication and modify the request, the Kubernetes cluster could be compromised. Using approved cypher suites for the communication ensures the protection of the transmitted information, confidentiality, and integrity so that the attacker cannot read or alter this communication."
+  },
+  {
+    "vuln_id": "V-242419",
+    "stig_id": "CNTR-K8-001410",
+    "severity": "medium",
+    "title": "Kubernetes API Server must have the SSL Certificate Authority set.",
+    "description": "Kubernetes control plane and external communication are managed by API Server. The main implementation of the API Server is to manage hardware resources for pods and containers using horizontal or vertical scaling. Anyone who can access the API Server can effectively control the Kubernetes architecture. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols such as TLS. TLS provides the Kubernetes API Server with a means to authenticate sessions and encrypt traffic. To enable encrypted communication for API Server, the parameter client-ca-file must be set. This parameter gives the location of the SSL Certificate Authority file used to secure API Server communication."
+  },
+  {
+    "vuln_id": "V-242420",
+    "stig_id": "CNTR-K8-001420",
+    "severity": "medium",
+    "title": "Kubernetes Kubelet must have the SSL Certificate Authority set.",
+    "description": "Kubernetes container and pod configuration are maintained by Kubelet. Kubelet agents register nodes with the API Server, mount volume storage, and perform health checks for containers and pods. Anyone who gains access to Kubelet agents can effectively control applications within the pods and containers. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols such as TLS. TLS provides the Kubernetes API Server with a means to authenticate sessions and encrypt traffic. To enable encrypted communication for Kubelet, the clientCAFile must be set. This parameter gives the location of the SSL Certificate Authority file used to secure Kubelet communication."
+  },
+  {
+    "vuln_id": "V-242421",
+    "stig_id": "CNTR-K8-001430",
+    "severity": "medium",
+    "title": "Kubernetes Controller Manager must have the SSL Certificate Authority set.",
+    "description": "The Kubernetes Controller Manager is responsible for creating service accounts and tokens for the API Server, maintaining the correct number of pods for every replication controller and provides notifications when nodes are offline. Anyone who gains access to the Controller Manager can generate backdoor accounts, take possession of, or diminish system performance without detection by disabling system notification. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes Controller Manager with a means to be able to authenticate sessions and encrypt traffic."
+  },
+  {
+    "vuln_id": "V-242422",
+    "stig_id": "CNTR-K8-001440",
+    "severity": "medium",
+    "title": "Kubernetes API Server must have a certificate for communication.",
+    "description": "Kubernetes control plane and external communication is managed by API Server. The main implementation of the API Server is to manage hardware resources for pods and container using horizontal or vertical scaling. Anyone who can access the API Server can effectively control the Kubernetes architecture. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for API Server, the parameter etcd-cafile must be set. This parameter gives the location of the SSL Certificate Authority file used to secure API Server communication."
+  },
+  {
+    "vuln_id": "V-242423",
+    "stig_id": "CNTR-K8-001450",
+    "severity": "medium",
+    "title": "Kubernetes etcd must enable client authentication to secure service.",
+    "description": "Kubernetes container and pod configuration are maintained by Kubelet. Kubelet agents register nodes with the API Server, mount volume storage, and perform health checks for containers and pods. Anyone who gains access to Kubelet agents can effectively control applications within the pods and containers. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for Kubelet, the parameter client-cert-auth must be set. This parameter gives the location of the SSL Certificate Authority file used to secure Kubelet communication."
+  },
+  {
+    "vuln_id": "V-242424",
+    "stig_id": "CNTR-K8-001460",
+    "severity": "medium",
+    "title": "Kubernetes Kubelet must enable tlsPrivateKeyFile for client authentication to secure service.",
+    "description": "Kubernetes container and pod configuration are maintained by Kubelet. Kubelet agents register nodes with the API Server, mount volume storage, and perform health checks for containers and pods. Anyone who gains access to Kubelet agents can effectively control applications within the pods and containers. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols such as TLS. TLS provides the Kubernetes API Server with a means to authenticate sessions and encrypt traffic. To enable encrypted communication for Kubelet, the tlsPrivateKeyFile must be set. This parameter gives the location of the SSL Certificate Authority file used to secure Kubelet communication."
+  },
+  {
+    "vuln_id": "V-242425",
+    "stig_id": "CNTR-K8-001470",
+    "severity": "medium",
+    "title": "Kubernetes Kubelet must enable tlsCertFile for client authentication to secure service.",
+    "description": "Kubernetes container and pod configuration are maintained by Kubelet. Kubelet agents register nodes with the API Server, mount volume storage, and perform health checks for containers and pods. Anyone who gains access to Kubelet agents can effectively control applications within the pods and containers. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols such as TLS. TLS provides the Kubernetes API Server with a means to authenticate sessions and encrypt traffic. To enable encrypted communication for Kubelet, the parameter tlsCertFile must be set. This parameter gives the location of the SSL Certificate Authority file used to secure Kubelet communication."
+  },
+  {
+    "vuln_id": "V-242426",
+    "stig_id": "CNTR-K8-001480",
+    "severity": "medium",
+    "title": "Kubernetes etcd must enable client authentication to secure service.",
+    "description": "Kubernetes container and pod configuration are maintained by Kubelet. Kubelet agents register nodes with the API Server, mount volume storage, and perform health checks for containers and pods. Anyone who gains access to Kubelet agents can effectively control applications within the pods and containers. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server with a means to be able to authenticate sessions and encrypt traffic. Etcd is a highly-available key value store used by Kubernetes deployments for persistent storage of all of its REST API objects. These objects are sensitive and should be accessible only by authenticated etcd peers in the etcd cluster. The parameter \"--peer-client-cert-auth\" must be set for etcd to check all incoming peer requests from the cluster for valid client certificates."
+  },
+  {
+    "vuln_id": "V-242427",
+    "stig_id": "CNTR-K8-001490",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have a key file for secure communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control the Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter key-file must be set. This parameter gives the location of the key file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242428",
+    "stig_id": "CNTR-K8-001500",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have a certificate for communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control a Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter cert-file must be set. This parameter gives the location of the SSL certification file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242429",
+    "stig_id": "CNTR-K8-001510",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have the SSL Certificate Authority set.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control a Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter \"--etcd-cafile\" must be set. This parameter gives the location of the SSL Certificate Authority file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242430",
+    "stig_id": "CNTR-K8-001520",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have a certificate for communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control the Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter \"--etcd-certfile\" must be set. This parameter gives the location of the SSL certification file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242431",
+    "stig_id": "CNTR-K8-001530",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have a key file for secure communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control a Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter \"--etcd-keyfile\" must be set. This parameter gives the location of the key file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242432",
+    "stig_id": "CNTR-K8-001540",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have peer-cert-file set for secure communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control the Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter peer-cert-file must be set. This parameter gives the location of the SSL certification file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242433",
+    "stig_id": "CNTR-K8-001550",
+    "severity": "medium",
+    "title": "Kubernetes etcd must have a peer-key-file set for secure communication.",
+    "description": "Kubernetes stores configuration and state information in a distributed key-value store called etcd. Anyone who can write to etcd can effectively control a Kubernetes cluster. Even just reading the contents of etcd could easily provide helpful hints to a would-be attacker. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server and etcd with a means to be able to authenticate sessions and encrypt traffic. To enable encrypted communication for etcd, the parameter peer-key-file must be set. This parameter gives the location of the SSL certification file used to secure etcd communication."
+  },
+  {
+    "vuln_id": "V-242434",
+    "stig_id": "CNTR-K8-001620",
+    "severity": "high",
+    "title": "Kubernetes Kubelet must enable kernel protection.",
+    "description": "System kernel is responsible for memory, disk, and task management. The kernel provides a gateway between the system hardware and software. Kubernetes requires kernel access to allocate resources to the Control Plane. Threat actors that penetrate the system kernel can inject malicious code or hijack the Kubernetes architecture. It is vital to implement protections through Kubernetes components to reduce the attack surface."
+  },
+  {
+    "vuln_id": "V-242436",
+    "stig_id": "CNTR-K8-002000",
+    "severity": "high",
+    "title": "The Kubernetes API server must have the ValidatingAdmissionWebhook enabled.",
+    "description": "Enabling the admissions webhook allows for Kubernetes to apply policies against objects that are to be created, read, updated, or deleted. By applying a pod security policy, control can be given to not allow images to be instantiated that run as the root user. If pods run as the root user, the pod then has root privileges to the host system and all the resources it has. An attacker can use this to attack the Kubernetes cluster. By implementing a policy that does not allow root or privileged pods, the pod users are limited in what the pod can do and access."
+  },
+  {
+    "vuln_id": "V-242437",
+    "stig_id": "CNTR-K8-002010",
+    "severity": "high",
+    "title": "Kubernetes must have a pod security policy set.",
+    "description": "Enabling the admissions webhook allows for Kubernetes to apply policies against objects that are to be created, read, updated, or deleted. By applying a pod security policy, control can be given to not allow images to be instantiated that run as the root user. If pods run as the root user, the pod then has root privileges to the host system and all the resources it has. An attacker can use this to attack the Kubernetes cluster. By implementing a policy that does not allow root or privileged pods, the pod users are limited in what the pod can do and access."
+  },
+  {
+    "vuln_id": "V-242438",
+    "stig_id": "CNTR-K8-002600",
+    "severity": "medium",
+    "title": "Kubernetes API Server must configure timeouts to limit attack surface.",
+    "description": "Kubernetes API Server request timeouts sets the duration a request stays open before timing out. Since the API Server is the central component in the Kubernetes Control Plane, it is vital to protect this service. If request timeouts were not set, malicious attacks or unwanted activities might affect multiple deployments across different applications or environments. This might deplete all resources from the Kubernetes infrastructure causing the information system to go offline. The \"--request-timeout\" value must never be set to \"0\". This disables the request-timeout feature. (By default, the \"--request-timeout\" is set to \"1 minute\".)"
+  },
+  {
+    "vuln_id": "V-242442",
+    "stig_id": "CNTR-K8-002700",
+    "severity": "medium",
+    "title": "Kubernetes must remove old components after updated versions have been installed.",
+    "description": "Previous versions of Kubernetes components that are not removed after updates have been installed may be exploited by adversaries by allowing the vulnerabilities to still exist within the cluster. It is important for Kubernetes to remove old pods when newer pods are created using new images to always be at the desired security state."
+  },
+  {
+    "vuln_id": "V-242443",
+    "stig_id": "CNTR-K8-002720",
+    "severity": "medium",
+    "title": "Kubernetes must contain the latest updates as authorized by IAVMs, CTOs, DTMs, and STIGs.",
+    "description": "Kubernetes software must stay up to date with the latest patches, service packs, and hot fixes. Not updating the Kubernetes control plane will expose the organization to vulnerabilities. Flaws discovered during security assessments, continuous monitoring, incident response activities, or information system error handling must also be addressed expeditiously. Organization-defined time periods for updating security-relevant container platform components may vary based on a variety of factors including, for example, the security category of the information system or the criticality of the update (i.e., severity of the vulnerability related to the discovered flaw). This requirement will apply to software patch management solutions that are used to install patches across the enclave and also to applications themselves that are not part of that patch management solution. For example, many browsers today provide the capability to install their own patch software. Patch criticality, as well as system criticality will vary. Therefore, the tactical situations regarding the patch management process will also vary. This means that the time period utilized must be a configurable parameter. Time frames for application of security-relevant software updates may be dependent upon the IAVM process. The container platform components will be configured to check for and install security-relevant software updates within an identified time period from the availability of the update. The container platform registry will ensure the images are current. The specific time period will be defined by an authoritative source (e.g., IAVM, CTOs, DTMs, and STIGs)."
+  },
+  {
+    "vuln_id": "V-242444",
+    "stig_id": "CNTR-K8-003110",
+    "severity": "medium",
+    "title": "The Kubernetes component manifests must be owned by root.",
+    "description": "The Kubernetes manifests are those files that contain the arguments and settings for the Control Plane services. These services are etcd, the api server, controller, proxy, and scheduler. If these files can be changed, the scheduler will be implementing the changes immediately. Many of the security settings within the document are implemented through these manifests."
+  },
+  {
+    "vuln_id": "V-242445",
+    "stig_id": "CNTR-K8-003120",
+    "severity": "medium",
+    "title": "The Kubernetes component etcd must be owned by etcd.",
+    "description": "The Kubernetes etcd key-value store provides a way to store data to the Control Plane. If these files can be changed, data to API object and the Control Plane would be compromised. The scheduler will implement the changes immediately. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242446",
+    "stig_id": "CNTR-K8-003130",
+    "severity": "medium",
+    "title": "The Kubernetes conf files must be owned by root.",
+    "description": "The Kubernetes conf files contain the arguments and settings for the Control Plane services. These services are controller and scheduler. If these files can be changed, the scheduler will be implementing the changes immediately. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242447",
+    "stig_id": "CNTR-K8-003140",
+    "severity": "medium",
+    "title": "The Kubernetes Kube Proxy kubeconfig must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes Kube Proxy kubeconfig contain the argument and setting for the Control Planes. These settings contain network rules for restricting network communication between pods, clusters, and networks. If these files can be changed, data traversing between the Kubernetes Control Panel components would be compromised. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242448",
+    "stig_id": "CNTR-K8-003150",
+    "severity": "medium",
+    "title": "The Kubernetes Kube Proxy kubeconfig must be owned by root.",
+    "description": "The Kubernetes Kube Proxy kubeconfig contain the argument and setting for the Control Planes. These settings contain network rules for restricting network communication between pods, clusters, and networks. If these files can be changed, data traversing between the Kubernetes Control Panel components would be compromised. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242449",
+    "stig_id": "CNTR-K8-003160",
+    "severity": "medium",
+    "title": "The Kubernetes Kubelet certificate authority file must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes kubelet certificate authority file contains settings for the Kubernetes Node TLS certificate authority. Any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate. If this file can be changed, the Kubernetes architecture could be compromised. The scheduler will implement the changes immediately. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242450",
+    "stig_id": "CNTR-K8-003170",
+    "severity": "medium",
+    "title": "The Kubernetes Kubelet certificate authority must be owned by root.",
+    "description": "The Kubernetes kube proxy kubeconfig contain the argument and setting for the Control Planes. These settings contain network rules for restricting network communication between pods, clusters, and networks. If these files can be changed, data traversing between the Kubernetes Control Panel components would be compromised. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242451",
+    "stig_id": "CNTR-K8-003180",
+    "severity": "medium",
+    "title": "The Kubernetes component PKI must be owned by root.",
+    "description": "The Kubernetes PKI directory contains all certificates (.crt files) supporting secure network communications in the Kubernetes Control Plane. If these files can be modified, data traversing within the architecture components would become unsecure and compromised. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242452",
+    "stig_id": "CNTR-K8-003190",
+    "severity": "medium",
+    "title": "The Kubernetes kubelet KubeConfig must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes kubelet agent registers nodes with the API Server, mounts volume storage for pods, and performs health checks to containers within pods. If these files can be modified, the information system would be unaware of pod or container degradation. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242453",
+    "stig_id": "CNTR-K8-003200",
+    "severity": "medium",
+    "title": "The Kubernetes kubelet KubeConfig file must be owned by root.",
+    "description": "The Kubernetes kubelet agent registers nodes with the API server and performs health checks to containers within pods. If these files can be modified, the information system would be unaware of pod or container degradation. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242454",
+    "stig_id": "CNTR-K8-003210",
+    "severity": "medium",
+    "title": "The Kubernetes kubeadm.conf must be owned by root.",
+    "description": "The Kubernetes kubeeadm.conf contains sensitive information regarding the cluster nodes configuration. If this file can be modified, the Kubernetes Platform Plane would be degraded or compromised for malicious intent. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242455",
+    "stig_id": "CNTR-K8-003220",
+    "severity": "medium",
+    "title": "The Kubernetes kubeadm.conf must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes kubeadm.conf contains sensitive information regarding the cluster nodes configuration. If this file can be modified, the Kubernetes Platform Plane would be degraded or compromised for malicious intent. Many of the security settings within the document are implemented through this file."
+  },
+  {
+    "vuln_id": "V-242456",
+    "stig_id": "CNTR-K8-003230",
+    "severity": "medium",
+    "title": "The Kubernetes kubelet config must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes kubelet agent registers nodes with the API server and performs health checks to containers within pods. If this file can be modified, the information system would be unaware of pod or container degradation."
+  },
+  {
+    "vuln_id": "V-242457",
+    "stig_id": "CNTR-K8-003240",
+    "severity": "medium",
+    "title": "The Kubernetes kubelet config must be owned by root.",
+    "description": "The Kubernetes kubelet agent registers nodes with the API Server and performs health checks to containers within pods. If this file can be modified, the information system would be unaware of pod or container degradation."
+  },
+  {
+    "vuln_id": "V-242459",
+    "stig_id": "CNTR-K8-003260",
+    "severity": "medium",
+    "title": "The Kubernetes etcd must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes etcd key-value store provides a way to store data to the Control Plane. If these files can be changed, data to API object and Control Plane would be compromised."
+  },
+  {
+    "vuln_id": "V-242460",
+    "stig_id": "CNTR-K8-003270",
+    "severity": "medium",
+    "title": "The Kubernetes admin kubeconfig must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes admin kubeconfig files contain the arguments and settings for the Control Plane services. These services are controller and scheduler. If these files can be changed, the scheduler will be implementing the changes immediately."
+  },
+  {
+    "vuln_id": "V-242461",
+    "stig_id": "CNTR-K8-003280",
+    "severity": "medium",
+    "title": "Kubernetes API Server audit logs must be enabled.",
+    "description": "Kubernetes API Server validates and configures pods and services for the API object. The REST operation provides frontend functionality to the cluster share state. Enabling audit logs provides a way to monitor and identify security risk events or misuse of information. Audit logs are necessary to provide evidence in the case the Kubernetes API Server is compromised requiring a Cyber Security Investigation."
+  },
+  {
+    "vuln_id": "V-242462",
+    "stig_id": "CNTR-K8-003290",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must be set to audit log max size.",
+    "description": "The Kubernetes API Server must be set for enough storage to retain log information over the period required. When audit logs are large in size, the monitoring service for events becomes degraded. The function of the maximum log file size is to set these limits."
+  },
+  {
+    "vuln_id": "V-242463",
+    "stig_id": "CNTR-K8-003300",
+    "severity": "medium",
+    "title": "The Kubernetes API Server must be set to audit log maximum backup.",
+    "description": "The Kubernetes API Server must set enough storage to retain logs for monitoring suspicious activity and system misconfiguration, and provide evidence for Cyber Security Investigations."
+  },
+  {
+    "vuln_id": "V-242464",
+    "stig_id": "CNTR-K8-003310",
+    "severity": "medium",
+    "title": "The Kubernetes API Server audit log retention must be set.",
+    "description": "The Kubernetes API Server must set enough storage to retain logs for monitoring suspicious activity and system misconfiguration, and provide evidence for Cyber Security Investigations."
+  },
+  {
+    "vuln_id": "V-242465",
+    "stig_id": "CNTR-K8-003320",
+    "severity": "medium",
+    "title": "The Kubernetes API Server audit log path must be set.",
+    "description": "Kubernetes API Server validates and configures pods and services for the API object. The REST operation provides frontend functionality to the cluster share state. Audit logs are necessary to provide evidence in the case the Kubernetes API Server is compromised requiring Cyber Security Investigation. To record events in the audit log the log path value must be set."
+  },
+  {
+    "vuln_id": "V-242466",
+    "stig_id": "CNTR-K8-003330",
+    "severity": "medium",
+    "title": "The Kubernetes PKI CRT must have file permissions set to 644 or more restrictive.",
+    "description": "The Kubernetes PKI directory contains all certificates (.crt files) supporting secure network communications in the Kubernetes Control Plane. If these files can be modified, data traversing within the architecture components would become unsecure and compromised."
+  },
+  {
+    "vuln_id": "V-242467",
+    "stig_id": "CNTR-K8-003340",
+    "severity": "medium",
+    "title": "The Kubernetes PKI keys must have file permissions set to 600 or more restrictive.",
+    "description": "The Kubernetes PKI directory contains all certificate key files supporting secure network communications in the Kubernetes Control Plane. If these files can be modified, data traversing within the architecture components would become unsecure and compromised."
+  },
+  {
+    "vuln_id": "V-245541",
+    "stig_id": "CNTR-K8-001300",
+    "severity": "medium",
+    "title": "Kubernetes Kubelet must not disable timeouts.",
+    "description": "Idle connections from the Kubelet can be used by unauthorized users to perform malicious activity to the nodes, pods, containers, and cluster within the Kubernetes Control Plane. Setting the streamingConnectionIdleTimeout defines the maximum time an idle session is permitted prior to disconnect. Setting the value to \"0\" never disconnects any idle sessions. Idle timeouts must never be set to \"0\" and should be defined at \"5m\" (the default is 4hr)."
+  },
+  {
+    "vuln_id": "V-245542",
+    "stig_id": "CNTR-K8-002620",
+    "severity": "high",
+    "title": "Kubernetes API Server must disable basic authentication to protect information in transit.",
+    "description": "Kubernetes basic authentication sends and receives request containing username, uid, groups, and other fields over a clear text HTTP communication. Basic authentication does not provide any security mechanisms using encryption standards. PKI certificate-based authentication must be set over a secure channel to ensure confidentiality and integrity. Basic authentication must not be set in the manifest file."
+  },
+  {
+    "vuln_id": "V-245543",
+    "stig_id": "CNTR-K8-002630",
+    "severity": "high",
+    "title": "Kubernetes API Server must disable token authentication to protect information in transit.",
+    "description": "Kubernetes token authentication uses password known as secrets in a plaintext file. This file contains sensitive information such as token, username and user uid. This token is used by service accounts within pods to authenticate with the API Server. This information is very valuable for attackers with malicious intent if the service account is privileged having access to the token. With this token a threat actor can impersonate the service account gaining access to the Rest API service."
+  },
+  {
+    "vuln_id": "V-245544",
+    "stig_id": "CNTR-K8-002640",
+    "severity": "high",
+    "title": "Kubernetes endpoints must use approved organizational certificate and key pair to protect information in transit.",
+    "description": "Kubernetes control plane and external communication is managed by API Server. The main implementation of the API Server is to manage hardware resources for pods and container using horizontal or vertical scaling. Anyone who can gain access to the API Server can effectively control your Kubernetes architecture. Using authenticity protection, the communication can be protected against man-in-the-middle attacks/session hijacking and the insertion of false information into sessions. The communication session is protected by utilizing transport encryption protocols, such as TLS. TLS provides the Kubernetes API Server with a means to be able to authenticate sessions and encrypt traffic. By default, the API Server does not authenticate to the kubelet HTTPs endpoint. To enable secure communication for API Server, the parameter -kubelet-client-certificate and kubelet-client-key must be set. This parameter gives the location of the certificate and key pair used to secure API Server communication."
+  },
+  {
+    "vuln_id": "V-254800",
+    "stig_id": "CNTR-K8-002011",
+    "severity": "high",
+    "title": "Kubernetes must have a\u00a0Pod Security\u00a0Admission control file configured.",
+    "description": "An admission controller intercepts and processes requests to the Kubernetes API prior to persistence of the object, but after the request is authenticated and authorized. Kubernetes (> v1.23)offers a built-in Pod Security admission controller to enforce the Pod Security Standards. Pod security restrictions are applied at the namespace level when pods are created. The Kubernetes Pod Security Standards define different isolation levels for Pods. These standards define how to restrict the behavior of pods in a clear, consistent fashion."
+  },
+  {
+    "vuln_id": "V-254801",
+    "stig_id": "CNTR-K8-002001",
+    "severity": "high",
+    "title": "Kubernetes must enable PodSecurity admission controller on static pods and Kubelets.",
+    "description": "PodSecurity admission controller is a component that validates and enforces security policies for pods running within a Kubernetes cluster. It is responsible for evaluating the security context and configuration of pods against defined policies. To enable PodSecurity admission controller on Static Pods (kube-apiserver, kube-controller-manager, or kube-schedule), the argument \"--feature-gates=PodSecurity=true\" must be set. To enable PodSecurity admission controller on Kubelets, the featureGates PodSecurity=true argument must be set. (Note: The PodSecurity feature gate is GA as of v1.25.)"
+  },
+  {
+    "vuln_id": "V-274882",
+    "stig_id": "CNTR-K8-001162",
+    "severity": "high",
+    "title": "Kubernetes Secrets must be encrypted at rest.",
+    "description": "Kubernetes Secrets may store sensitive information such as passwords, tokens, and keys. These values are stored in the etcd database used by Kubernetes unencrypted. To protect these Secrets at rest, these values must be encrypted."
+  },
+  {
+    "vuln_id": "V-274883",
+    "stig_id": "CNTR-K8-001161",
+    "severity": "high",
+    "title": "Sensitive information must be stored using Kubernetes Secrets or an external Secret store provider.",
+    "description": "Sensitive information, such as passwords, keys, and tokens must not be stored in application code. Kubernetes offers a resource called Secrets that are designed for storing sensitive information for use by applications. Secrets are created and managed separately from application code. Additionally, they can be encrypted at rest and access to the secrets can be controlled via RBAC."
+  },
+  {
+    "vuln_id": "V-274884",
+    "stig_id": "CNTR-K8-001163",
+    "severity": "medium",
+    "title": "Kubernetes must limit Secret access on a need-to-know basis.",
+    "description": "Kubernetes secrets may store sensitive information such as passwords, tokens, and keys. Access to these secrets should be limited to a need-to-know basis via Kubernetes RBAC."
+  }
+]

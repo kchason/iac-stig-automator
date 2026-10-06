@@ -1,0 +1,96 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.7.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "azurerm_mysql_flexible_server.compliant",
+          "type": "azurerm_mysql_flexible_server",
+          "name": "compliant",
+          "values": {
+            "name": "mysql-compliant-prod",
+            "location": "eastus",
+            "resource_group_name": "rg-mysql-prod",
+            "version": "8.0.21",
+            "sku_name": "GP_Standard_D4ds_v4",
+            "zone": "1",
+            "require_secure_transport": "ON",
+            "tls_version": "TLSv1.2",
+            "max_user_connections": "50",
+            "audit_log_enabled": "ON",
+            "audit_log_events": "CONNECTION,DCL,DDL,DML",
+            "slow_query_log": "ON",
+            "public_network_access_enabled": false,
+            "backup_retention_days": 35,
+            "geo_redundant_backup_enabled": true,
+            "delegated_subnet_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.Network/virtualNetworks/vnet/subnets/mysql",
+            "private_dns_zone_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.Network/privateDnsZones/mysql.private.mysql.database.azure.com",
+            "high_availability": [
+              {
+                "mode": "ZoneRedundant",
+                "standby_availability_zone": "2"
+              }
+            ],
+            "customer_managed_key": [
+              {
+                "key_vault_key_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.KeyVault/vaults/kv/keys/mysql-cmk",
+                "primary_user_assigned_identity_id": "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mysql-identity"
+              }
+            ],
+            "identity": [
+              {
+                "type": "UserAssigned",
+                "identity_ids": [
+                  "/subscriptions/xxx/resourceGroups/rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mysql-identity"
+                ]
+              }
+            ],
+            "storage": [
+              {
+                "size_gb": 128,
+                "iops": 700,
+                "auto_grow_enabled": true
+              }
+            ],
+            "maintenance_window": [
+              {
+                "day_of_week": 0,
+                "start_hour": 3,
+                "start_minute": 0
+              }
+            ]
+          }
+        },
+        {
+          "address": "azurerm_mysql_flexible_server.non_compliant",
+          "type": "azurerm_mysql_flexible_server",
+          "name": "non_compliant",
+          "values": {
+            "name": "mysql-dev",
+            "location": "eastus",
+            "resource_group_name": "rg-mysql-dev",
+            "version": "8.0.21",
+            "sku_name": "B_Standard_B1ms",
+            "max_user_connections": "0",
+            "public_network_access_enabled": true,
+            "backup_retention_days": 7,
+            "geo_redundant_backup_enabled": false,
+            "identity": [
+              {
+                "type": "SystemAssigned",
+                "identity_ids": []
+              }
+            ],
+            "storage": [
+              {
+                "size_gb": 32,
+                "auto_grow_enabled": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+name: Feature request
+description: Suggest a change to stig-check or a new STIG module.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What review or STIG workflow is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should change, and which Terraform resource type or STIG it applies to.
+    validations:
+      required: true

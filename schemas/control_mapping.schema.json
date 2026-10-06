@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kchason/iac-stig-automator/schemas/control_mapping.schema.json",
+  "title": "STIG Automator control mapping",
+  "description": "Local behavior mappings for STIG controls. Each mapping uses either automatic platform text or a validation callback.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "controls"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "default": {
+      "$ref": "#/$defs/controlMapping"
+    },
+    "controls": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^V-[0-9]+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/controlMapping"
+      }
+    }
+  },
+  "$defs": {
+    "controlMapping": {
+      "type": "object",
+      "oneOf": [
+        {
+          "title": "Automatic platform mapping",
+          "required": [
+            "automatic_platform_text",
+            "cklb_status"
+          ],
+          "not": {
+            "required": [
+              "validation_function_name"
+            ]
+          },
+          "properties": {
+            "automatic_platform_text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cklb_status": {
+              "enum": [
+                "not_a_finding",
+                "open",
+                "not_applicable"
+              ]
+            },
+            "include_in_blank_cklb": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "title": "Validation callback mapping",
+          "required": [
+            "validation_function_name"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "automatic_platform_text"
+                ]
+              },
+              {
+                "required": [
+                  "cklb_status"
+                ]
+              }
+            ]
+          },
+          "properties": {
+            "validation_function_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "remediation_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

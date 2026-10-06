@@ -1,0 +1,75 @@
+{
+  "entra_only_auth": {
+    "quote": "Azure AD-only authentication disables SQL authentication for the managed instance.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/aad-security-configure-tutorial",
+    "terraform_properties": [
+      "azurerm_mssql_managed_instance_active_directory_administrator.azuread_authentication_only",
+      "azurerm_mssql_managed_instance_active_directory_administrator.login_username"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_active_directory_administrator"
+    ]
+  },
+  "minimum_tls": {
+    "quote": "Minimum TLS version for Azure SQL Managed Instance must be TLS 1.2 or newer.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/connect-application-instance",
+    "terraform_properties": [
+      "azurerm_mssql_managed_instance.minimum_tls_version"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance"
+    ]
+  },
+  "public_network_access": {
+    "quote": "The public data endpoint should remain disabled unless explicitly approved.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/public-endpoint-configure",
+    "terraform_properties": [
+      "azurerm_mssql_managed_instance.public_data_endpoint_enabled",
+      "azurerm_mssql_managed_instance.subnet_id"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance"
+    ]
+  },
+  "tde_enabled": {
+    "quote": "Transparent data encryption protects data at rest for Azure SQL Managed Instance.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/transparent-data-encryption-tde-overview",
+    "terraform_properties": [
+      "azurerm_mssql_managed_instance_transparent_data_encryption.key_vault_key_id"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_transparent_data_encryption"
+    ]
+  },
+  "extended_auditing": {
+    "quote": "SQL auditing records database and server events to a storage account or Log Analytics workspace.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/auditing-overview",
+    "terraform_properties": [
+      "azurerm_mssql_managed_instance_extended_auditing_policy.storage_endpoint",
+      "azurerm_mssql_managed_instance_extended_auditing_policy.log_monitoring_enabled"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_extended_auditing_policy"
+    ]
+  },
+  "audit_offload": {
+    "quote": "Diagnostic settings export SQL security audit events to centralized monitoring or storage.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/auditing-overview",
+    "terraform_properties": [
+      "azurerm_monitor_diagnostic_setting.log_analytics_workspace_id",
+      "azurerm_mssql_managed_instance_extended_auditing_policy.storage_endpoint"
+    ],
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting",
+      "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_extended_auditing_policy"
+    ]
+  },
+  "manual_scope": {
+    "quote": "This control requires database runtime, permission, or operational evidence not exposed in Terraform plan JSON.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/security-overview"
+  },
+  "managed_default": {
+    "quote": "Azure SQL Managed Instance is a fully managed PaaS offering; portions of the control are inherited from the cloud service provider.",
+    "url": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/security-overview"
+  }
+}
