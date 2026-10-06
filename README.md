@@ -40,7 +40,7 @@ Database modules use the parameter names and enum values documented by each CSP.
 ## Installation
 
 ```bash
-pip install stig-automator
+pip install iac-stig-automator
 ```
 
 From a checkout of this repository:

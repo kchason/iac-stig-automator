@@ -151,12 +151,12 @@ After the repository exists, turn on these GitHub settings before accepting pull
 
 ## Publishing to PyPI
 
-A personal PyPI account can own `stig-automator`. A PyPI organization is optional. The project name is global, so the install command stays `pip install stig-automator` either way.
+A personal PyPI account can own `iac-stig-automator`. A PyPI organization is optional. The project name is global, so the install command stays `pip install iac-stig-automator` either way.
 
 Do not store a PyPI token in the repository. The release workflow uses GitHub trusted publishing.
 
 1. Sign in to PyPI as the account that should own the project.
 2. Create a GitHub environment named `pypi` on this repository.
-3. Add a trusted publisher for project `stig-automator`: owner `kchason`, repository `iac-stig-automator`, workflow `publish.yml`, environment `pypi`. If the project does not exist yet, add that publisher as a pending publisher. The first successful release creates the project under the account that added the publisher.
+3. Add a trusted publisher for project `iac-stig-automator`: owner `kchason`, repository `iac-stig-automator`, workflow `publish.yml`, environment `pypi`. If the project does not exist yet, add that publisher as a pending publisher. The first successful release creates the project under the account that added the publisher.
 4. Confirm `main` contains the version in `pyproject.toml`.
 5. Create a GitHub release whose tag matches that version, prefixed with `v`, such as `v0.3.0`. The publish workflow builds the distributions and uploads them. A tag that does not match `pyproject.toml` fails before upload.

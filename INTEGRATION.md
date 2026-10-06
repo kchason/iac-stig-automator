@@ -21,7 +21,7 @@ stig_check:
     - apt-get update && apt-get install -y unzip curl
     - curl -fsSL https://releases.hashicorp.com/terraform/1.8.5/terraform_1.8.5_linux_amd64.zip -o terraform.zip
     - unzip terraform.zip -d /usr/local/bin
-    - pip install stig-automator
+    - pip install iac-stig-automator
   script:
     - terraform init -backend=false
     - terraform plan -out=tfplan
@@ -44,7 +44,7 @@ stig_check_report:
     - apt-get update && apt-get install -y unzip curl
     - curl -fsSL https://releases.hashicorp.com/terraform/1.8.5/terraform_1.8.5_linux_amd64.zip -o terraform.zip
     - unzip terraform.zip -d /usr/local/bin
-    - pip install stig-automator
+    - pip install iac-stig-automator
   script:
     - terraform init -backend=false
     - terraform plan -out=tfplan
@@ -83,7 +83,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Install stig-check
-        run: pip install stig-automator
+        run: pip install iac-stig-automator
 
       - name: Create Terraform plan JSON
         run: |
@@ -120,7 +120,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Install stig-check
-        run: pip install stig-automator
+        run: pip install iac-stig-automator
 
       - name: Create Terraform plan JSON
         run: |
