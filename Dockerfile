@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 LABEL org.opencontainers.image.title="STIG Automator"
 LABEL org.opencontainers.image.description="Evaluate Terraform plan/state JSON against STIG controls"
