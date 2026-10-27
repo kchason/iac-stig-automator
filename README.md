@@ -43,6 +43,8 @@ Database modules use the parameter names and enum values documented by each CSP.
 pip install iac-stig-automator
 ```
 
+Release images are published as `kchason/iac-stig-automator`. The image entrypoint is `stig-check`. See [CI integration](https://github.com/kchason/iac-stig-automator/blob/main/INTEGRATION.md) for GitHub Actions and GitLab examples.
+
 From a checkout of this repository:
 
 ```bash
