@@ -324,7 +324,7 @@ class AzureSqlDatabaseStigModule(BaseStigModule):
     stig_benchmark_id = "MS_Azure_SQL_DB_STIG"
     stig_benchmark_title = "Microsoft Azure SQL Database Security Technical Implementation Guide"
     stig_version = "2"
-    stig_release_info = "Release: 2 Benchmark Date: 24 Oct 2024"
+    stig_release_info = "Release: 4 Benchmark Date: 30 Sep 2026"
 
     def controls(self) -> list[StigControl]:
         """Return the Azure SQL Database STIG control catalogue."""

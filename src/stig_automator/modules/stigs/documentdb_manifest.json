@@ -1,0 +1,12 @@
+{
+  "source_url": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MDB_Enterprise_Advanced_8-x_V1R1_STIG.zip",
+  "source_archive": "U_MDB_Enterprise_Advanced_8-x_V1R1_STIG.zip",
+  "source_sha256": "75f8cdf59788c251284b67645dc5cebf27de3a12a4bfb2c904317a74a1a389df",
+  "imported_control_count": 55,
+  "official_control_count": 55,
+  "benchmark_id": "MongoDB_Enterprise_Advanced_8-x_STIG",
+  "benchmark_title": "MongoDB Enterprise Advanced 8.x Security Technical Implementation Guide",
+  "version": "1",
+  "release_info": "Release: 1 Benchmark Date: 26 Jan 2026",
+  "xccdf_file": "U_MDB_Enterprise_Advanced_8-x_STIG_V1R1_Manual-xccdf.xml"
+}

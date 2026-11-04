@@ -368,3 +368,29 @@ class TestOutputPathAllocator:
         assert allocator.filename_for(colon_resource, ".json") == "a_b_2.json"
         assert allocator.filename_for(literal_resource, ".json") == "a_b_3.json"
         assert allocator.filename_for(slash_resource, ".cklb") == "a_b.cklb"
+
+    def test_collected_resource_ids_do_not_reuse_filenames(self):
+        allocator = OutputPathAllocator()
+        addresses = [
+            "aks.csp_inherited_controls",
+            "documentdb.csp_inherited_controls",
+            "eks.csp_inherited_controls",
+            "mysql_flexible.csp_inherited_controls",
+            "postgres_flexible.csp_inherited_controls",
+            "rds_postgres.csp_inherited_controls",
+        ]
+
+        filenames = []
+        for address in addresses:
+            resource = {"address": address}
+            filenames.append(allocator.filename_for(resource, ".json"))
+            del resource
+
+        assert filenames == [
+            "aks_csp_inherited_controls.json",
+            "documentdb_csp_inherited_controls.json",
+            "eks_csp_inherited_controls.json",
+            "mysql_flexible_csp_inherited_controls.json",
+            "postgres_flexible_csp_inherited_controls.json",
+            "rds_postgres_csp_inherited_controls.json",
+        ]

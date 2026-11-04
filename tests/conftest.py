@@ -46,3 +46,8 @@ def azure_sql_database_plan() -> dict:
 @pytest.fixture
 def azure_sql_managed_instance_plan() -> dict:
     return json.loads((FIXTURES_DIR / "azure_sql_managed_instance_sample_plan.json").read_text())
+
+
+@pytest.fixture
+def documentdb_plan() -> dict:
+    return json.loads((FIXTURES_DIR / "documentdb_sample_plan.json").read_text())

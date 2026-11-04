@@ -48,6 +48,7 @@ class TestListModules:
         result = run_cli("--list-modules")
         assert result.returncode == 0
         assert "aks" in result.stdout
+        assert "documentdb" in result.stdout
         assert "mysql_flexible" in result.stdout
         assert "postgres_flexible" in result.stdout
 
@@ -219,6 +220,7 @@ class TestBlankOutput:
         assert result.returncode == 0
         assert sorted(f.name for f in tmp_path.glob("*.json")) == [
             "aks_csp_inherited_controls.json",
+            "documentdb_csp_inherited_controls.json",
             "eks_csp_inherited_controls.json",
             "mysql_flexible_csp_inherited_controls.json",
             "postgres_flexible_csp_inherited_controls.json",
