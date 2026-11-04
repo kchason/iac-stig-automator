@@ -160,3 +160,5 @@ Do not store a PyPI token in the repository. The release workflow uses GitHub tr
 3. Add a trusted publisher for project `iac-stig-automator`: owner `kchason`, repository `iac-stig-automator`, workflow `publish.yml`, environment `pypi`. If the project does not exist yet, add that publisher as a pending publisher. The first successful release creates the project under the account that added the publisher.
 4. Confirm `main` contains the version in `pyproject.toml`.
 5. Create a GitHub release whose tag matches that version, prefixed with `v`, such as `v0.3.0`. The publish workflow builds the distributions and uploads them. A tag that does not match `pyproject.toml` fails before upload.
+
+The same release publishes `kchason/iac-stig-automator:<version>` and `kchason/iac-stig-automator:latest` to Docker Hub. Create that Docker Hub repository before the first release, and add repository secrets `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`. `DOCKERHUB_TOKEN` is a Docker Hub access token with write access. Do not commit the token.
