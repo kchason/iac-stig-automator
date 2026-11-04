@@ -12,9 +12,9 @@ catalogs, and ship those JSON files in the wheel.
 
 1. Start from the official Cyber Exchange STIG downloads page: <https://www.cyber.mil/stigs/downloads/>.
 2. Download the official DISA zip for the target release.
-   - Kubernetes example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Kubernetes_V2R4_STIG.zip`
-   - Crunchy Data Postgres 16 example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R2_STIG.zip`
-   - Oracle MySQL 8.0 example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Oracle_MySQL_8-0_V2R2_STIG.zip`
+   - Kubernetes example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Kubernetes_V2R6_STIG.zip`
+   - Crunchy Data Postgres 16 example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R3_STIG.zip`
+   - Oracle MySQL 8.0 example: `https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Oracle_MySQL_8-0_V2R3_STIG.zip`
 3. Extract the `*_Manual-xccdf.xml` file from the zip.
 4. Confirm the XCCDF benchmark metadata:
    - Benchmark ID, such as `Kubernetes_STIG`
@@ -30,16 +30,16 @@ mappings live separately under `src/stig_automator/modules/mappings/`.
 
 ```bash
 python scripts/import_stig_controls.py \
-  --stig-zip /path/to/U_CD_Postgres_16_V1R2_STIG.zip \
+  --stig-zip /path/to/U_CD_Postgres_16_V1R3_STIG.zip \
   --controls-json src/stig_automator/modules/stigs/postgres_flexible_controls.json \
   --manifest-json src/stig_automator/modules/stigs/postgres_manifest.json \
-  --source-url https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R2_STIG.zip
+  --source-url https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R3_STIG.zip
 
 python scripts/import_stig_controls.py --full-catalog \
-  --stig-zip /path/to/U_CD_Postgres_16_V1R2_STIG.zip \
+  --stig-zip /path/to/U_CD_Postgres_16_V1R3_STIG.zip \
   --controls-json src/stig_automator/modules/stigs/postgres_flexible_controls.json \
   --manifest-json src/stig_automator/modules/stigs/postgres_manifest.json \
-  --source-url https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R2_STIG.zip
+  --source-url https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_CD_Postgres_16_V1R3_STIG.zip
 ```
 
 Run the same importer against provider-specific catalogs that share a STIG, such
@@ -93,7 +93,7 @@ When the STIG release changes, update the module class metadata to match the XCC
 ```python
 stig_benchmark_id = "Kubernetes_STIG"
 stig_version = "2"
-stig_release_info = "Release: 4 Benchmark Date: 02 Jul 2025"
+stig_release_info = "Release: 6 Benchmark Date: 01 Apr 2026"
 ```
 
 If controls are added, removed, or renumbered:

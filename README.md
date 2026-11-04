@@ -24,18 +24,19 @@ STIG Automator auto-detects resources in your Terraform plan, runs the applicabl
 
 | Module | STIG | Terraform Resource Type | Controls |
 |---|---|---|---|
-| `aks` | DISA STIG for Kubernetes, V2 | `azurerm_kubernetes_cluster` | 94 |
-| `azure_sql_database` | Microsoft Azure SQL Database STIG, V2R2 | `azurerm_mssql_server` | 76 |
+| `aks` | DISA STIG for Kubernetes, V2R6 | `azurerm_kubernetes_cluster` | 92 |
+| `azure_sql_database` | Microsoft Azure SQL Database STIG, V2R4 | `azurerm_mssql_server` | 76 |
 | `azure_sql_managed_instance` | Microsoft Azure SQL Managed Instance STIG, V1R1 | `azurerm_mssql_managed_instance` | 84 |
-| `eks` | DISA STIG for Kubernetes, V2 | `aws_eks_cluster` | 94 |
-| `mysql_flexible` | DISA STIG for MySQL 8.0 | `azurerm_mysql_flexible_server` | 17 |
-| `postgres_flexible` | Crunchy Data Postgres 16 STIG, V1R2 | `azurerm_postgresql_flexible_server` | 111 |
-| `rds_mysql` | DISA STIG for MySQL 8.0 | `aws_db_instance` / `aws_rds_cluster` (`engine` = MySQL) | 17 |
-| `rds_postgres` | Crunchy Data Postgres 16 STIG, V1R2 | `aws_db_instance` / `aws_rds_cluster` (`engine` = PostgreSQL) | 111 |
+| `documentdb` | MongoDB Enterprise Advanced 8.x STIG, V1R1 | `aws_docdb_cluster` | 55 |
+| `eks` | DISA STIG for Kubernetes, V2R6 | `aws_eks_cluster` | 92 |
+| `mysql_flexible` | Oracle MySQL 8.0 STIG, V2R3 | `azurerm_mysql_flexible_server` | 17 |
+| `postgres_flexible` | Crunchy Data Postgres 16 STIG, V1R3 | `azurerm_postgresql_flexible_server` | 111 |
+| `rds_mysql` | Oracle MySQL 8.0 STIG, V2R3 | `aws_db_instance` / `aws_rds_cluster` (`engine` = MySQL) | 17 |
+| `rds_postgres` | Crunchy Data Postgres 16 STIG, V1R3 | `aws_db_instance` / `aws_rds_cluster` (`engine` = PostgreSQL) | 111 |
 
 ### Database provider value notes
 
-Database modules use the parameter names and enum values documented by each CSP. For example, Azure MySQL Flexible Server `audit_log_events` expects Azure event classes such as `CONNECTION`, `CONNECTION_V2`, `DCL`, `DDL`, and `GENERAL`, while Amazon RDS for MySQL `server_audit_events` uses MariaDB Audit Plugin values such as `CONNECT`, `QUERY`, `QUERY_DCL`, and `QUERY_DDL`. Check results include CSP documentation, Terraform provider documentation, and upstream RDBMS references where the provider setting maps to MySQL, MariaDB, PostgreSQL, or pgAudit behavior.
+Database modules use the parameter names and enum values documented by each CSP. For example, Azure MySQL Flexible Server `audit_log_events` expects Azure event classes such as `CONNECTION`, `CONNECTION_V2`, `DCL`, `DDL`, and `GENERAL`, while Amazon RDS for MySQL `server_audit_events` uses MariaDB Audit Plugin values such as `CONNECT`, `QUERY`, `QUERY_DCL`, and `QUERY_DDL`. Amazon DocumentDB is checked against the MongoDB Enterprise Advanced 8.x STIG, using DocumentDB parameter values such as `tls` (`enabled`, `tls1.2+`, `tls1.3+`, `fips-140-3`) and `audit_logs` (`all`, `enabled`, or `ddl,dml_read,dml_write`). Check results include CSP documentation, Terraform provider documentation, and upstream RDBMS references where the provider setting maps to MySQL, MariaDB, PostgreSQL, pgAudit, or MongoDB behavior.
 
 ## Installation
 
@@ -78,6 +79,7 @@ stig-check plan.json -m mysql_flexible
 stig-check plan.json -m postgres_flexible
 stig-check plan.json -m rds_mysql
 stig-check plan.json -m rds_postgres
+stig-check plan.json -m documentdb
 stig-check plan.json -m azure_sql_database
 stig-check plan.json -m azure_sql_managed_instance
 ```
@@ -243,12 +245,13 @@ src/stig_automator/
 ├── registry.py         # Module registry and auto-detection
 └── modules/
     ├── _base.py            # BaseStigModule abstract base class
-    ├── aks.py              # AKS Kubernetes STIG (94 controls)
+    ├── aks.py              # AKS Kubernetes STIG (92 controls)
     ├── azure_sql_database.py # Azure SQL Database STIG (76 controls)
     ├── azure_sql_managed_instance.py # Azure SQL Managed Instance STIG (84 controls)
+    ├── documentdb.py       # Amazon DocumentDB STIG (55 controls)
     ├── mappings/           # Editable behavior/evidence mappings
     ├── stigs/              # Raw STIG metadata exports used by cklb output
-    ├── eks.py              # Amazon EKS Kubernetes STIG (94 controls)
+    ├── eks.py              # Amazon EKS Kubernetes STIG (92 controls)
     ├── mysql_flexible.py   # MySQL Flexible Server STIG (17 controls)
     ├── postgres_flexible.py # Azure PostgreSQL Flexible Server STIG (111 controls)
     ├── rds_mysql.py        # Amazon RDS MySQL STIG (17 controls)

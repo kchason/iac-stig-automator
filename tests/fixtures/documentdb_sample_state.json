@@ -1,0 +1,124 @@
+{
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_docdb_cluster.compliant",
+          "type": "aws_docdb_cluster",
+          "name": "compliant",
+          "values": {
+            "backup_retention_period": 14,
+            "cluster_identifier": "compliant-docdb",
+            "db_cluster_parameter_group_name": "compliant-docdb-params",
+            "db_subnet_group_name": "compliant-docdb-subnets",
+            "deletion_protection": true,
+            "enabled_cloudwatch_logs_exports": [
+              "audit",
+              "profiler"
+            ],
+            "engine": "docdb",
+            "engine_version": "8.0.0",
+            "id": "compliant-docdb",
+            "kms_key_id": "arn:aws:kms:us-east-1:111122223333:key/docdb",
+            "port": 27017,
+            "storage_encrypted": true,
+            "vpc_security_group_ids": [
+              "sg-0123456789abcdef0"
+            ]
+          }
+        },
+        {
+          "address": "aws_docdb_cluster_parameter_group.compliant",
+          "type": "aws_docdb_cluster_parameter_group",
+          "name": "compliant",
+          "values": {
+            "family": "docdb8.0",
+            "name": "compliant-docdb-params",
+            "parameter": [
+              {
+                "name": "tls",
+                "value": "fips-140-3"
+              },
+              {
+                "name": "audit_logs",
+                "value": "all"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_docdb_subnet_group.compliant",
+          "type": "aws_docdb_subnet_group",
+          "name": "compliant",
+          "values": {
+            "name": "compliant-docdb-subnets",
+            "subnet_ids": [
+              "subnet-11111111",
+              "subnet-22222222"
+            ]
+          }
+        },
+        {
+          "address": "aws_docdb_cluster_instance.compliant",
+          "type": "aws_docdb_cluster_instance",
+          "name": "compliant",
+          "values": {
+            "cluster_identifier": "compliant-docdb",
+            "identifier": "compliant-docdb-1",
+            "instance_class": "db.r6g.large"
+          }
+        },
+        {
+          "address": "aws_docdb_cluster.non_compliant",
+          "type": "aws_docdb_cluster",
+          "name": "non_compliant",
+          "values": {
+            "backup_retention_period": 1,
+            "cluster_identifier": "noncompliant-docdb",
+            "db_cluster_parameter_group_name": "noncompliant-docdb-params",
+            "db_subnet_group_name": "",
+            "deletion_protection": false,
+            "enabled_cloudwatch_logs_exports": [
+              "profiler"
+            ],
+            "engine": "docdb",
+            "engine_version": "3.6.0",
+            "id": "noncompliant-docdb",
+            "kms_key_id": "",
+            "port": 27017,
+            "storage_encrypted": false,
+            "vpc_security_group_ids": []
+          }
+        },
+        {
+          "address": "aws_docdb_cluster_parameter_group.non_compliant",
+          "type": "aws_docdb_cluster_parameter_group",
+          "name": "non_compliant",
+          "values": {
+            "family": "docdb3.6",
+            "name": "noncompliant-docdb-params",
+            "parameter": [
+              {
+                "name": "tls",
+                "value": "disabled"
+              },
+              {
+                "name": "audit_logs",
+                "value": "ddl"
+              }
+            ]
+          }
+        },
+        {
+          "address": "aws_db_instance.not_documentdb",
+          "type": "aws_db_instance",
+          "name": "not_documentdb",
+          "values": {
+            "engine": "postgres",
+            "engine_version": "16.4"
+          }
+        }
+      ]
+    }
+  }
+}

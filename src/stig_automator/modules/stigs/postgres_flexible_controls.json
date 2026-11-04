@@ -2119,9 +2119,9 @@
   {
     "vuln_id": "V-261930",
     "stig_id": "CD16-00-008500",
-    "severity": "CAT_II",
+    "severity": "CAT_I",
     "title": "PostgreSQL must implement cryptographic mechanisms to prevent unauthorized modification of organization-defined information at rest (to include, at a minimum, PII and classified information) on organization-defined information system components.",
-    "rule_id": "SV-261930r1018552_rule",
+    "rule_id": "SV-261930r1211024_rule",
     "rule_version": "CD16-00-008500",
     "group_id": "V-261930",
     "group_title": "SRG-APP-000428-DB-000386",
@@ -2129,7 +2129,7 @@
       "CCI-002475"
     ],
     "fix_text": "Configure PostgreSQL, operating system/file system, and additional software as relevant, to provide the required level of cryptographic protection.\n\nThe pgcrypto module provides cryptographic functions for PostgreSQL. Refer to supplementary content APPENDIX-E for documentation on installing pgcrypto.\n\nWith pgcrypto installed, it is possible to insert encrypted data into the database:\n\nINSERT INTO accounts(username, password) VALUES ('bob', crypt('mypass', gen_salt('bf', 4));",
-    "description": "PostgreSQLs handling data requiring \"data at rest\" protections must employ cryptographic mechanisms to prevent unauthorized disclosure and modification of the information at rest. These cryptographic mechanisms may be native to PostgreSQL or implemented via additional software or operating system/file system settings, as appropriate to the situation.\n\nSelection of a cryptographic mechanism is based on the need to protect the integrity of organizational information. The strength of the mechanism is commensurate with the security category and/or classification of the information. Organizations have the flexibility to either encrypt all information on storage devices (i.e., full disk encryption) or encrypt specific data structures (e.g., files, records, or fields). \n\nThe decision whether and what to encrypt rests with the data owner and is also influenced by the physical measures taken to secure the equipment and media on which the information resides.",
+    "description": "PostgreSQLs handling data requiring \"data-at-rest\" protections must employ cryptographic mechanisms to prevent unauthorized disclosure and modification of the information at rest. These cryptographic mechanisms may be native to PostgreSQL or implemented via additional software or operating system/file system settings, as appropriate to the situation.\n\nSelection of a cryptographic mechanism is based on the need to protect the integrity of organizational information. The strength of the mechanism is commensurate with the security category and/or classification of the information. Organizations have the flexibility to either encrypt all information on storage devices (i.e., full disk encryption) or encrypt specific data structures (e.g., files, records, or fields). \n\nThe decision of whether and what to encrypt rests with the data owner and is also influenced by the physical measures taken to secure the equipment and media on which the information resides.",
     "false_positives": "",
     "false_negatives": "",
     "documentable": "false",
