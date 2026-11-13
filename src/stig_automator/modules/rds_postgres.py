@@ -482,7 +482,7 @@ class RdsPostgresStigModule(BaseStigModule):
     stig_benchmark_id = "CD_Postgres_16_STIG"
     stig_benchmark_title = "Crunchy Data Postgres 16 Security Technical Implementation Guide"
     stig_version = "1"
-    stig_release_info = "Release: 2 Benchmark Date: 01 Apr 2026"
+    stig_release_info = "Release: 3 Benchmark Date: 01 Jul 2026"
 
     def controls(self) -> list[StigControl]:
         """Return the RDS PostgreSQL STIG control catalogue."""
