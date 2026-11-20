@@ -59,6 +59,40 @@ stig_check_report:
       - stig-results/
 ```
 
+To use the published image instead of installing from PyPI, build the plan in
+one job and run `stig-check` from `kchason/iac-stig-automator` in the next. The
+image entrypoint is `stig-check`, so the job clears it and the script runs in
+a shell. The image does not include Terraform.
+
+```yaml
+stages:
+  - plan
+  - validate
+
+terraform_plan:
+  stage: plan
+  image: python:3.12
+  before_script:
+    - apt-get update && apt-get install -y unzip curl
+    - curl -fsSL https://releases.hashicorp.com/terraform/1.8.5/terraform_1.8.5_linux_amd64.zip -o terraform.zip
+    - unzip terraform.zip -d /usr/local/bin
+  script:
+    - terraform init -backend=false
+    - terraform plan -out=tfplan
+    - terraform show -json tfplan > plan.json
+  artifacts:
+    paths:
+      - plan.json
+
+stig_check:
+  stage: validate
+  image:
+    name: kchason/iac-stig-automator:0.3.0
+    entrypoint: [""]
+  script:
+    - stig-check plan.json --fail-on CAT_II
+```
+
 ## GitHub Actions
 
 ```yaml
@@ -155,26 +189,71 @@ jobs:
             stig-results/
 ```
 
+To use the published image instead of installing from PyPI, create the plan
+JSON on the runner, then run `kchason/iac-stig-automator`. The image does not
+include Terraform. `--user` lets the container write reports into the mounted
+workspace.
+
+```yaml
+name: STIG Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  stig-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Create Terraform plan JSON
+        run: |
+          terraform init -backend=false
+          terraform plan -out=tfplan
+          terraform show -json tfplan > plan.json
+
+      - name: Run STIG checks
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
+            kchason/iac-stig-automator:0.3.0 plan.json --fail-on CAT_II
+```
+
 ## Docker Image
 
-Build the repository Dockerfile once in your CI job, then pass an existing
-Terraform plan or state JSON file by mounting the workspace into `/work`. The
-image entrypoint is `stig-check`, so arguments are passed directly to the CLI.
+Published release images are on Docker Hub as `kchason/iac-stig-automator`.
+Pass an existing Terraform plan or state JSON file by mounting the workspace
+into `/work`. The image entrypoint is `stig-check`, so arguments are passed
+directly to the CLI. The image does not include Terraform.
 
 ```bash
-docker build -t stig-automator .
-docker run --rm -v "$PWD:/work" stig-automator plan.json --fail-on CAT_II
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
+  kchason/iac-stig-automator:0.3.0 plan.json --fail-on CAT_II
 ```
 
 To write report artifacts back to the mounted workspace:
 
 ```bash
 mkdir -p stig-results
-docker run --rm -v "$PWD:/work" stig-automator \
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
+  kchason/iac-stig-automator:0.3.0 \
   plan.json \
   -o json cklb \
   --output-dir stig-results \
   --fail-on CAT_I
+```
+
+To build the repository Dockerfile locally instead of pulling the published
+image:
+
+```bash
+docker build -t stig-automator .
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
+  stig-automator plan.json --fail-on CAT_II
 ```
 
 ## Shared Config File
