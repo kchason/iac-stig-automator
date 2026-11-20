@@ -559,7 +559,7 @@ class MysqlFlexibleStigModule(BaseStigModule):
     stig_benchmark_id = "Oracle_MySQL_8.0_STIG"
     stig_benchmark_title = "Oracle MySQL 8.0 Security Technical Implementation Guide"
     stig_version = "2"
-    stig_release_info = "Release: 2 Benchmark Date: 24 Oct 2024"
+    stig_release_info = "Release: 3 Benchmark Date: 30 Sep 2026"
 
     def controls(self) -> list[StigControl]:
         """Return the MySQL 8.0 STIG control catalogue."""

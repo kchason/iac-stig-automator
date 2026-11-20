@@ -68,7 +68,7 @@ class TestAksCompliant:
             assert met, f"{control.vuln_id} ({control.stig_id}) failed: {detail}"
 
     def test_control_count(self, aks_module):
-        assert len(aks_module.controls()) == 94
+        assert len(aks_module.controls()) == 92
 
     def test_catalog_and_control_mappings_load_from_json_resources(self, aks_module):
         with resources.files(stig_modules).joinpath("stigs/kubernetes_catalog.json").open(encoding="utf-8") as f:
@@ -145,8 +145,8 @@ class TestAksManagedDefaultsEvidence:
         resource, related = compliant_resource
         controls_by_id = {c.vuln_id: c for c in aks_module.controls()}
         auto_met_managed_defaults = {
-            "V-242386",
-            "V-242388",
+            "V-242376",
+            "V-242379",
             "V-242434",
             "V-242444",
             "V-274882",

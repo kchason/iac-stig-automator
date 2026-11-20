@@ -346,7 +346,7 @@ class EksStigModule(BaseStigModule):
     stig_benchmark_id = "Kubernetes_STIG"
     stig_benchmark_title = "Kubernetes Security Technical Implementation Guide"
     stig_version = "2"
-    stig_release_info = "Release: 4 Benchmark Date: 02 Jul 2025"
+    stig_release_info = "Release: 6 Benchmark Date: 01 Apr 2026"
 
     def controls(self) -> list[StigControl]:
         """Return the EKS Kubernetes STIG control catalogue."""

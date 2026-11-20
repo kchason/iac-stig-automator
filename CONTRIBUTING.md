@@ -69,13 +69,13 @@ Reports are written to `security-reports/`, which is gitignored. Regenerate them
 
 ```bash
 python scripts/import_stig_controls.py \
-  --stig-zip /path/to/U_CD_Postgres_16_V1R2_STIG.zip \
+  --stig-zip /path/to/U_CD_Postgres_16_V1R3_STIG.zip \
   --controls-json src/stig_automator/modules/stigs/postgres_flexible_controls.json \
   --manifest-json src/stig_automator/modules/stigs/postgres_manifest.json \
   --source-url https://example.invalid/source.zip
 
 python scripts/import_stig_controls.py --full-catalog \
-  --stig-zip /path/to/U_CD_Postgres_16_V1R2_STIG.zip \
+  --stig-zip /path/to/U_CD_Postgres_16_V1R3_STIG.zip \
   --controls-json src/stig_automator/modules/stigs/postgres_flexible_controls.json \
   --manifest-json src/stig_automator/modules/stigs/postgres_manifest.json \
   --source-url https://example.invalid/source.zip

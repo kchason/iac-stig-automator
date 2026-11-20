@@ -1,0 +1,105 @@
+{
+  "tls_required": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/security.encryption.ssl.html",
+    "quote": "By default, encryption in transit is enabled for newly created Amazon DocumentDB clusters. It can optionally be disabled when the cluster is created, or at a later time.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster_parameter_group.parameter name = \"tls\"",
+      "aws_docdb_cluster_parameter_group.parameter value is enabled, tls1.2+, tls1.3+, or fips-140-3"
+    ],
+    "rdbms_urls": [
+      "https://www.mongodb.com/docs/manual/tutorial/configure-ssl/"
+    ]
+  },
+  "fips_tls": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/security.encryption.ssl.html",
+    "quote": "The cluster only accepts secure connections per the requirements of the Federal Information Processing Standards (FIPS) publication 140-3.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster_parameter_group.parameter name = \"tls\"",
+      "aws_docdb_cluster_parameter_group.parameter value = \"fips-140-3\""
+    ]
+  },
+  "audit_logs": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/event-auditing.html",
+    "quote": "The Amazon DocumentDB auditing feature is an opt-in feature.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster_parameter_group.parameter name = \"audit_logs\"",
+      "aws_docdb_cluster_parameter_group.parameter value is all, enabled, or ddl,dml_read,dml_write"
+    ],
+    "rdbms_urls": [
+      "https://www.mongodb.com/docs/manual/core/auditing/"
+    ]
+  },
+  "audit_offload": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/event-auditing.html",
+    "quote": "Ensure that both steps are completed, or audit logs will not be sent to CloudWatch Logs.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster",
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster_parameter_group"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster_parameter_group.parameter name = \"audit_logs\"",
+      "aws_docdb_cluster.enabled_cloudwatch_logs_exports includes \"audit\""
+    ]
+  },
+  "encryption_at_rest": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/encryption-at-rest.html",
+    "quote": "You encrypt data at rest in your Amazon DocumentDB cluster by specifying the storage encryption option when you create your cluster.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster.storage_encrypted = true"
+    ]
+  },
+  "cmk_encryption": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/encryption-at-rest.html",
+    "quote": "Amazon DocumentDB uses the 256-bit Advanced Encryption Standard (AES-256) to encrypt your data using encryption keys stored in AWS Key Management Service (AWS KMS).",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster.storage_encrypted = true",
+      "aws_docdb_cluster.kms_key_id is a customer managed KMS key"
+    ]
+  },
+  "supported_version": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/docdb-engine-version-supportability.html",
+    "quote": "Feature / Capability v3.6 v4.0 v5.0 v8.0 Support status EOL: Mar 2026 Active Active (LTS available) Active (GA Nov 2025)",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster.engine_version is 4.0, 5.0, or 8.0"
+    ]
+  },
+  "network_restrictions": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/vpc-docdb.html",
+    "quote": "Amazon Virtual Private Cloud (Amazon VPC) makes it possible for you to launch AWS resources, such as Amazon DocumentDB instances, into a virtual private cloud (VPC).",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster.db_subnet_group_name is set",
+      "aws_docdb_cluster.vpc_security_group_ids is non-empty"
+    ]
+  },
+  "managed_service": {
+    "url": "https://docs.aws.amazon.com/documentdb/latest/devguide/what-is.html",
+    "quote": "Amazon DocumentDB (with MongoDB compatibility) is a fast, reliable, and fully managed database service.",
+    "terraform_urls": [
+      "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/docdb_cluster"
+    ],
+    "terraform_properties": [
+      "aws_docdb_cluster"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "source_url": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Kubernetes_V2R6_STIG.zip",
+  "source_archive": "U_Kubernetes_V2R6_STIG.zip",
+  "source_sha256": "2e66cc46e19889f337b40a7827745146c40c7b532529c03d826ba7462419876a",
+  "imported_control_count": 92,
+  "official_control_count": 92,
+  "benchmark_id": "Kubernetes_STIG",
+  "benchmark_title": "Kubernetes Security Technical Implementation Guide",
+  "version": "2",
+  "release_info": "Release: 6 Benchmark Date: 01 Apr 2026",
+  "xccdf_file": "U_Kubernetes_STIG_V2R6_Manual-xccdf.xml"
+}

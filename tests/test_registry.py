@@ -15,6 +15,7 @@ class TestRegistry:
 
     def test_aws_modules_registered(self):
         assert "eks" in registered_names()
+        assert "documentdb" in registered_names()
         assert "rds_mysql" in registered_names()
         assert "rds_postgres" in registered_names()
         assert "azure_sql_database" in registered_names()
@@ -32,6 +33,7 @@ class TestRegistry:
         assert "mysql_flexible" in names
         assert "postgres_flexible" in names
         assert "eks" in names
+        assert "documentdb" in names
         assert "rds_mysql" in names
         assert "rds_postgres" in names
         assert "azure_sql_database" in names
@@ -71,7 +73,13 @@ class TestRegistry:
         names = {m.name for m in modules}
         assert "rds_mysql" in names
         assert "rds_postgres" in names
+        assert "documentdb" not in names
         assert "eks" not in names
+
+    def test_detect_modules_documentdb(self):
+        modules = detect_modules({"aws_docdb_cluster", "aws_docdb_cluster_instance"})
+        names = {module.name for module in modules}
+        assert names == {"documentdb"}
 
     def test_detect_modules_azure_sql_database(self):
         modules = detect_modules({"azurerm_mssql_server", "azurerm_resource_group"})

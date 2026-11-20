@@ -548,6 +548,9 @@ class OutputPathAllocator:
         """Initialise empty resource-to-stem allocation state."""
         self._resource_stems: dict[int, str] = {}
         self._used_stems: set[str] = set()
+        # CPython can reuse the id of a collected dict. Keep each resource
+        # alive so a later resource cannot inherit an earlier filename.
+        self._resources: list[dict] = []
 
     def filename_for(self, resource: dict, ext: str) -> str:
         """Return a de-duplicated filename for *resource* and *ext*."""
@@ -566,6 +569,7 @@ class OutputPathAllocator:
             stem = f"{base}_{suffix}"
             suffix += 1
 
+        self._resources.append(resource)
         self._resource_stems[resource_key] = stem
         self._used_stems.add(stem.lower())
         return stem

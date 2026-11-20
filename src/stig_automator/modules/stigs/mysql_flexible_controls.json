@@ -114,7 +114,6 @@
       "href": "Oracle_MySQL_8.0_STIG.xml",
       "name": "M"
     }
-
   },
   {
     "vuln_id": "V-235100",
@@ -144,7 +143,6 @@
       "href": "Oracle_MySQL_8.0_STIG.xml",
       "name": "M"
     }
-
   },
   {
     "vuln_id": "V-235101",
@@ -174,7 +172,6 @@
       "href": "Oracle_MySQL_8.0_STIG.xml",
       "name": "M"
     }
-
   },
   {
     "vuln_id": "V-235102",
@@ -471,15 +468,15 @@
     "stig_id": "MYS8-00-004700",
     "severity": "CAT_II",
     "title": "The MySQL Database Server 8.0, when utilizing PKI-based authentication, must validate certificates by performing RFC 5280-compliant certification path validation.",
-    "rule_id": "SV-235134r961038_rule",
+    "rule_id": "SV-235134r1268528_rule",
     "rule_version": "MYS8-00-004700",
     "group_id": "V-235134",
     "group_title": "SRG-APP-000175-DB-000067",
     "cci": [
       "CCI-000185"
     ],
-    "fix_text": "Configure the DBMS to validate certificates by constructing a certification path with status information to an accepted trust anchor.\n\nConfigure the database server to support Transport Layer Security (TLS) protocols.\nmysql> set persist require_secure_transport=ON;\n\nSet system variables on the server side specify DoD approved certificate and key files the server uses when permitting clients to establish encrypted connections:\n\nssl_ca: The path name of the Certificate Authority (CA) certificate file. (ssl_capath is similar but specifies the path name of a directory of CA certificate files.)\n\nssl_cert: The path name of the server public key certificate file. This certificate can be sent to the client and authenticated against the CA certificate that it has.\n\nssl_key: The path name of the server private key file.\n\nFor example, to enable the server for encrypted connections with certificates, start it with these lines in the my.cnf file, changing the file names as necessary:\n\n[mysqld]\nssl_ca=ca.pem\nssl_cert=server-cert.pem\nssl_key=server-key.pem\nAlter users to require X509 certificates\n\nBelow is an example to add X509 as a requirement.\n\nFor a new user\nCREATE USER 'jeffrey'@'localhost' REQUIRE X509;\nAND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';\n\nOr to add to an existing user\nALTER USER 'johansmith'@'%'\nREQUIRE X509\n  AND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';",
-    "description": "The DoD standard for authentication is DoD-approved PKI certificates.\n\nA certificate\u2019s certification path is the path from the end entity certificate to a trusted root certification authority (CA). Certification path validation is necessary for a relying party to make an informed decision regarding acceptance of an end entity certificate. Certification path validation includes checks such as certificate issuer trust, time validity, and revocation status for each certificate in the certification path. Revocation status information for CA and subject certificates in a certification path is commonly provided via certificate revocation lists (CRLs) or online certificate status protocol (OCSP) responses.\n\nDatabase Management Systems that do not validate certificates by performing RFC 5280-compliant certification path validation are in danger of accepting certificates that are invalid and/or counterfeit. This could allow unauthorized access to the database.",
+    "fix_text": "Configure the DBMS to validate certificates by constructing a certification path with status information to an accepted trust anchor.\n\nConfigure the database server to support Transport Layer Security (TLS) protocols.\nmysql> set persist require_secure_transport=ON;\n\nSet system variables on the server side specify DoW approved certificate and key files the server uses when permitting clients to establish encrypted connections:\n\nssl_ca: The path name of the Certificate Authority (CA) certificate file. (ssl_capath is similar but specifies the path name of a directory of CA certificate files.)\n\nssl_cert: The path name of the server public key certificate file. This certificate can be sent to the client and authenticated against the CA certificate that it has.\n\nssl_key: The path name of the server private key file.\n\nFor example, to enable the server for encrypted connections with certificates, start it with these lines in the my.cnf file, changing the file names as necessary:\n\n[mysqld]\nssl_ca=ca.pem\nssl_cert=server-cert.pem\nssl_key=server-key.pem\nAlter users to require X509 certificates\n\nBelow is an example to add X509 as a requirement.\n\nFor a new user\nCREATE USER 'jeffrey'@'localhost' REQUIRE X509;\nAND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';\n\nOr to add to an existing user\nALTER USER 'johansmith'@'%'\nREQUIRE X509\n  AND SUBJECT '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Johan Smith'\n  AND ISSUER '/C=US/ST=Texas/L=Houston/O=SomeCompany/CN=Some CA';",
+    "description": "The DoW standard for authentication is DoW-approved PKI certificates.\n\nA certificate\u2019s certification path is the path from the end entity certificate to a trusted root certification authority (CA). Certification path validation is necessary for a relying party to make an informed decision regarding acceptance of an end entity certificate. Certification path validation includes checks such as certificate issuer trust, time validity, and revocation status for each certificate in the certification path. Revocation status information for CA and subject certificates in a certification path is commonly provided via certificate revocation lists (CRLs) or online certificate status protocol (OCSP) responses.\n\nDatabase Management Systems that do not validate certificates by performing RFC 5280-compliant certification path validation are in danger of accepting certificates that are invalid and/or counterfeit. This could allow unauthorized access to the database.",
     "false_positives": "",
     "false_negatives": "",
     "documentable": "false",
@@ -489,7 +486,7 @@
     "mitigation_control": "",
     "responsibility": "",
     "security_override_guidance": "",
-    "check_content": "The database supports PKI-based authentication by using digital certificates over TLS in addition to the native encryption and data integrity capabilities of these protocols.\n\nReview MySQL Database Server 8.0 configuration to verify DBMS user account certificates are valid by performing RFC 5280-compliant certification path validation.\n\nRun the following command to determine the certificate in use along with other details:\nselect @@ssl_ca, @@ssl_capath, @@ssl_cert, @@ssl_cipher, @@ssl_crl, @@ssl_crlpath, @@ssl_fips_mode, @@ssl_key;\n\nIf ssl_crl is not set to a CRL file, this is a finding. \n\nIf ssl_crlpath is empty then use the default, which is the datadir path. To get that path run select @@datadir.\n\nNext verify the existence of the CRL file.\n\nIf the CRL file does not exist, this is a finding.  \n\nNext, verify that require_secure_transport is ON by running:\nselect @@require_secure_transport;\n\nIf require_secure_transport is not 1 for ON, this is a finding.\n\nIf the certificate is not a DoD approved certificate, or if no certificate is listed, this is a finding.\n\nConfirm Issuer and Subject map to the username. Run the following script:\nSELECT `user`.`Host`,\n    `user`.`User`,\n    `user`.`ssl_type`,\n    CAST(`user`.`x509_issuer` as CHAR) as Issuer,\n    CAST(`user`.`x509_subject` as CHAR) as Subject\nFROM `mysql`.`user`;\n\nIf user accounts are not being mapped to authenticated identities, this is a finding.",
+    "check_content": "The database supports PKI-based authentication by using digital certificates over TLS in addition to the native encryption and data integrity capabilities of these protocols.\n\nReview MySQL Database Server 8.0 configuration to verify DBMS user account certificates are valid by performing RFC 5280-compliant certification path validation.\n\nRun the following command to determine the certificate in use along with other details:\nselect @@ssl_ca, @@ssl_capath, @@ssl_cert, @@ssl_cipher, @@ssl_crl, @@ssl_crlpath, @@ssl_fips_mode, @@ssl_key;\n\nIf ssl_crl is not set to a CRL file, this is a finding. \n\nIf ssl_crlpath is empty then use the default, which is the datadir path. To get that path run select @@datadir.\n\nNext verify the existence of the CRL file.\n\nIf the CRL file does not exist, this is a finding.  \n\nNext, verify that require_secure_transport is ON by running:\nselect @@require_secure_transport;\n\nIf require_secure_transport is not 1 for ON, this is a finding.\n\nIf the certificate is not a DoW approved certificate, or if no certificate is listed, this is a finding.\n\nConfirm Issuer and Subject map to the username. Run the following script:\nSELECT `user`.`Host`,\n    `user`.`User`,\n    `user`.`ssl_type`,\n    CAST(`user`.`x509_issuer` as CHAR) as Issuer,\n    CAST(`user`.`x509_subject` as CHAR) as Subject\nFROM `mysql`.`user`;\n\nIf user accounts are not being mapped to authenticated identities, this is a finding.",
     "check_content_ref": {
       "href": "Oracle_MySQL_8.0_STIG.xml",
       "name": "M"

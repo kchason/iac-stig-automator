@@ -14,6 +14,7 @@ CONTROL_MAPPING_SCHEMA = REPO_ROOT / "schemas" / "control_mapping.schema.json"
 
 CONTROL_MAPPING_FILES = {
     "aks": "mappings/aks_controls.json",
+    "documentdb": "mappings/documentdb_controls.json",
     "azure_sql_database": "mappings/azure_sql_database_controls.json",
     "azure_sql_managed_instance": "mappings/azure_sql_managed_instance_controls.json",
     "eks": "mappings/eks_controls.json",
@@ -24,6 +25,7 @@ CONTROL_MAPPING_FILES = {
 }
 RAW_CONTROL_FILES = [
     "stigs/azure_sql_database_controls.json",
+    "stigs/documentdb_controls.json",
     "stigs/azure_sql_managed_instance_controls.json",
     "stigs/mysql_flexible_controls.json",
     "stigs/postgres_flexible_controls.json",

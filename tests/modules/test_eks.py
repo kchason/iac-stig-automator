@@ -69,7 +69,7 @@ class TestEksCompliant:
             assert met, f"{control.vuln_id} ({control.stig_id}) failed: {detail}"
 
     def test_control_count(self, eks_module):
-        assert len(eks_module.controls()) == 94
+        assert len(eks_module.controls()) == 92
 
     def test_catalog_and_control_mappings_load_from_json_resources(self, eks_module):
         with resources.files(stig_modules).joinpath("stigs/kubernetes_catalog.json").open(encoding="utf-8") as f:

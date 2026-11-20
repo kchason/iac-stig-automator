@@ -1,0 +1,85 @@
+{
+  "default": {
+    "automatic_platform_text": "{vuln_id} requires manual review: Amazon DocumentDB plan data does not expose enough database runtime, role, or PKI evidence to verify: {title}",
+    "cklb_status": "not_applicable",
+    "include_in_blank_cklb": false
+  },
+  "controls": {
+    "V-279334": {
+      "validation_function_name": "audit_logs",
+      "remediation_key": "audit_logs"
+    },
+    "V-279339": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from Amazon DocumentDB. Customers do not administer a MongoDB host installation account.",
+      "evidence_key": "managed_service",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-279340": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from Amazon DocumentDB. Database software and configuration files reside on the managed service host.",
+      "evidence_key": "managed_service",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-279344": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from Amazon DocumentDB. Customers cannot install additional MongoDB server components on the managed host.",
+      "evidence_key": "managed_service",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-279346": {
+      "validation_function_name": "tls_required",
+      "remediation_key": "tls_required"
+    },
+    "V-279350": {
+      "validation_function_name": "tls_required",
+      "remediation_key": "tls_required"
+    },
+    "V-279354": {
+      "validation_function_name": "fips_tls",
+      "remediation_key": "fips_tls"
+    },
+    "V-279358": {
+      "validation_function_name": "tls_required",
+      "remediation_key": "tls_required"
+    },
+    "V-279361": {
+      "validation_function_name": "encryption_at_rest",
+      "remediation_key": "encryption_at_rest"
+    },
+    "V-279364": {
+      "automatic_platform_text": "{vuln_id} ({title}) is inherited from Amazon DocumentDB. Database files are stored on the managed service storage volume.",
+      "evidence_key": "managed_service",
+      "cklb_status": "not_a_finding",
+      "include_in_blank_cklb": true
+    },
+    "V-279382": {
+      "validation_function_name": "tls_required",
+      "remediation_key": "tls_required"
+    },
+    "V-279387": {
+      "validation_function_name": "cmk_encryption",
+      "remediation_key": "cmk_encryption"
+    },
+    "V-279389": {
+      "validation_function_name": "tls_required",
+      "remediation_key": "tls_required"
+    },
+    "V-279393": {
+      "validation_function_name": "supported_version",
+      "remediation_key": "supported_version"
+    },
+    "V-279394": {
+      "validation_function_name": "audit_offload",
+      "remediation_key": "audit_offload"
+    },
+    "V-279412": {
+      "validation_function_name": "encryption_at_rest",
+      "remediation_key": "encryption_at_rest"
+    },
+    "V-282943": {
+      "validation_function_name": "network_restrictions",
+      "remediation_key": "network_restrictions"
+    }
+  }
+}
