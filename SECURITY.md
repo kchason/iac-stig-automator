@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes are provided for the `0.3.0` line on the `main` branch.
+Security fixes are provided for the `0.4.0` line on the `main` branch.
 
 ## Reporting a vulnerability
 
