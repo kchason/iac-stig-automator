@@ -1,22 +1,29 @@
-FROM python:3.15-slim
+# syntax=docker/dockerfile:1
 
-LABEL org.opencontainers.image.title="STIG Automator"
-LABEL org.opencontainers.image.description="Evaluate Terraform plan/state JSON against STIG controls"
+FROM python:3.15-alpine AS builder
 
-WORKDIR /app
+WORKDIR /build
 
 COPY pyproject.toml README.md LICENSE NOTICE DISCLAIMER.md ./
 COPY src ./src
 
-RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && python -m pip install --no-cache-dir --upgrade 'pip>=26.2' \
-    && pip install --no-cache-dir . \
-    && python -m pip uninstall -y pip \
-    && useradd --create-home --uid 1000 --shell /usr/sbin/nologin stig \
-    && mkdir -p /work \
-    && chown stig:stig /work
+RUN pip install --no-cache-dir --target /install . \
+    && mkdir /work
+
+FROM python:3.15-alpine
+
+LABEL org.opencontainers.image.title="STIG Automator"
+LABEL org.opencontainers.image.description="Evaluate Terraform plan/state JSON against STIG controls"
+
+COPY --from=builder /install /app
+COPY --from=builder --chown=1000:1000 /work /work
+
+RUN apk upgrade --no-cache \
+    && python -m pip uninstall -y pip setuptools wheel 2>/dev/null; \
+    adduser -D -u 1000 -s /sbin/nologin stig
+
+ENV PYTHONPATH=/app \
+    PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /work
 
@@ -25,5 +32,5 @@ USER stig
 # One-shot CLI image; not a long-running service.
 HEALTHCHECK NONE
 
-ENTRYPOINT ["stig-check"]
+ENTRYPOINT ["python", "-m", "stig_automator.cli"]
 CMD ["--help"]
