@@ -87,7 +87,7 @@ terraform_plan:
 stig_check:
   stage: validate
   image:
-    name: kchason/iac-stig-automator:0.3.0
+    name: kchason/iac-stig-automator:0.4.0
     entrypoint: [""]
   script:
     - stig-check plan.json --fail-on CAT_II
@@ -220,7 +220,7 @@ jobs:
       - name: Run STIG checks
         run: |
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
-            kchason/iac-stig-automator:0.3.0 plan.json --fail-on CAT_II
+            kchason/iac-stig-automator:0.4.0 plan.json --fail-on CAT_II
 ```
 
 ## Docker Image
@@ -232,7 +232,7 @@ directly to the CLI. The image does not include Terraform.
 
 ```bash
 docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
-  kchason/iac-stig-automator:0.3.0 plan.json --fail-on CAT_II
+  kchason/iac-stig-automator:0.4.0 plan.json --fail-on CAT_II
 ```
 
 To write report artifacts back to the mounted workspace:
@@ -240,7 +240,7 @@ To write report artifacts back to the mounted workspace:
 ```bash
 mkdir -p stig-results
 docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" \
-  kchason/iac-stig-automator:0.3.0 \
+  kchason/iac-stig-automator:0.4.0 \
   plan.json \
   -o json cklb \
   --output-dir stig-results \

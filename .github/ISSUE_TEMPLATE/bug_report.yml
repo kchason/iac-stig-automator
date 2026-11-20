@@ -20,7 +20,7 @@ body:
     attributes:
       label: Version
       description: Output of `stig-check --help` is not required. Paste the package version or commit.
-      placeholder: "0.3.0"
+      placeholder: "0.4.0"
     validations:
       required: true
   - type: textarea

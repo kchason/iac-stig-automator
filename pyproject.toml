@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "iac-stig-automator"
-version = "0.3.0"
+version = "0.4.0"
 description = "Evaluate Terraform plans against DISA STIG controls for Azure and AWS resources"
 requires-python = ">=3.10"
 license = "MIT"
